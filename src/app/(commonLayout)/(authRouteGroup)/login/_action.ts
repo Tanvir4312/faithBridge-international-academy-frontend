@@ -37,9 +37,7 @@ export const loginAction = async (
     await setTokenInCookies("refreshToken", refreshToken);
     await setTokenInCookies("better-auth.session_token", token, 60 * 60 * 24);
 
-    if (!emailVerified) {
-      redirect("/verify-email");
-    } else if (needPasswordChange) {
+  if (needPasswordChange) {
       redirect(`/reset-password?email=${email}`);
     } else {
       const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
@@ -48,15 +46,19 @@ export const loginAction = async (
 
 
   } catch (err: any) {
-    if (
-      err &&
-      typeof err === "object" &&
-      "digest" in err &&
-      typeof err.digest === "string" &&
-      err.digest.startsWith("NEXT_REDIRECT")
-    ) {
-      throw err;
+  
+    if(err.response && err.response.data && err.response.data.message === "Email not verified"){
+      redirect(`/verify-email?email=${payload.email}`);
     }
+    // if (
+    //   err &&
+    //   typeof err === "object" &&
+    //   "digest" in err &&
+    //   typeof err.digest === "string" &&
+    //   err.digest.startsWith("NEXT_REDIRECT")
+    // ) {
+    //   throw err;
+    // }
     return {
       success: false,
       message: `Login Failed: ${err.message}`,
