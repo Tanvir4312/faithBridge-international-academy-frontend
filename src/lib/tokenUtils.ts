@@ -3,15 +3,13 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { setCookie } from "./cookieUtils";
 
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
 
-const getSecondREmainingTime = (token: string): number => {
+
+const getTokenSecondsRemaining = (token: string): number => {
   if (!token) return 0;
 
   try {
-    const tokenPaylod = JWT_ACCESS_SECRET
-      ? (jwt.verify(token, JWT_ACCESS_SECRET) as JwtPayload)
-      : (jwt.decode(token) as JwtPayload);
+    const tokenPaylod = jwt.decode(token) as JwtPayload;
 
     if (tokenPaylod && !tokenPaylod.exp) {
       return 0;
@@ -26,15 +24,36 @@ const getSecondREmainingTime = (token: string): number => {
   }
 };
 
+
+
+
+
 export const setTokenInCookies = async (
   name: string,
   token: string,
   fallBackMaxAgeInSecond = 60 * 60 * 24,
 ) => {
-  const maxAgeInSecond = getSecondREmainingTime(token);
+    let maxAgeInSeconds;
+
+    if (name !== "better-auth.session_token"){
+        maxAgeInSeconds = getTokenSecondsRemaining(token);
+    }
+
+
   await setCookie(
     name,
     token,
-    maxAgeInSecond ? maxAgeInSecond : fallBackMaxAgeInSecond,
+    maxAgeInSeconds ? maxAgeInSeconds : fallBackMaxAgeInSecond,
   );
 };
+
+
+export async function isTokenExpiringSoon(token: string, thresholdInSeconds = 300) : Promise<boolean> {
+    const remainingSeconds = getTokenSecondsRemaining(token);
+    return remainingSeconds > 0 && remainingSeconds <= thresholdInSeconds;
+}
+
+export async function isTokenExpired(token: string) : Promise<boolean> {
+    const remainingSeconds = getTokenSecondsRemaining(token);
+    return remainingSeconds === 0;
+}
