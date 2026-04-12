@@ -50,15 +50,15 @@ export const loginAction = async (
     if(err.response && err.response.data && err.response.data.message === "Email not verified"){
       redirect(`/verify-email?email=${payload.email}`);
     }
-    // if (
-    //   err &&
-    //   typeof err === "object" &&
-    //   "digest" in err &&
-    //   typeof err.digest === "string" &&
-    //   err.digest.startsWith("NEXT_REDIRECT")
-    // ) {
-    //   throw err;
-    // }
+    if (
+      err &&
+      typeof err === "object" &&
+      "digest" in err &&
+      typeof err.digest === "string" &&
+      err.digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw err;
+    }
     return {
       success: false,
       message: `Login Failed: ${err.message}`,
