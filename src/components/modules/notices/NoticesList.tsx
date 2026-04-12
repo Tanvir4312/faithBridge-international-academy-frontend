@@ -6,22 +6,22 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const NoticesList = () => {
-  const { data  } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["notices"],
     queryFn: getNotices,
   });
-  console.log(data?.data);
-  if (!data?.data) {
-    return;
-  }
+
+//  if (isLoading) return <div>Loading...</div>;
+// if (!data) return <div>No data</div>;
+
   return (
     <div>
       NoticesList
-      {/* { data?.data.map((s, idx) => (
-        <div key={idx}>
+      { data?.data.map((s: any)  => (
+        <div key={s.id}>
           <p>{s.title}</p>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };
