@@ -6,9 +6,6 @@ import DashboardSidebarContent from './DashboardSidebarContent';
 
 const DashboardSidebar = async  () => {
     const userInfo = await getUserInfo()
-    // if(!userInfo){
-    //      return <div>Loading...</div> // or a loading state
-    // }
 
     const navItems = getNavItemsByRole(userInfo.role)
     const dashboardHome = getDefaultDashboardRoute(userInfo.role)

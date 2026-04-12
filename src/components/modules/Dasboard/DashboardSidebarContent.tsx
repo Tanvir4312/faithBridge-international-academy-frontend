@@ -21,7 +21,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
     return (
         <div className="hidden md:flex h-full w-64 flex-col border-r bg-card overflow-y-auto">
             {/* Logo / Brand */}
-            <div className="flex h-16 items-center border-b px-6">
+            <div className="flex h-16 items-center border-b px-6 py-4">
                 <Link href={dashboardHome}>
                     <span className="text-xl font-bold text-primary">School Managements</span>
                 </Link>
@@ -52,7 +52,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
                                             className={cn(
                                                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all",
                                                 isActive
-                                                    ? "bg-primary text-primary-foreground"
+                                                    ? "bg-blue-500 text-primary-foreground"
                                                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                                             )}
                                         >

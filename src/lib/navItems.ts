@@ -1,6 +1,6 @@
 import { NavSection } from "@/types/navItems.types"
 import { getDefaultDashboardRoute, UserRole } from "./authUtils"
-import { HomeIcon, LayoutDashboardIcon } from "lucide-react"
+
 
 export const commonNavItems = (role: UserRole): NavSection[] => {
     const defaulDashboard = getDefaultDashboardRoute(role)
@@ -11,15 +11,15 @@ export const commonNavItems = (role: UserRole): NavSection[] => {
                 {
                     title: "Home",
                     href: "/",
-                    icon: HomeIcon.name
+                    icon: "HomeIcon"
                 },
                 {
                     title: "Dashboard",
                     href: defaulDashboard,
-                    icon: LayoutDashboardIcon.name
+                    icon: "LayoutDashboardIcon"
                 },
                 {
-                    title: "Profile",
+                    title: "My Profile",
                     href: "/my-profile",
                     icon: "UserIcon"
                 }
@@ -70,7 +70,7 @@ export const adminNavItems: NavSection[] = [
             },
             {
                 title: "Subject Assign",
-                href: "/admin/dashboard/AssignSubjectsToTeachers",
+                href: "/admin/dashboard/assignSubjectsToTeachers",
                 icon: "UserCheckIcon"
             },
             {
@@ -81,7 +81,7 @@ export const adminNavItems: NavSection[] = [
             {
                 title: "Exams",
                 href: "/admin/dashboard/exams-managements",
-                icon: "FileTextIcon"
+                icon: "ClipboardList"
             },
             {
                 title: "From Fillups",
@@ -122,11 +122,11 @@ export const teacherNavItems: NavSection[] = [
                 href: "/teacher/dashboard/my-subjects",
                 icon: "BookIcon"
             },
-            {
-                title: "My Profile",
-                href: "/teacher/dashboard/my-profile",
-                icon: "UserIcon"
-            }
+            // {
+            //     title: "My Profile",
+            //     href: "/teacher/dashboard/my-profile",
+            //     icon: "UserIcon"
+            // }
         ]
     }
 ]
@@ -135,11 +135,11 @@ export const studentNavItems: NavSection[] = [
     {
         title: "Academics",
         items: [
-            {
-                title: "My Profile",
-                href: "/student/dashboard/my-profile",
-                icon: "UserIcon"
-            },
+            // {
+            //     title: "My Profile",
+            //     href: "/student/dashboard/my-profile",
+            //     icon: "UserIcon"
+            // },
             {
                 title: "My Exams",
                 href: "/student/dashboard/my-exam",
@@ -179,11 +179,11 @@ export const applicantNavItems: NavSection[] = [
                 href: "/dashboard/my-application",
                 icon: "FileTextIcon"
             },
-            {
-                title: "My Profile",
-                href: "/dashboard/my-profile",
-                icon: "UserIcon"
-            }
+            // {
+            //     title: "My Profile",
+            //     href: "/dashboard/my-profile",
+            //     icon: "UserIcon"
+            // }
         ]
     },
     {
