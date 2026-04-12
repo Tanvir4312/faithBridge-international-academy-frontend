@@ -1,5 +1,5 @@
 import AdminDashboardStats from '@/components/modules/Dasboard/Admin_Dashboard/AdminDashboardStats';
-import { getAdminDashboardStats } from '@/services/adminDashboard.server_action.service';
+import { getAdminDashboardStats } from '@/services/admin-srever-action/adminDashboard.service';
 
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';

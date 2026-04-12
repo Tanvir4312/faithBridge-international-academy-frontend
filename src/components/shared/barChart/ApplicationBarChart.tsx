@@ -1,7 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { format } from "date-fns";
-import { BarChartData } from "@/types/dashboard.types";
+import { BarChartData } from "@/types/Dashboard/admin-dashboard-types/types";
+
 
 
 

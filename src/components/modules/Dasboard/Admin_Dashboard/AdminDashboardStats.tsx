@@ -2,9 +2,10 @@
 import ApplicationBarChart from '@/components/shared/barChart/ApplicationBarChart';
 import ApplicationPieChart from '@/components/shared/pieChart/ApplicationPieChart';
 import StatsCard from '@/components/shared/statsCard/statsCard';
-import { getAdminDashboardStats } from '@/services/adminDashboard.server_action.service';
+import { getAdminDashboardStats } from '@/services/admin-srever-action/adminDashboard.service';
 import { ApiSuccessResponse } from '@/types/api.types';
-import { IAdminDashboardStats } from '@/types/dashboard.types';
+import { IAdminDashboardStats } from '@/types/Dashboard/admin-dashboard-types/types';
+
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
