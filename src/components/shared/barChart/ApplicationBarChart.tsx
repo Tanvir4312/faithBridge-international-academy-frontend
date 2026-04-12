@@ -32,11 +32,11 @@ const ApplicationBarChart = ({ data, title, description }: ApplicationBarChartPr
     const formattedData = data.map((item) => ({
         month : typeof item.month === "string" ? format(new Date(item.month), "MMM yyyy") : format(item.month, "MMM yyyy"),
 
-        appointments : Number(item.count)
+        applications : Number(item.count)
     }))
 
 
-    if(!formattedData.length || formattedData.every(item => item.appointments === 0)){
+    if(!formattedData.length || formattedData.every(item => item.applications === 0)){
         return (
           <Card className="col-span-4">
             <CardHeader>

@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PieChartData } from "@/types/dashboard.types";
-import { PieChart } from "lucide-react";
-import { Cell, Legend, Pie, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 
 interface ApplicationPieChartProps {

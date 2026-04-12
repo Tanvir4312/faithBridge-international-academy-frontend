@@ -5,6 +5,20 @@ export interface PieChartData {
 }
 
 export interface BarChartData {
-    month : Date;
-    count : number;
+    month: Date;
+    count: number;
 }
+
+export interface IAdminDashboardStats {
+    applicantCount: number;
+    studentCount: number;
+    teacherCount: number;
+    superAdminCount: number;
+    adminCount: number;
+    paymentCount: number;
+    userCount: number;
+    totalRevenue: number;
+    pieChartData: PieChartData[];
+    barChartData: BarChartData[];
+}
+
