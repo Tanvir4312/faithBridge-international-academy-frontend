@@ -1,4 +1,4 @@
-import AllAdminTable from '@/components/modules/Dasboard/Admin_Dashboard/AllAdminTable';
+import AllAdminTable from '@/components/modules/Dasboard/Admin_Dashboard/Admins-managements/AllAdminTable';
 import { getAllAdmin } from '@/services/admin-srever-action/allAdmin.service';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';

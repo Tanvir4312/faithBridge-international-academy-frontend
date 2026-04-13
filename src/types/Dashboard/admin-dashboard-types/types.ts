@@ -22,13 +22,14 @@ export interface IAdminDashboardStats {
     barChartData: BarChartData[];
 }
 
-export interface IAllAdminsData {
+export interface IAdminsData {
     id: string;
     name: string;
     email: string;
     profilePhoto?: string | null;
     contactNumber?: string | null;
-    // user : string[]
+    createdAt: Date;
+    user : string[]
 }
 
 

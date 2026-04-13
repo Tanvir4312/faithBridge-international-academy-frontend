@@ -1,11 +1,25 @@
 "use server"
 
+import { ApiSuccessResponse } from "@/types/api.types";
 import { httpClient } from "@/lib/axios/httpClient";
-import { IAllAdminsData } from "@/types/Dashboard/admin-dashboard-types/types";
+import { IAdminsData } from "@/types/Dashboard/admin-dashboard-types/types";
 
-export const getAllAdmin = async () => {
+interface IAllAdminsPagination {
+  page: number;
+  limit: number;
+  current_Page: number;
+  total_page: number;
+  total: number;
+}
+
+interface IAllAdminsPayload {
+  data: IAdminsData[];
+  meta: IAllAdminsPagination;
+}
+
+export const getAllAdmin = async (): Promise<ApiSuccessResponse<IAllAdminsPayload>> => {
     try {
-        const response = await httpClient.get<IAllAdminsData[]>("/admin")
+        const response = await httpClient.get<IAllAdminsPayload>("/admin")
         return response;
     } catch (error) {
         console.error("Error fetching all admins:", error);

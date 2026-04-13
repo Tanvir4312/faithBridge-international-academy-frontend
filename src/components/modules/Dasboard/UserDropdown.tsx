@@ -15,7 +15,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         <DropdownMenuTrigger asChild>
             <Button variant={"outline"} size={"icon"} className="rounded-full">
                 <span className="text-sm font-semibold">
-                    {userInfo.name.charAt(0).toUpperCase()}
+                    {userInfo?.name.charAt(0).toUpperCase()}
                 </span>
             </Button>
         </DropdownMenuTrigger>

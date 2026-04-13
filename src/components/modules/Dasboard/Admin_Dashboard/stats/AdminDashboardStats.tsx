@@ -23,43 +23,43 @@ const AdminDashboardStats = () => {
                 <StatsCard
                     title="Total Applications"
                     value={data?.applicantCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="User"
                     description="Number of applications submitted"
                 />
                 <StatsCard
                     title="Total Students"
                     value={data?.studentCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="User"
                     description="Number of students enrolled"
                 />
                 <StatsCard
                     title="Total Teachers"
                     value={data?.teacherCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="User"
                     description="Number of teachers employed"
                 />
                 <StatsCard
                     title="Total Super Admins"
                     value={data?.superAdminCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="User"
                     description="Number of super admins"
                 />
                 <StatsCard
                     title="Total Admins"
                     value={data?.adminCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="User"
                     description="Number of admins"
                 />
                 <StatsCard
                     title="Total Payments"
                     value={data?.paymentCount || 0}
-                    iconName="FileTextIcon"
+                    iconName="CreditCardIcon"
                     description="Number of payments received"
                 />
                 <StatsCard
                     title="Total Revenue"
                     value={data?.totalRevenue || 0}
-                    iconName="FileTextIcon"
+                    iconName="CreditCardIcon"
                     description="Total revenue generated"
                 />
             </div>

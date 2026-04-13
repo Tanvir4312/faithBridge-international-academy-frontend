@@ -1,4 +1,4 @@
-import AdminDashboardStats from '@/components/modules/Dasboard/Admin_Dashboard/AdminDashboardStats';
+import AdminDashboardStats from '@/components/modules/Dasboard/Admin_Dashboard/stats/AdminDashboardStats';
 import { getAdminDashboardStats } from '@/services/admin-srever-action/adminDashboard.service';
 
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';

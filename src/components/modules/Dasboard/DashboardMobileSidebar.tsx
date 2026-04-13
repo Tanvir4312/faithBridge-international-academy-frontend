@@ -79,7 +79,7 @@ const DashboardMobileSidebar = ({dashboardHome, navItems, userInfo} : DashboardM
           <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
           {/* if profile doesnt exist , use first letter of user name as profile photo like component */}
             <span className="text-sm font-semibold text-primary">
-              {userInfo.name.charAt(0).toUpperCase()}
+              {userInfo?.name.charAt(0).toUpperCase()}
             </span>
           </div>
 
