@@ -10,7 +10,7 @@ const AdminsManagementsPage = async ({
 }) => {
     const queryParamsObj = await searchParams;
 
-   
+
     const queryParamsString = Object.keys(queryParamsObj).map(key => {
         const value = queryParamsObj[key];
         if (Array.isArray(value)) {
@@ -32,7 +32,7 @@ const AdminsManagementsPage = async ({
     return (
         <div>
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <AllAdminTable 
+                <AllAdminTable
                     queryParamsString={queryParamsString}
                     queryParamsObj={queryParamsObj}
                 />

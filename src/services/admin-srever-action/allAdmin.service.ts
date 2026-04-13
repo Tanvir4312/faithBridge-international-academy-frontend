@@ -18,12 +18,11 @@ interface IAllAdminsPayload {
 }
 
 export const getAllAdmin = async (queryParamsString: string): Promise<ApiSuccessResponse<IAllAdminsPayload>> => {
-    try {
-        console.log("getAllAdmin called with:", queryParamsString);
-        const response = await httpClient.get<IAllAdminsPayload>(queryParamsString ? `/admin?${queryParamsString}` : '/admin');
-        return response;
-    } catch (error) {
-        console.error("Error fetching all admins:", error);
-        throw error; 
-    }
+  try {
+    const response = await httpClient.get<IAllAdminsPayload>(queryParamsString ? `/admin?${queryParamsString}` : '/admin');
+    return response;
+  } catch (error) {
+    console.error("Error fetching all admins:", error);
+    throw error;
+  }
 }

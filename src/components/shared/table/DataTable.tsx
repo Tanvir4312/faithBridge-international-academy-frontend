@@ -91,7 +91,6 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
                 sorting.onSortingChange(nextSortingState);
             }
             : undefined,
-
     });
 
 

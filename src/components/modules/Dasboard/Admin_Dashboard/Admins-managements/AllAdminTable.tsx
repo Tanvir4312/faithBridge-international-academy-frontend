@@ -8,8 +8,11 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { SortingState } from '@tanstack/react-table';
 import DataTable from '@/components/shared/table/DataTable';
 import { adminColumns } from './allAdminColumns';
+import PaginationControls from '@/components/shared/pagination_controll/PaginationControll';
 
 const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
+    //pagination
+
     // const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -54,6 +57,39 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         }
     };
 
+    const handlePageChange = (page: number) => {
+        const params = new URLSearchParams(searchParams?.toString() ?? '');
+        params.set('page', page.toString());
+        
+        // Ensure limit remains in the URL for accurate hydration on refresh
+        params.set('limit', pagination.limit.toString());
+        
+        const queryString = params.toString();
+        const destination = queryString ? `${pathname}?${queryString}` : pathname;
+
+        setCurrentQueryString(queryString);
+
+        if (typeof window !== 'undefined') {
+            // Use pushState so history back-button respects the page change!
+            window.history.pushState(null, '', destination);
+        }
+    };
+
+    const handleLimitChange = (limit: number) => {
+        const params = new URLSearchParams(searchParams?.toString() ?? '');
+        params.set('limit', limit.toString());
+        params.set('page', '1'); // Always reset to page 1 when changing limit!
+        
+        const queryString = params.toString();
+        const destination = queryString ? `${pathname}?${queryString}` : pathname;
+
+        setCurrentQueryString(queryString);
+
+        if (typeof window !== 'undefined') {
+            window.history.pushState(null, '', destination);
+        }
+    };
+
     const { data: adminsResponse, isLoading, isFetching } = useQuery<any>({
         queryKey: ["all-admins", currentQueryString],
         queryFn: () => getAllAdmin(currentQueryString),
@@ -64,6 +100,16 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
     // Safely parse deeply nested API response formats to prevent crash if data structure diverges
     const rawData = adminsResponse?.data;
     const admins = Array.isArray(rawData) ? rawData : (Array.isArray(rawData?.data) ? rawData.data : []);
+
+    const apiMeta = rawData?.meta;
+    const pagination = {
+        current_page: Number(apiMeta?.page) || Number(apiMeta?.current_page) || Number(apiMeta?.current_Page) || Number(currentQueryParams.get('page')) || 1,
+        limit: Number(apiMeta?.limit) || Number(currentQueryParams.get('limit')) || 10,
+        total_page: Number(apiMeta?.total_page) || Number(apiMeta?.totalPages) || 1,
+        total: Number(apiMeta?.total) || 0,
+    };
+    
+    // console.log("pagination", pagination)
 
     const hadleVewAdmin = (admin: IAdminsData) => {
         console.log("View admin:", admin);
@@ -78,20 +124,28 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
     const isSortingLoading = isLoading || isFetching;
 
     return (
-        <DataTable
-            data={admins}
-            columns={adminColumns}
-            emptyMessage="No admin data available."
-            isLoading={isSortingLoading}
-            sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
-            actions={
-                {
-                    onView: hadleVewAdmin,
-                    onEdit: handleEditAdmin,
-                    onDelete: handleDeleteAdmin
+        <div>
+            <DataTable
+                data={admins}
+                columns={adminColumns}
+                emptyMessage="No admin data available."
+                isLoading={isSortingLoading}
+                sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
+                actions={
+                    {
+                        onView: hadleVewAdmin,
+                        onEdit: handleEditAdmin,
+                        onDelete: handleDeleteAdmin
+                    }
                 }
-            }
-        ></DataTable>
+            ></DataTable>
+            <PaginationControls
+                meta={pagination}
+                onPageChange={handlePageChange}
+                onLimitChange={handleLimitChange}
+            />
+        </div>
+
     );
 };
 
