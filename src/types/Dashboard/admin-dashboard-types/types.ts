@@ -9,6 +9,12 @@ export interface BarChartData {
     count: number;
 }
 
+export enum UserStatus {
+    ACTIVE = "ACTIVE",
+    INACTIVE = "INACTIVE",
+    SUSPENDED = "SUSPENDED"
+}
+
 export interface IAdminDashboardStats {
     applicantCount: number;
     studentCount: number;
@@ -26,10 +32,12 @@ export interface IAdminsData {
     id: string;
     name: string;
     email: string;
-    profilePhoto?: string | null;
-    contactNumber?: string | null;
+    profilePhoto?: string | undefined
+    contactNumber?: string | undefined;
     createdAt: Date;
-    user : string[]
+    user: {
+        status: UserStatus;
+    }
 }
 
 
