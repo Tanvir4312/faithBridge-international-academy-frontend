@@ -97,6 +97,16 @@ export const adminNavItems: NavSection[] = [
                 title: "Subjects",
                 href: "/admin/dashboard/subjects-managements",
                 icon: "BookIcon"
+            },
+            {
+                title: "Class",
+                href: "/admin/dashboard/class-managements",
+                icon: "BookOpen"
+            },
+            {
+                title: "Assign Class Teacher",
+                href: "/admin/dashboard/assign-class-teacher",
+                icon: "UserCheckIcon"
             }
         ]
     },
