@@ -74,8 +74,8 @@ export const adminNavItems: NavSection[] = [
                 icon: "UserCheckIcon"
             },
             {
-                title: "Courses",
-                href: "/admin/dashboard/courses-managements",
+                title: "Academic Level",
+                href: "/admin/dashboard/academicLevel-managements",
                 icon: "BookOpenIcon"
             },
             {

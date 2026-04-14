@@ -36,6 +36,17 @@ export const applicationColumns
    }
   },
   {
+   id: "desiredClass",
+   accessorKey: "desiredClass",
+   header: "Desired Class",
+   enableSorting: false,
+   cell: ({ row }) => {
+    return (
+     <span>{row.original.desiredClass}</span>
+    )
+   }
+  },
+  {
    id: "applicationFee",
    accessorKey: "applicationFee",
    header: "Application Fee",

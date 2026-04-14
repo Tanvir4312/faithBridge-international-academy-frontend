@@ -35,7 +35,7 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
 
  const handleSortingChange = (nextSortingState: SortingState) => {
   const [sort] = nextSortingState;
-  const params = new URLSearchParams(searchParams?.toString() ?? '');
+  const params = new URLSearchParams(currentQueryString);
 
   if (!sort?.id) {
    params.delete('sortBy');
@@ -57,7 +57,7 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
  };
 
  const handlePageChange = (page: number) => {
-  const params = new URLSearchParams(searchParams?.toString() ?? '');
+  const params = new URLSearchParams(currentQueryString);
   params.set('page', page.toString());
 
   // Ensure limit remains in the URL for accurate hydration on refresh
@@ -75,7 +75,7 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
  };
 
  const handleLimitChange = (limit: number) => {
-  const params = new URLSearchParams(searchParams?.toString() ?? '');
+  const params = new URLSearchParams(currentQueryString);
   params.set('limit', limit.toString());
   params.set('page', '1'); // Always reset to page 1 when changing limit!
 
@@ -89,16 +89,39 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
   }
  };
 
+ const searchTerm = currentQueryParams.get('searchTerm') ?? '';
 
+ const handleSearchChange = (newSearchTerm: string) => {
+  const params = new URLSearchParams(currentQueryString);
 
+  if (newSearchTerm) {
+   params.set('searchTerm', newSearchTerm);
+  } else {
+   params.delete('searchTerm');
+  }
 
+  // Always reset to page 1 when searching
+  params.set('page', '1');
+  if (pagination.limit) {
+   params.set('limit', pagination.limit.toString());
+  }
+
+  const queryString = params.toString();
+  const destination = queryString ? `${pathname}?${queryString}` : pathname;
+
+  setCurrentQueryString(queryString);
+
+  if (typeof window !== 'undefined') {
+   window.history.pushState(null, '', destination);
+  }
+ };
 
 
  const { data: applicationsResponse, isLoading, isFetching } = useQuery({
   queryKey: ["applications", currentQueryString],
   queryFn: () => getAllApplication(currentQueryString),
   refetchOnWindowFocus: true,
-
+  placeholderData: keepPreviousData,
  })
 
  // Safely parse deeply nested API response formats to prevent crash if data structure diverges
@@ -138,6 +161,7 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
     isLoading={isSortingLoading}
     emptyMessage="No application data available."
     sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
+    searching={{ searchTerm, onSearchChange: handleSearchChange }}
     actions={
      {
       onView: hadleVewAdmin,

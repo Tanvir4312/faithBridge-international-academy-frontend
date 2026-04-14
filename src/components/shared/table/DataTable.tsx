@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal, Search, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface DataTableActions<TData> {
     onView?: (data: TData) => void;
@@ -20,11 +22,30 @@ interface DataTableProps<TData> {
     sorting?: {
         state: SortingState,
         onSortingChange: (state: SortingState) => void
-    }
-
+    };
+    searching?: {
+        searchTerm: string;
+        onSearchChange: (value: string) => void;
+    };
 }
 
-const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage, isLoading, sorting }: DataTableProps<TData>) => {
+const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage, isLoading, sorting, searching }: DataTableProps<TData>) => {
+    const [localSearchTerm, setLocalSearchTerm] = useState(searching?.searchTerm || "");
+
+    useEffect(() => {
+        setLocalSearchTerm(searching?.searchTerm || "");
+    }, [searching?.searchTerm]);
+
+    useEffect(() => {
+        if (!searching) return;
+        const handler = setTimeout(() => {
+            if (localSearchTerm !== searching.searchTerm) {
+                searching.onSearchChange(localSearchTerm);
+            }
+        }, 500); // 500ms debounce
+        return () => clearTimeout(handler);
+    }, [localSearchTerm, searching]);
+
     const tableCoulmns: ColumnDef<TData>[] = actions ? [
         ...columns,
 
@@ -106,6 +127,34 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
                     </div>
                 )
             }
+
+            {/* Table Actions / Search Toolbar */}
+            {searching && (
+                <div className="flex items-center justify-between pb-4">
+                    <div className="relative w-full max-w-sm">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Search..."
+                            value={localSearchTerm}
+                            onChange={(e) => setLocalSearchTerm(e.target.value)}
+                            className="pl-8 pr-8"
+                        />
+                        {localSearchTerm && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="absolute right-0 top-0 h-full px-2 py-0 hover:bg-transparent"
+                                onClick={() => {
+                                    setLocalSearchTerm("");
+                                    searching.onSearchChange("");
+                                }}
+                            >
+                                <X className="h-4 w-4 text-muted-foreground" />
+                            </Button>
+                        )}
+                    </div>
+                </div>
+            )}
 
             {/* Table */}
             <div className="rounded-lg border">
