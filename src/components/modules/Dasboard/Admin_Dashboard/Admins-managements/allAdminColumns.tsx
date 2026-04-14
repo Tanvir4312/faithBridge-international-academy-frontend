@@ -1,6 +1,7 @@
 import StatusBadgeCell from "@/components/shared/cell/statusBadgeCell";
 import UserInfoCell from "@/components/shared/cell/userInfoCell";
-import { IAdminsData } from "@/types/Dashboard/admin-dashboard-types/types";
+import { IAdminsData } from "@/types/Dashboard/admin-dashboard-types/admins-management.type";
+
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 
@@ -11,7 +12,7 @@ export const adminColumns
             id: "name",
             accessorKey: 'name',
             header: 'Name',
-            enableSorting: true,
+            enableSorting: false,
             cell: ({ row }) => {
                 return (
                     <UserInfoCell
@@ -26,13 +27,13 @@ export const adminColumns
             id: "email",
             accessorKey: 'email',
             header: 'Email',
-            enableSorting: true,
+            enableSorting: false,
         },
         {
             id: "contactNumber",
             accessorKey: 'contactNumber',
             header: 'Contact Number',
-            enableSorting: true,
+            enableSorting: false,
             cell: ({ row }) => {
                 return (
                     <span>{row.original.contactNumber || <span className="text-orange-500">N/A</span>}</span>

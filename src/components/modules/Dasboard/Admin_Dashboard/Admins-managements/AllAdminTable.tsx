@@ -1,19 +1,19 @@
 "use client"
 import { getAllAdmin } from '@/services/admin-srever-action/allAdmin.service';
-import { IAdminsData } from '@/types/Dashboard/admin-dashboard-types/types';
-import { ApiSuccessResponse } from '@/types/api.types';
+
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { SortingState } from '@tanstack/react-table';
 import DataTable from '@/components/shared/table/DataTable';
 import { adminColumns } from './allAdminColumns';
 import PaginationControls from '@/components/shared/pagination_controll/PaginationControll';
+import { IAdminsData } from '@/types/Dashboard/admin-dashboard-types/admins-management.type';
 
 const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
-    //pagination
 
-    // const router = useRouter();
+
+
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
@@ -60,10 +60,10 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
     const handlePageChange = (page: number) => {
         const params = new URLSearchParams(searchParams?.toString() ?? '');
         params.set('page', page.toString());
-        
+
         // Ensure limit remains in the URL for accurate hydration on refresh
         params.set('limit', pagination.limit.toString());
-        
+
         const queryString = params.toString();
         const destination = queryString ? `${pathname}?${queryString}` : pathname;
 
@@ -79,7 +79,7 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         const params = new URLSearchParams(searchParams?.toString() ?? '');
         params.set('limit', limit.toString());
         params.set('page', '1'); // Always reset to page 1 when changing limit!
-        
+
         const queryString = params.toString();
         const destination = queryString ? `${pathname}?${queryString}` : pathname;
 
@@ -108,8 +108,8 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         total_page: Number(apiMeta?.total_page) || Number(apiMeta?.totalPages) || 1,
         total: Number(apiMeta?.total) || 0,
     };
-    
-    // console.log("pagination", pagination)
+
+
 
     const hadleVewAdmin = (admin: IAdminsData) => {
         console.log("View admin:", admin);

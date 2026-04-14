@@ -46,7 +46,6 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
           return;
         }
       } catch (error: any) {
-        console.log(`Login failed: ${error.message}`);
         setServerError(`Login failed: ${error.message}`);
       }
     }
@@ -156,10 +155,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
         <Button variant="outline" className="w-full" onClick={async () => {
           const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-          console.log("Redirecting to Google OAuth...");
           //TODO redirect path after login in frontend
           window.location.href = `${baseUrl}/auth/login/google`;
-        
+
           // const data = await authClient.signIn.social({
           //   provider: "google",
           // });

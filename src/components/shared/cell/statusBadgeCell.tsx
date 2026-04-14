@@ -1,7 +1,8 @@
 
 
 import { Badge } from "@/components/ui/badge";
-import { UserStatus } from "@/types/Dashboard/admin-dashboard-types/types";
+import { UserStatus } from "@/types/Dashboard/admin-dashboard-types/admins-management.type";
+
 
 interface IStatusBadgeCellProps {
     status: UserStatus;
@@ -12,8 +13,8 @@ const StatusBadgeCell = ({ status }: IStatusBadgeCellProps) => {
         status === UserStatus.ACTIVE
             ? "bg-blue-500 text-white"
             : status === UserStatus.INACTIVE
-            ? "bg-red-500 text-white"
-            : "bg-orange-500 text-white";
+                ? "bg-red-500 text-white"
+                : "bg-orange-500 text-white";
 
     return (
         <Badge className={badgeClassName}>

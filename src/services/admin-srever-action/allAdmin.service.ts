@@ -2,7 +2,8 @@
 
 import { ApiSuccessResponse } from "@/types/api.types";
 import { httpClient } from "@/lib/axios/httpClient";
-import { IAdminsData } from "@/types/Dashboard/admin-dashboard-types/types";
+import { IAdminsData } from "@/types/Dashboard/admin-dashboard-types/admins-management.type";
+
 
 interface IAllAdminsPagination {
   page: number;

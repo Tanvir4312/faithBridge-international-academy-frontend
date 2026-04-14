@@ -28,7 +28,7 @@ interface PaginationControlsProps {
 }
 
 export default function PaginationControls({ meta, onPageChange, onLimitChange }: PaginationControlsProps) {
- console.log("meta", meta)
+
  const {
   limit: pageSize,
   current_page: currentPage,

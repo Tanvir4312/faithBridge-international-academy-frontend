@@ -150,7 +150,7 @@ export async function proxy(request: NextRequest) {
           return NextResponse.next();
         }
         if (userInfo.emailVerified && pathname.startsWith("/verify-email")) {
-          console.log("Email already verified INSIDE the middleware, redirecting to dashboard");
+
           return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
         }
 

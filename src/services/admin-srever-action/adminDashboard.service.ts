@@ -1,7 +1,8 @@
 "use server"
 
 import { httpClient } from "@/lib/axios/httpClient"
-import { IAdminDashboardStats } from "@/types/Dashboard/admin-dashboard-types/types";
+import { IAdminDashboardStats } from "@/types/Dashboard/admin-dashboard-types/admins-dashboardStat.types";
+
 
 
 export const getAdminDashboardStats = async () => {

@@ -4,7 +4,8 @@ import ApplicationPieChart from '@/components/shared/pieChart/ApplicationPieChar
 import StatsCard from '@/components/shared/statsCard/statsCard';
 import { getAdminDashboardStats } from '@/services/admin-srever-action/adminDashboard.service';
 import { ApiSuccessResponse } from '@/types/api.types';
-import { IAdminDashboardStats } from '@/types/Dashboard/admin-dashboard-types/types';
+import { IAdminDashboardStats } from '@/types/Dashboard/admin-dashboard-types/admins-dashboardStat.types';
+
 
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
