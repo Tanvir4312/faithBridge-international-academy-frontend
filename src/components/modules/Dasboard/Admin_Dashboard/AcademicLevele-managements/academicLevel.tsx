@@ -6,12 +6,12 @@ import { useQuery } from '@tanstack/react-query'
 import { academicLevelColumns } from './academicLevelColumns'
 
 const AcademicLevel = () => {
- const { data: academicLevelDataResponse, isLoading } = useQuery<any>({
+ const { data: academicLevelDataResponse, isLoading } = useQuery({
   queryKey: ["academic-levels"],
   queryFn: getAllAcademicLevel,
   refetchOnWindowFocus: true,
  })
- const { data: academicLevelData } = academicLevelDataResponse || {}
+ const { data: academicLevelData = [] } = academicLevelDataResponse || {}
 
  const hadleVewAdmin = (admin: IAcademicLevel) => {
   console.log("View admin:", admin);

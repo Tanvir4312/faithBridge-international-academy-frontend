@@ -5,7 +5,7 @@ import { IAcademicLevel } from "@/types/Dashboard/admin-dashboard-types/academic
 
 
 
-export const getAllAcademicLevel = async (): Promise<ApiSuccessResponse<IAcademicLevel>> => {
- const response = await httpClient.get<IAcademicLevel>("/academic-level");
+export const getAllAcademicLevel = async (): Promise<ApiSuccessResponse<IAcademicLevel[]>> => {
+ const response = await httpClient.get<IAcademicLevel[]>("/academic-level");
  return response;
 }
