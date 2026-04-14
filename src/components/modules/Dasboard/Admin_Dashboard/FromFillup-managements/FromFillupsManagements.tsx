@@ -12,7 +12,7 @@ const FromFillupsManagements = () => {
   queryFn: getAllFromFillup,
   refetchOnWindowFocus: false,
  })
- console.log("fromFillupResponse", fromFillupResponse)
+
  const { data: fromFillupData = [] } = fromFillupResponse || {}
  const handleView = (id: IFromFillupData) => {
   console.log("view", id)
