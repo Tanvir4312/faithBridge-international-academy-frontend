@@ -60,6 +60,7 @@ const axiosInstance = async () => {
 export interface ApiRequestOptions {
   params?: Record<string, string>;
   headers?: Record<string, string>;
+  data?: any;
 }
 
 const htttGet = async <TData>(
@@ -157,6 +158,7 @@ const httpDelete = async <TData>(
       {
         params: options?.params,
         headers: options?.headers,
+        data: options?.data,
       },
     );
     return response.data;

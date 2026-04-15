@@ -10,6 +10,9 @@ interface DataTableActions<TData> {
     onView?: (data: TData) => void;
     onEdit?: (data: TData) => void;
     onDelete?: (data: TData) => void;
+    showView?: (data: TData) => boolean;
+    showEdit?: (data: TData) => boolean;
+    showDelete?: (data: TData) => boolean;
 }
 
 interface DataTableProps<TData> {
@@ -56,6 +59,7 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
             enableSorting: false,
             cell: ({ row }) => {
                 const rowData = row.original;
+
                 return (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -66,21 +70,21 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align={"end"}>
                             {
-                                actions.onView && (
+                                actions.onView && (!actions.showView || actions.showView(rowData)) && (
                                     <DropdownMenuItem onClick={() => actions.onView?.(rowData)}>
                                         View
                                     </DropdownMenuItem>
                                 )
                             }
                             {
-                                actions.onEdit && (
+                                actions.onEdit && (!actions.showEdit || actions.showEdit(rowData)) && (
                                     <DropdownMenuItem onClick={() => actions.onEdit?.(rowData)}>
                                         Edit
                                     </DropdownMenuItem>
                                 )
                             }
                             {
-                                actions.onDelete && (
+                                actions.onDelete && (!actions.showDelete || actions.showDelete(rowData)) && (
                                     <DropdownMenuItem onClick={() => actions.onDelete?.(rowData)}>
                                         Delete
                                     </DropdownMenuItem>

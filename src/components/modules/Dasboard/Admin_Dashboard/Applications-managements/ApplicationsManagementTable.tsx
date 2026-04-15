@@ -7,7 +7,7 @@ import { applicationColumns } from './ApplicationManagementsColumns'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { SortingState } from '@tanstack/react-table'
-import { IApplicationsData } from '@/types/Dashboard/admin-dashboard-types/applications-management.types'
+import { IApplicationsData, ApplicationStatus } from '@/types/Dashboard/admin-dashboard-types/applications-management.types'
 import PaginationControls from '@/components/shared/pagination_controll/PaginationControll'
 import ApplicationDetailModal from './ApplicationDetailModal'
 import { toast } from 'sonner'
@@ -144,16 +144,16 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
 
 
 
- const hadleVewAdmin = (admin: IApplicationsData) => {
-  console.log("View admin:", admin);
+ const hadleVewAdmin = (applicationData: IApplicationsData) => {
+  setSelectedApplication(applicationData);
+  setIsModalOpen(true);
+
  }
  const handleEditAdmin = (applicationData: IApplicationsData) => {
   setSelectedApplication(applicationData);
   setIsModalOpen(true);
  }
- const handleDeleteAdmin = (admin: IApplicationsData) => {
-  console.log("Delete admin:", admin);
- }
+
 
  const handleApprove = async (applicationData: IApplicationsData) => {
   const promise = updateApplicationAndCreateStudent(applicationData.id);
@@ -208,7 +208,8 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
      {
       onView: hadleVewAdmin,
       onEdit: handleEditAdmin,
-      onDelete: handleDeleteAdmin,
+      showView: (data) => data.status !== ApplicationStatus.PENDING,
+      showEdit: (data) => data.status === ApplicationStatus.PENDING
      }
     }
    />

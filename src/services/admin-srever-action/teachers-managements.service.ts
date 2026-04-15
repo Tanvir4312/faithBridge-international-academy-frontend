@@ -5,6 +5,11 @@ import { ApiSuccessResponse } from "@/types/api.types"
 import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements"
 
 export const getAllTeacher = async (): Promise<ApiSuccessResponse<ITeacher[]>> => {
- const response = await httpClient.get<ITeacher[]>("/teacher")
- return response
+  const response = await httpClient.get<ITeacher[]>("/teacher")
+  return response
+}
+
+export const getSingleTeacher = async (id: string): Promise<ApiSuccessResponse<ITeacher>> => {
+  const response = await httpClient.get<ITeacher>(`/teacher/${id}`)
+  return response
 }

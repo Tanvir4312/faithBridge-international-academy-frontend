@@ -22,6 +22,11 @@ export const getAllApplication = async (queryParamsString: string): Promise<ApiS
  return response
 }
 
+export const getApplicationById = async (applicationId: string): Promise<ApiSuccessResponse<IApplicationsData[]>> => {
+ const response = await httpClient.get<IApplicationsData[]>(`/application/${applicationId}`)
+ return response
+}
+
 
 export const updateApplicationAndCreateStudent = async (applicationId: string) => {
  try {
