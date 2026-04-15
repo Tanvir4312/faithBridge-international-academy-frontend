@@ -1,15 +1,12 @@
+import { Gender, PaymentStatus } from "../shared_Enums/enums";
+
 export enum ApplicationStatus {
  PENDING = "PENDING",
  APPROVED = "APPROVED",
  REJECTED = "REJECTED"
 }
 
-export enum PaymentStatus {
- PAID = "PAID",
- UNPAID = "UNPAID",
- FAILED = "FAILED",
- PENDING = "PENDING"
-}
+
 
 export interface IApplicationsData {
  id: string;
@@ -27,7 +24,7 @@ export interface IApplicationsData {
  guardianMobile: string;
  studentMobile: string;
  dob: string;
- gender: string;
+ gender: Gender;
  religion: string;
  bloodGroup: string;
  birthCertificateNo: string;

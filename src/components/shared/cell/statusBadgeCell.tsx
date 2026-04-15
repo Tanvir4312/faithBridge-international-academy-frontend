@@ -1,7 +1,8 @@
 
 
 import { Badge } from "@/components/ui/badge";
-import { UserStatus } from "@/types/Dashboard/admin-dashboard-types/admins-management.type";
+import { UserStatus } from "@/types/Dashboard/shared_Enums/enums";
+
 
 
 interface IStatusBadgeCellProps {

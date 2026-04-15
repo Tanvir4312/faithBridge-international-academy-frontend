@@ -1,8 +1,4 @@
-export enum UserStatus {
- ACTIVE = "ACTIVE",
- INACTIVE = "INACTIVE",
- SUSPENDED = "SUSPENDED"
-}
+import { UserStatus } from "../shared_Enums/enums";
 
 
 

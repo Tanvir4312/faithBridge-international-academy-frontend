@@ -1,10 +1,11 @@
+import { PaymentStatus } from "../shared_Enums/enums";
 
 export interface IFromFillupData {
  id: string;
  registrationNo: string;
  classRoll: string;
  status: string;
- paymentStatus: string;
+ paymentStatus: PaymentStatus;
  createdAt: string;
  updatedAt: string;
  exam: {
