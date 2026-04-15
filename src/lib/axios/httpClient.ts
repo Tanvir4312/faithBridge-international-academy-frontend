@@ -21,7 +21,7 @@ async function tryRefreshToken(
   const requestHeader = await headers();
 
   if (requestHeader.get("x-token-refreshed") === "1") {
-    return; 
+    return;
   }
 
   try {
@@ -51,7 +51,7 @@ const axiosInstance = async () => {
     timeout: 30000,
     headers: {
       "Content-Type": "application/json",
-        Cookie : cookieHeader
+      Cookie: cookieHeader
     },
   });
   return instance;
@@ -104,7 +104,7 @@ const httpPost = async <TData>(
 
 const httpPut = async <TData>(
   endPoints: string,
-  data: any,
+  data?: any,
   options?: ApiRequestOptions,
 ): Promise<ApiSuccessResponse<TData>> => {
   try {

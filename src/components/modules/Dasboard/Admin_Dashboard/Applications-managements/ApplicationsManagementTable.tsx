@@ -1,20 +1,25 @@
 "use client"
 import DataTable from '@/components/shared/table/DataTable'
-import { getAllApplication } from '@/services/admin-srever-action/applications-managements.service'
-import { useQuery } from '@tanstack/react-query'
+import { getAllApplication, rejectApplication, updateApplicationAndCreateStudent } from '@/services/admin-srever-action/applications-managements.service'
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { applicationColumns } from './ApplicationManagementsColumns'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { SortingState } from '@tanstack/react-table'
-import { keepPreviousData } from '@tanstack/react-query'
 import { IApplicationsData } from '@/types/Dashboard/admin-dashboard-types/applications-management.types'
 import PaginationControls from '@/components/shared/pagination_controll/PaginationControll'
+import ApplicationDetailModal from './ApplicationDetailModal'
+import { toast } from 'sonner'
 
 const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
 
  const pathname = usePathname();
  const searchParams = useSearchParams();
+
+ const [selectedApplication, setSelectedApplication] = useState<IApplicationsData | null>(null);
+ const [isModalOpen, setIsModalOpen] = useState(false);
+ const queryClient = useQueryClient();
 
  const [currentQueryString, setCurrentQueryString] = useState(queryParamsString);
 
@@ -142,11 +147,41 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
  const hadleVewAdmin = (admin: IApplicationsData) => {
   console.log("View admin:", admin);
  }
- const handleEditAdmin = (admin: IApplicationsData) => {
-  console.log("Edit admin:", admin);
+ const handleEditAdmin = (applicationData: IApplicationsData) => {
+  setSelectedApplication(applicationData);
+  setIsModalOpen(true);
  }
  const handleDeleteAdmin = (admin: IApplicationsData) => {
   console.log("Delete admin:", admin);
+ }
+
+ const handleApprove = async (applicationData: IApplicationsData) => {
+  const promise = updateApplicationAndCreateStudent(applicationData.id);
+
+  toast.promise(promise, {
+   loading: "Processing approval...",
+   success: () => {
+    setIsModalOpen(false);
+    queryClient.invalidateQueries({ queryKey: ["applications"] });
+    return `${applicationData.nameEn}'s application has been approved!`;
+   },
+   error: (err: any) => err?.message || "Failed to approve. Please try again.",
+  });
+  setIsModalOpen(false);
+ }
+ const handleReject = async (applicationData: IApplicationsData) => {
+  const promise = rejectApplication(applicationData.id);
+
+  toast.promise(promise, {
+   loading: "Processing rejection...",
+   success: () => {
+    setIsModalOpen(false);
+    queryClient.invalidateQueries({ queryKey: ["applications"] });
+    return `${applicationData.nameEn}'s application has been rejected.`;
+   },
+   error: (err: any) => err?.message || "Failed to reject. Please try again.",
+  });
+  setIsModalOpen(false);
  }
 
  const isSortingLoading = isLoading || isFetching;
@@ -155,6 +190,13 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
 
  return (
   <div>
+   <ApplicationDetailModal
+    application={selectedApplication}
+    open={isModalOpen}
+    onOpenChange={setIsModalOpen}
+    onApprove={handleApprove}
+    onReject={handleReject}
+   />
    <DataTable
     data={applications}
     columns={applicationColumns}
