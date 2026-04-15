@@ -1,14 +1,15 @@
 
 export interface IClass {
- id: string;
- name: string;
+  id: string;
+  name: string;
 }
 
 export interface IAcademicLevel {
- id: string;
- name: string;
- image: string;
- createdAt: string;
- classes: IClass[]
-
+  id: string;
+  name: string;
+  description?: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
+  classes?: IClass[];
 }

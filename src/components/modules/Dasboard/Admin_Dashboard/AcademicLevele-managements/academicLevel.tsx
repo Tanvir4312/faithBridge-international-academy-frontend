@@ -1,46 +1,52 @@
 "use client"
-import DataTable from '@/components/shared/table/DataTable'
+
+import React from 'react'
 import { getAllAcademicLevel } from '@/services/admin-srever-action/academicLevel.service'
-import { IAcademicLevel } from '@/types/Dashboard/admin-dashboard-types/academicLevel-managements.types'
 import { useQuery } from '@tanstack/react-query'
-import { academicLevelColumns } from './academicLevelColumns'
+import AcademicLevelTable from './AcademicLevelTable'
+import CreateAcademicLevelModal from './CreateAcademicLevelModal'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Layers } from 'lucide-react'
 
 const AcademicLevel = () => {
- const { data: academicLevelDataResponse, isLoading } = useQuery({
-  queryKey: ["academic-levels"],
-  queryFn: getAllAcademicLevel,
-  refetchOnWindowFocus: true,
- })
- const { data: academicLevelData = [] } = academicLevelDataResponse || {}
+    const { data: academicLevelResponse, isLoading, refetch } = useQuery({
+        queryKey: ["academic-levels"],
+        queryFn: () => getAllAcademicLevel(),
+        refetchOnWindowFocus: true,
+    })
 
- const hadleVewAdmin = (admin: IAcademicLevel) => {
-  console.log("View admin:", admin);
- }
- const handleEditAdmin = (admin: IAcademicLevel) => {
-  console.log("Edit admin:", admin);
- }
- const handleDeleteAdmin = (admin: IAcademicLevel) => {
-  console.log("Delete admin:", admin);
- }
+    const academicLevels = academicLevelResponse?.data || []
 
- return (
-  <div>
-   <DataTable
-    data={academicLevelData}
-    columns={academicLevelColumns}
-    emptyMessage="No academic level data available."
-    isLoading={isLoading}
+    return (
+        <div className="space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-background p-6 rounded-2xl border shadow-sm">
+                <div className="flex items-center gap-4">
+                    <div className="p-3 bg-primary/10 rounded-xl">
+                        <Layers className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl font-bold tracking-tight">Academic Levels</h1>
+                        <p className="text-muted-foreground text-sm">Organize and manage school tiers and class groupings.</p>
+                    </div>
+                </div>
+                
+                <CreateAcademicLevelModal onSuccess={() => refetch()} />
+            </div>
 
-    actions={
-     {
-      onView: hadleVewAdmin,
-      onEdit: handleEditAdmin,
-      onDelete: handleDeleteAdmin
-     }
-    }
-   ></DataTable>
-  </div>
- )
+            {isLoading ? (
+                <div className="grid grid-cols-1 gap-4">
+                    {[1, 2, 3].map((i) => (
+                        <Skeleton key={i} className="h-24 w-full rounded-xl" />
+                    ))}
+                </div>
+            ) : (
+                <AcademicLevelTable 
+                    data={academicLevels} 
+                    onRefresh={() => refetch()} 
+                />
+            )}
+        </div>
+    )
 }
 
-export default AcademicLevel 
+export default AcademicLevel
