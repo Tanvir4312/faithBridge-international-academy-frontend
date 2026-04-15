@@ -30,7 +30,7 @@ const ApplicationsManagementsPage = async ({
     return (
         <div>
             <HydrationBoundary state={dehydrate(queryClient)}>
-                <ApplicationsManagement queryParamsString="" queryParamsObj={{}} />
+                <ApplicationsManagement queryParamsString={queryParamsString} queryParamsObj={queryParamsObj} />
             </HydrationBoundary>
         </div>
     );
