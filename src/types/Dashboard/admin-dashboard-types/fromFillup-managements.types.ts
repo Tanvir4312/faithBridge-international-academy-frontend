@@ -1,13 +1,13 @@
-import { PaymentStatus } from "../shared_Enums/enums";
 
 export interface IFromFillupData {
  id: string;
  registrationNo: string;
  classRoll: string;
  status: string;
- paymentStatus: PaymentStatus;
+ paymentStatus: string;
  createdAt: string;
  updatedAt: string;
+ admitCard?: string;
  exam: {
   name: string
   year: string
@@ -16,7 +16,22 @@ export interface IFromFillupData {
   name: string
  }
  student: {
-  nameEn: string
-  profileImage?: string
+  id: string;
+  nameEn: string;
+  nameBn?: string;
+  profileImage?: string;
+  registrationId: string;
+  studentMobile?: string | null;
+  guardianMobile?: string;
+  gender?: string;
+  bloodGroup?: string;
+  religion?: string;
+  dob?: string;
+  presentAddress?: string;
+  permanentAddress?: string;
+  fatherName?: string;
+  motherName?: string;
+  birthCertificateNo?: string;
+  applicationId?: string;
  }
 }

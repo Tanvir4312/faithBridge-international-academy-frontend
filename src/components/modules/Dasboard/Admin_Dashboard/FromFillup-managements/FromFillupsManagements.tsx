@@ -2,29 +2,44 @@
 import DataTable from '@/components/shared/table/DataTable';
 import { getAllFromFillup } from '@/services/admin-srever-action/fromFillup-managements.service';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { fromFillupColumns } from './fromFillupColumns';
 import { IFromFillupData } from '@/types/Dashboard/admin-dashboard-types/fromFillup-managements.types';
+import ViewFromFillupModal from './ViewFromFillupModal';
+import UpdateFromFillupStatusModal from './UpdateFromFillupStatusModal';
+import DeleteFromFillupModal from './DeleteFromFillupModal';
 
 const FromFillupsManagements = () => {
- const { data: fromFillupResponse, isLoading } = useQuery({
+ const [selectedData, setSelectedData] = useState<IFromFillupData | null>(null);
+ const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+ const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+ const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+ const { data: fromFillupResponse, isLoading, refetch } = useQuery({
   queryKey: ["from-fillup"],
   queryFn: getAllFromFillup,
   refetchOnWindowFocus: false,
  })
 
  const { data: fromFillupData = [] } = fromFillupResponse || {}
- const handleView = (id: IFromFillupData) => {
-  console.log("view", id)
+
+ const handleView = (data: IFromFillupData) => {
+  setSelectedData(data);
+  setIsViewModalOpen(true);
  }
- const handleEdit = (id: IFromFillupData) => {
-  console.log("edit", id)
+ const handleEdit = (data: IFromFillupData) => {
+  setSelectedData(data);
+  setIsEditModalOpen(true);
  }
- const handleDelete = (id: IFromFillupData) => {
-  console.log("delete", id)
+ const handleDelete = (data: IFromFillupData) => {
+  setSelectedData(data);
+  setIsDeleteModalOpen(true);
  }
  return (
-  <div>
+  <div className="space-y-4 p-4 text-left">
+   <div className="flex justify-between items-center text-left">
+    <h2 className="text-2xl font-bold text-primary text-left">Form Fillups Management</h2>
+   </div>
    <DataTable
     data={fromFillupData}
     columns={fromFillupColumns}
@@ -37,6 +52,26 @@ const FromFillupsManagements = () => {
       onDelete: handleDelete,
      }
     }
+   />
+
+   <ViewFromFillupModal 
+    open={isViewModalOpen} 
+    onOpenChange={setIsViewModalOpen} 
+    data={selectedData} 
+   />
+
+   <UpdateFromFillupStatusModal 
+    open={isEditModalOpen}
+    onOpenChange={setIsEditModalOpen}
+    data={selectedData}
+    onSuccess={() => refetch()}
+   />
+
+   <DeleteFromFillupModal 
+    open={isDeleteModalOpen}
+    onOpenChange={setIsDeleteModalOpen}
+    data={selectedData}
+    onSuccess={() => refetch()}
    />
   </div>
  );
