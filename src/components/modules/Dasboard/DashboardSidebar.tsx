@@ -4,11 +4,11 @@ import { getUserInfo } from '@/services/authService';
 import React from 'react';
 import DashboardSidebarContent from './DashboardSidebarContent';
 
-const DashboardSidebar = async  () => {
+const DashboardSidebar = async () => {
     const userInfo = await getUserInfo()
 
-    const navItems = getNavItemsByRole(userInfo.role)
-    const dashboardHome = getDefaultDashboardRoute(userInfo.role)
+    const navItems = getNavItemsByRole(userInfo?.role)
+    const dashboardHome = getDefaultDashboardRoute(userInfo?.role)
     return (
         <div>
             <DashboardSidebarContent userInfo={userInfo} navItems={navItems} dashboardHome={dashboardHome} />

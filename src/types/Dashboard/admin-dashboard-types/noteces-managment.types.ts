@@ -1,4 +1,5 @@
-enum NoticeType {
+
+export enum NoticeType {
  GENERAL = "GENERAL",
  CLASS_SPECIFIC = "CLASS_SPECIFIC"
 }
@@ -6,7 +7,21 @@ enum NoticeType {
 export interface INoticeData {
  id: string;
  title: string;
- type: NoticeType
+ details?: string;
+ type: NoticeType;
  createdAt: string;
- noticeClasses: { class: { name: string } }[];
+ authorId: string;
+ noticeClasses: { 
+    class: { 
+        id: string;
+        name: string 
+    } 
+ }[];
+}
+
+export interface ICreateNoticesPayload {
+    title: string;
+    details?: string;
+    type: "GENERAL" | "CLASS_SPECIFIC";
+    noticeClasses?: string[];
 }
