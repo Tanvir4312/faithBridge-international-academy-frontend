@@ -2,38 +2,52 @@
 import DataTable from '@/components/shared/table/DataTable';
 import { getAllExam } from '@/services/admin-srever-action/exams-managements.service';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { examColumns } from './examsColumn';
 import { IExamsData } from '@/types/Dashboard/admin-dashboard-types/exams-managements';
+import CreateExamsModal from './CreateExamsModal';
+import ViewExamsModal from './ViewExamsModal';
 
 
 const ExamsManagements = () => {
- const { data: examsResponse } = useQuery({
+ const [selectedExam, setSelectedExam] = useState<IExamsData | null>(null);
+ const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+
+ const { data: examsResponse, refetch } = useQuery({
   queryKey: ["exams"],
   queryFn: getAllExam,
   refetchOnWindowFocus: true,
 
  })
- console.log("examsResponse", examsResponse)
+ 
  const { data: exams = [] } = examsResponse || {}
- console.log("exams", exams)
 
- const handleView = (id: IExamsData) => {
-  console.log("View exam:", id);
+ const handleView = (exam: IExamsData) => {
+  setSelectedExam(exam);
+  setIsViewModalOpen(true);
  }
 
 
  return (
-  <div>
+  <div className="space-y-4 p-4">
+   <div className="flex justify-between items-center">
+    <h2 className="text-2xl font-bold text-primary">Exams Management</h2>
+    <CreateExamsModal onSuccess={() => refetch()} />
+   </div>
    <DataTable
     data={exams}
     columns={examColumns}
     actions={
      {
       onView: handleView,
-
      }
     }
+   />
+
+   <ViewExamsModal 
+    open={isViewModalOpen} 
+    onOpenChange={setIsViewModalOpen} 
+    exam={selectedExam} 
    />
   </div>
  );
