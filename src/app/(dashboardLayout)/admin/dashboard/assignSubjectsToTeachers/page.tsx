@@ -17,15 +17,20 @@ const AssignSubjectPage = async () => {
     // 1. Creation flow (Two-step as required by backend)
     const handleAssignAction = async (data: { teacherId: string; subjectsId: string[]; primarySubjectId: string }) => {
         "use server"
-        await assignSubjectsToTeacher({
+        const assignRes = await assignSubjectsToTeacher({
             teacherId: data.teacherId,
             subjectsId: data.subjectsId
         })
 
-        return await updatePrimarySubject({
-            teacherId: data.teacherId,
-            subjectId: data.primarySubjectId
-        })
+        // Only update primary if a primary subject ID was actually provided
+        if (data.primarySubjectId) {
+            return await updatePrimarySubject({
+                teacherId: data.teacherId,
+                subjectId: data.primarySubjectId
+            })
+        }
+
+        return assignRes;
     }
 
     // 2. Update flow (Set existing subject as primary)

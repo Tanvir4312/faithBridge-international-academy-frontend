@@ -72,6 +72,8 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
         }
     }, [selectedTeacherId, fetchTeacherData])
 
+    const hasExistingPrimary = assignedSubjects.some(s => s.isPrimary)
+
     const handleNewSubjectToggle = (id: string) => {
         setNewSelectedSubjects(prev => {
             const isSelected = prev.includes(id)
@@ -81,7 +83,8 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                 return filtered
             } else {
                 const next = [...prev, id]
-                if (!newPrimarySubject) setNewPrimarySubject(id)
+                // Only auto-select as primary if NO primary exists anywhere
+                if (!newPrimarySubject && !hasExistingPrimary) setNewPrimarySubject(id)
                 return next
             }
         })
@@ -205,7 +208,8 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                                 </div>
                                             </div>
                                             <div className="flex gap-1 shrink-0">
-                                                {!sub.isPrimary && (
+                                                {/* Hide Primary button if teacher already has a primary subject */}
+                                                {!sub.isPrimary && !hasExistingPrimary && (
                                                     <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 text-amber-600 hover:bg-amber-100 rounded-lg" title="Make Primary" onClick={() => handleSetPrimary(sub.subjectId, sub.name)}>
                                                         <Star className="h-4 w-4" />
                                                     </Button>
@@ -242,7 +246,7 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-[350px] sm:max-h-[450px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                                     {availableSubjects.map((subject) => {
                                         const isChecked = newSelectedSubjects.includes(subject.id)
-                                        const isPrimary = newPrimarySubject === subject.id
+                                        const isPrimarySelection = newPrimarySubject === subject.id
                                         return (
                                             <div key={subject.id}
                                                 className={`p-3 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex flex-col gap-3 ${isChecked ? 'border-primary bg-primary/5 shadow-sm' : 'border-muted hover:border-muted-foreground/30'}`}
@@ -253,17 +257,24 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                                         <span className="font-black text-xs sm:text-sm truncate uppercase tracking-tight">{subject.name}</span>
                                                     </div>
                                                 </div>
-                                                {isChecked && (
+                                                {isChecked && !hasExistingPrimary && (
                                                     <div className="pt-2 border-t border-primary/20 flex items-center gap-2" onClick={e => e.stopPropagation()}>
                                                         <RadioGroup value={newPrimarySubject} onValueChange={setNewPrimarySubject} className="flex items-center">
                                                             <div className="flex items-center space-x-2">
                                                                 <RadioGroupItem value={subject.id} id={`new-primary-${subject.id}`} className="h-3 w-3 sm:h-4 sm:w-4 border-2 border-primary" />
-                                                                <Label htmlFor={`new-primary-${subject.id}`} className={`text-[9px] sm:text-[10px] font-black cursor-pointer flex items-center gap-1 uppercase tracking-tighter ${isPrimary ? 'text-primary' : 'text-muted-foreground'}`}>
-                                                                    <Star className={`h-3 w-3 ${isPrimary ? 'fill-amber-400 text-amber-400 border-none' : ''}`} />
+                                                                <Label htmlFor={`new-primary-${subject.id}`} className={`text-[9px] sm:text-[10px] font-black cursor-pointer flex items-center gap-1 uppercase tracking-tighter ${isPrimarySelection ? 'text-primary' : 'text-muted-foreground'}`}>
+                                                                    <Star className={`h-3 w-3 ${isPrimarySelection ? 'fill-amber-400 text-amber-400 border-none' : ''}`} />
                                                                     Expertise
                                                                 </Label>
                                                             </div>
                                                         </RadioGroup>
+                                                    </div>
+                                                )}
+                                                {/* Visual helper for existing primary */}
+                                                {isChecked && hasExistingPrimary && (
+                                                    <div className="flex items-center gap-1.5 p-2 bg-muted/30 rounded-lg">
+                                                        <ShieldCheck className="h-3 w-3 text-emerald-500" />
+                                                        <span className="text-[8px] font-black uppercase tracking-widest text-muted-foreground">Standard Assignment</span>
                                                     </div>
                                                 )}
                                             </div>

@@ -5,8 +5,11 @@ export interface ITeacherSubject {
   email: string
   profilePhoto: string
   contactNumber: string
-  createdAt: string
- }
+  createdAt: string;
+  qualification: string;
+  designation: string;
+ },
+ isPrimary: boolean;
 }
 
 export interface ISubject {
