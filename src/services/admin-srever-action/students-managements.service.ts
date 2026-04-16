@@ -6,7 +6,6 @@ import { ApiSuccessResponse } from "@/types/api.types"
 import { IStudent } from "@/types/Dashboard/admin-dashboard-types/students-managements.types"
 
 interface IAllAdminsPagination {
-
  limit: number;
  current_Page: number;
  total_page: number;
@@ -20,5 +19,19 @@ interface IStudentPayload {
 
 export const getAllStudent = async (queryParamsString: string): Promise<ApiSuccessResponse<IStudentPayload>> => {
  const response = await httpClient.get<IStudentPayload>(queryParamsString ? `/student?${queryParamsString}` : "/student")
+ return response
+}
+
+export const updateStudent = async (id: string, payload: FormData): Promise<ApiSuccessResponse<IStudent>> => {
+ const response = await httpClient.patch<IStudent>(`/student/update/${id}`, payload, {
+  headers: {
+   "Content-Type": "multipart/form-data",
+  },
+ })
+ return response
+}
+
+export const deleteStudent = async (id: string): Promise<ApiSuccessResponse<IStudent>> => {
+ const response = await httpClient.delete<IStudent>(`/student/${id}`)
  return response
 }

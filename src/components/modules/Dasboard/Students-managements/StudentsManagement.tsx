@@ -11,6 +11,10 @@ import { SortingState } from "@tanstack/react-table"
 import PaginationControls from "@/components/shared/pagination_controll/PaginationControll"
 import { keepPreviousData } from '@tanstack/react-query'
 
+import StudentDetailsModal from "./StudentDetailsModal"
+import UpdateStudentModal from "./UpdateStudentModal"
+import DeleteStudentModal from "./DeleteStudentModal"
+
 function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) {
 
  const pathname = usePathname();
@@ -136,14 +140,26 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
   total: Number(apiMeta?.total) || 0,
  };
 
- const handleView = (id: IStudent) => {
-  console.log(id)
+	const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [selectedStudentForEdit, setSelectedStudentForEdit] = useState<IStudent | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+    const [selectedStudentForDelete, setSelectedStudentForDelete] = useState<IStudent | null>(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+	const handleView = (student: IStudent) => {
+		setSelectedStudent(student);
+		setIsModalOpen(true);
+	}
+ const handleEdit = (student: IStudent) => {
+  setSelectedStudentForEdit(student);
+  setIsEditModalOpen(true);
  }
- const handleEdit = (id: IStudent) => {
-  console.log(id)
- }
- const handleDelete = (id: IStudent) => {
-  console.log(id)
+ const handleDelete = (student: IStudent) => {
+  setSelectedStudentForDelete(student);
+  setIsDeleteModalOpen(true);
  }
  const isSortingLoading = isLoading || isFetching;
  return (
@@ -168,6 +184,21 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
     meta={pagination}
     onPageChange={handlePageChange}
     onLimitChange={handleLimitChange}
+   />
+   <StudentDetailsModal
+    student={selectedStudent}
+    isOpen={isModalOpen}
+    onOpenChange={setIsModalOpen}
+   />
+   <UpdateStudentModal
+    student={selectedStudentForEdit}
+    isOpen={isEditModalOpen}
+    onOpenChange={setIsEditModalOpen}
+   />
+   <DeleteStudentModal
+    student={selectedStudentForDelete}
+    isOpen={isDeleteModalOpen}
+    onOpenChange={setIsDeleteModalOpen}
    />
   </div>
  )

@@ -114,7 +114,7 @@ export const adminNavItems: NavSection[] = [
         title: "System Settings",
         items: [
             {
-                title: "Payment Methods",
+                title: "Payment Managements",
                 href: "/admin/dashboard/payments-managements",
                 icon: "CreditCardIcon"
             }

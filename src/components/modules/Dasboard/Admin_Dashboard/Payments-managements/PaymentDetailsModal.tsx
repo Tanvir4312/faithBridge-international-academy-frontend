@@ -59,23 +59,33 @@ const PaymentDetailsModal = ({ payment, isOpen, onOpenChange }: PaymentDetailsMo
                     {payment.student && (
                         <div className="p-6 sm:p-8 rounded-[2.5rem] border-2 border-primary/10 bg-primary/5 space-y-6">
                             <div className="flex items-center gap-4">
-                                <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-lg">
+                                <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white font-black text-lg shadow-lg shadow-primary/10">
                                     {payment.student.nameEn[0]}
                                 </div>
-                                <div>
-                                    <h4 className="text-base font-black uppercase tracking-tight">{payment.student.nameEn}</h4>
-                                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest leading-none mt-1">Student Payer</p>
+                                <div className="flex flex-col">
+                                    <h4 className="text-base font-black uppercase tracking-tight leading-none mb-1">{payment.student.nameEn}</h4>
+                                    <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] leading-none">Registered Student</p>
                                 </div>
                             </div>
+                            
                             <Separator className="bg-primary/10" />
-                            <div className="grid grid-cols-2 gap-6">
+                            
+                            <div className="grid grid-cols-2 gap-y-6 gap-x-8">
                                 <div className="space-y-1.5">
-                                    <span className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter">Registration ID</span>
-                                    <p className="text-sm font-bold font-mono">{payment.student.registrationId}</p>
+                                    <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">Registration ID</span>
+                                    <p className="text-sm font-bold font-mono tracking-tight text-primary">{payment.student.registrationId}</p>
+                                </div>
+                                <div className="space-y-1.5 text-right">
+                                    <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">Academic Class</span>
+                                    <p className="text-sm font-bold uppercase tracking-tight">{payment.student.class?.name || 'Unassigned'}</p>
                                 </div>
                                 <div className="space-y-1.5">
-                                    <span className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter">Class / Roll</span>
-                                    <p className="text-sm font-bold uppercase">{payment.student.class?.name || 'N/A'} — #{payment.student.classRoll}</p>
+                                    <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">Class Roll</span>
+                                    <p className="text-sm font-bold uppercase tracking-tight">#{payment.student.classRoll}</p>
+                                </div>
+                                <div className="space-y-1.5 text-right">
+                                    <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">Term Status</span>
+                                    <Badge variant="outline" className="text-[9px] font-black uppercase rounded-full border-primary/20 bg-primary/5 text-primary">Active</Badge>
                                 </div>
                             </div>
                         </div>
