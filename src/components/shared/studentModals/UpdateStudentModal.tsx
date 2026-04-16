@@ -155,11 +155,15 @@ const UpdateStudentModal = ({ student, isOpen, onOpenChange }: UpdateStudentModa
                             </div>
                         </div>
 
+                        {/* Premium Pattern Overlay */}
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] opacity-[0.05] -z-10" />
+                        <div className="absolute -right-20 -top-20 w-80 h-80 bg-white/10 rounded-full blur-3xl -z-10 shadow-2xl" />
+
                         <DialogClose asChild>
                             <Button
                                 type="button"
                                 variant="ghost"
-                                className="absolute top-6 right-6 h-10 w-10 p-0 rounded-full bg-white/10 hover:bg-white/20 text-white z-50 transition-colors"
+                                className="absolute top-6 right-6 h-10 w-10 p-0 rounded-full bg-black/10 hover:bg-black/20 text-white z-50 backdrop-blur-md transition-all duration-300"
                             >
                                 <X className="h-5 w-5" />
                                 <span className="sr-only">Close</span>
