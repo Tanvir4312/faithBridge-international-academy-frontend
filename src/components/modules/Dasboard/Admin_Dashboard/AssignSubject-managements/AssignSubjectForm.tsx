@@ -8,7 +8,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements'
+import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements.types'
 import { ISubject } from '@/types/Dashboard/admin-dashboard-types/subject-managements.types'
 import { BookOpen, UserCircle, CheckCircle2, Star, Trash2, ShieldCheck, Info } from 'lucide-react'
 import { getSingleTeacher } from '@/services/admin-srever-action/teachers-managements.service'
@@ -286,18 +286,18 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                         {/* Perfect Equal Width Grid Footer */}
                         <CardFooter className="border-t bg-muted/5 p-4 sm:p-8">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full md:max-w-2xl ml-auto">
-                                <Button 
-                                    variant="outline" 
-                                    size="lg" 
-                                    className="w-full font-black rounded-xl h-14 md:h-12 border-2 border-destructive/20 text-destructive hover:bg-destructive/10 hover:border-destructive/40 text-xs sm:text-sm uppercase tracking-widest transition-all order-2 sm:order-1" 
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    className="w-full font-black rounded-xl h-14 md:h-12 border-2 border-destructive/20 text-destructive hover:bg-destructive/10 hover:border-destructive/40 text-xs sm:text-sm uppercase tracking-widest transition-all order-2 sm:order-1"
                                     onClick={() => { setNewSelectedSubjects([]); setNewPrimarySubject("") }}
                                 >
                                     RESET SELECTION
                                 </Button>
-                                <Button 
-                                    size="lg" 
-                                    className="w-full font-black rounded-xl h-14 md:h-12 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-xs sm:text-sm bg-primary text-white uppercase tracking-widest order-1 sm:order-2" 
-                                    disabled={isSubmitting || newSelectedSubjects.length === 0} 
+                                <Button
+                                    size="lg"
+                                    className="w-full font-black rounded-xl h-14 md:h-12 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-xs sm:text-sm bg-primary text-white uppercase tracking-widest order-1 sm:order-2"
+                                    disabled={isSubmitting || newSelectedSubjects.length === 0}
                                     onClick={handleAssignNew}
                                 >
                                     {isSubmitting ? "SYNCING..." : "COMMIT CHANGES"}

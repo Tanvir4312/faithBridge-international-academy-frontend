@@ -24,7 +24,7 @@ import { Plus, School, Loader2, Users } from "lucide-react"
 import { toast } from 'sonner'
 import { createClass } from "@/services/admin-srever-action/class-managements.service"
 import { IAcademicLevel } from '@/types/Dashboard/admin-dashboard-types/academicLevel-managements.types'
-import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements'
+import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements.types'
 
 interface CreateClassModalProps {
     academicLevels: IAcademicLevel[];
@@ -44,7 +44,7 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        
+
         if (!formData.name || !formData.academicLevelId) {
             toast.error("Please fill in required fields")
             return
@@ -113,8 +113,8 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
                             <Label className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
                                 Academic Level <span className="text-red-500">*</span>
                             </Label>
-                            <Select 
-                                value={formData.academicLevelId} 
+                            <Select
+                                value={formData.academicLevelId}
                                 onValueChange={(val) => setFormData(p => ({ ...p, academicLevelId: val }))}
                             >
                                 <SelectTrigger>
@@ -134,8 +134,8 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
                             <Label className="text-sm font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
                                 <Users className="h-3 w-3" /> Class Teacher
                             </Label>
-                            <Select 
-                                value={formData.teacherId} 
+                            <Select
+                                value={formData.teacherId}
                                 onValueChange={(val) => setFormData(p => ({ ...p, teacherId: val }))}
                             >
                                 <SelectTrigger>
@@ -161,8 +161,8 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
                         >
                             Cancel
                         </Button>
-                        <Button 
-                            type="submit" 
+                        <Button
+                            type="submit"
                             className="min-w-[120px] font-bold"
                             disabled={isSubmitting}
                         >

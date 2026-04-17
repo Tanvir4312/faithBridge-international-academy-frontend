@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { Users2, School, ShieldCheck, UserCheck, Loader2, Sparkles } from 'lucide-react'
-import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements'
+import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements.types'
 
 import { assignClassTeacher } from '@/services/admin-srever-action/class-teacher.service'
 import { useRouter } from 'next/navigation'
@@ -35,7 +35,7 @@ const ClassTeacherManagement = ({ teachers, classes }: ClassTeacherManagementPro
                 teacherId: selectedTeacherId,
                 classId: selectedClassId
             })
-            
+
             if (res.success) {
                 toast.success("Class teacher designated successfully")
                 setSelectedTeacherId("")

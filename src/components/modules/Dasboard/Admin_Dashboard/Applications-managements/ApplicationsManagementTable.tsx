@@ -9,8 +9,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { SortingState } from '@tanstack/react-table'
 import { IApplicationsData, ApplicationStatus } from '@/types/Dashboard/admin-dashboard-types/applications-management.types'
 import PaginationControls from '@/components/shared/pagination_controll/PaginationControll'
-import ApplicationDetailModal from './ApplicationDetailModal'
+import ApplicationDetailModal from '../../../../shared/applicationModal/ApplicationDetailModal'
 import { toast } from 'sonner'
+
 
 const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
 

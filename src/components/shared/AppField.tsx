@@ -4,11 +4,11 @@ import { cn } from "@/lib/utils";
 import type { AnyFieldApi } from "@tanstack/react-form";
 import React from "react";
 
-const getErrorMessage = (error : unknown) : string => {
+const getErrorMessage = (error: unknown): string => {
     if (typeof error === "string") return error;
 
-    if(error && typeof error === "object"){
-        if("message" in error && typeof error.message === "string"){
+    if (error && typeof error === "object") {
+        if ("message" in error && typeof error.message === "string") {
             return error.message;
         }
     }
@@ -17,14 +17,14 @@ const getErrorMessage = (error : unknown) : string => {
 }
 
 type AppFieldProps = {
-    field : AnyFieldApi;
-    label : string;
-    type ?: "text" | "email" | "password" | "number";
-    placeholder ?: string;
-    append ?: React.ReactNode;
-    prepend ?: React.ReactNode;
-    className ?: string;
-    disabled ?: boolean;
+    field: AnyFieldApi;
+    label: string;
+    type?: "text" | "email" | "password" | "number" | "url" | "file";
+    placeholder?: string;
+    append?: React.ReactNode;
+    prepend?: React.ReactNode;
+    className?: string;
+    disabled?: boolean;
 }
 
 const AppField = ({
@@ -36,66 +36,73 @@ const AppField = ({
     prepend,
     className,
     disabled = false,
-} : AppFieldProps) => {
+}: AppFieldProps) => {
 
     const firstError = field.state.meta.isTouched && field.state.meta.errors.length > 0 ? getErrorMessage(field.state.meta.errors[0]) : null;
 
     const hasError = firstError !== null;
 
-  return (
-    <div className={cn("space-y-1.5", className)}>
-        <Label
-            htmlFor={field.name}
-            className={cn(hasError && "text-destructive")}
-        >
-            {label}
-        </Label>
+    return (
+        <div className={cn("space-y-1.5", className)}>
+            <Label
+                htmlFor={field.name}
+                className={cn(hasError && "text-destructive")}
+            >
+                {label}
+            </Label>
 
-        <div className="relative">
-            {
-                prepend && (<div className="absolute inset-y-0 left-0 items-center pl-3 pointer-events-none z-10">
-                    {prepend}
-                </div>)
-            }
+            <div className="relative">
+                {
+                    prepend && (<div className="absolute inset-y-0 left-0 items-center pl-3 pointer-events-none z-10">
+                        {prepend}
+                    </div>)
+                }
 
-            <Input
-                id={field.name}
-                name={field.name}
-                type={type}
-                value={field.state.value ?? ""}
-                placeholder={placeholder}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                disabled={disabled}
-                aria-invalid={hasError}
-                aria-describedby={hasError ? `${field.name}-error` : undefined}
-                className={cn(
-                    prepend && "pl-10",
-                    append && "pr-10",
-                    hasError && "border-destructive focus-visible:ring-destructive/20",
-                )}
-            />
+                <Input
+                    id={field.name}
+                    name={field.name}
+                    type={type}
+                    value={type === "file" ? undefined : (field.state.value ?? "")}
+                    placeholder={placeholder}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => {
+                        if (type === "file") {
+                            const file = e.target.files?.[0];
+                            field.handleChange(file);
+                        } else {
+                            field.handleChange(e.target.value);
+                        }
+                    }}
+                    disabled={disabled}
+                    aria-invalid={hasError}
+                    aria-describedby={hasError ? `${field.name}-error` : undefined}
+                    className={cn(
+                        prepend && "pl-10",
+                        append && "pr-10",
+                        hasError && "border-destructive focus-visible:ring-destructive/20",
+                    )}
+                />
 
-            {
-                append && (<div className="absolute inset-y-0 right-0 items-center pr-3 pointer-events-none z-10">
-                    {append}
-                </div>)
-            }
+                {
+                    append && (<div className="absolute inset-y-0 right-0 items-center pr-3 pointer-events-none z-10">
+                        {append}
+                    </div>)
+                }
 
-            {
-                hasError && (
-                    <p
-                     id={`${field.name}-error`}
-                     role="alert"
-                     className="text-sm text-destructive" 
-                    >
-                        {firstError}
-                    </p>
-                )
-            }
+                {
+                    hasError && (
+                        <p
+                            id={`${field.name}-error`}
+                            role="alert"
+                            className="text-sm text-destructive"
+                        >
+                            {firstError}
+                        </p>
+                    )
+                }
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default AppField

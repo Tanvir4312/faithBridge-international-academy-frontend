@@ -9,6 +9,10 @@ import DataTable from '@/components/shared/table/DataTable';
 import { adminColumns } from './allAdminColumns';
 import PaginationControls from '@/components/shared/pagination_controll/PaginationControll';
 import { IAdminsData } from '@/types/Dashboard/admin-dashboard-types/admins-management.type';
+import CreateAdminModal from './CreateAdminModal';
+import AdminDetailsModal from '@/components/shared/adminModals/AdminDetailsModal';
+import UpdateAdminModal from '@/components/shared/adminModals/UpdateAdminModal';
+import DeleteAdminModal from './DeleteAdminModal';
 
 const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
 
@@ -18,6 +22,10 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
     const searchParams = useSearchParams();
 
     const [currentQueryString, setCurrentQueryString] = useState(queryParamsString);
+    const [selectedAdmin, setSelectedAdmin] = useState<IAdminsData | null>(null);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     useEffect(() => {
         setCurrentQueryString(searchParams?.toString() ?? queryParamsString);
@@ -90,7 +98,7 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         }
     };
 
-    const { data: adminsResponse, isLoading, isFetching } = useQuery<any>({
+    const { data: adminsResponse, isLoading, isFetching, refetch } = useQuery<any>({
         queryKey: ["all-admins", currentQueryString],
         queryFn: () => getAllAdmin(currentQueryString),
         refetchOnWindowFocus: true, // Refetch data when the window regains focus
@@ -109,22 +117,28 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         total: Number(apiMeta?.total) || 0,
     };
 
-
-
     const hadleVewAdmin = (admin: IAdminsData) => {
-        console.log("View admin:", admin);
+        setSelectedAdmin(admin);
+        setIsViewModalOpen(true);
     }
     const handleEditAdmin = (admin: IAdminsData) => {
-        console.log("Edit admin:", admin);
+        setSelectedAdmin(admin);
+        setIsEditModalOpen(true);
     }
     const handleDeleteAdmin = (admin: IAdminsData) => {
-        console.log("Delete admin:", admin);
+        setSelectedAdmin(admin);
+        setIsDeleteModalOpen(true);
     }
 
     const isSortingLoading = isLoading || isFetching;
 
     return (
-        <div>
+        <div className="space-y-6">
+            <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-sm">
+                <h1 className="text-2xl font-bold text-gray-800">Admin Management</h1>
+                <CreateAdminModal onSuccess={() => refetch()} />
+            </div>
+            
             <DataTable
                 data={admins}
                 columns={adminColumns}
@@ -144,8 +158,25 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
                 onPageChange={handlePageChange}
                 onLimitChange={handleLimitChange}
             />
-        </div>
 
+            <AdminDetailsModal
+                admin={selectedAdmin}
+                isOpen={isViewModalOpen}
+                onOpenChange={setIsViewModalOpen}
+            />
+
+            <UpdateAdminModal
+                admin={selectedAdmin}
+                isOpen={isEditModalOpen}
+                onOpenChange={setIsEditModalOpen}
+            />
+
+            <DeleteAdminModal
+                admin={selectedAdmin}
+                isOpen={isDeleteModalOpen}
+                onOpenChange={setIsDeleteModalOpen}
+            />
+        </div>
     );
 };
 

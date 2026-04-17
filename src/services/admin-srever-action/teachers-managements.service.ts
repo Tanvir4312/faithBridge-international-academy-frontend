@@ -1,8 +1,9 @@
 "use server"
 
 import { httpClient } from "@/lib/axios/httpClient"
-import { ApiSuccessResponse } from "@/types/api.types"
-import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements"
+import { ApiErrorResponse, ApiSuccessResponse } from "@/types/api.types"
+import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types"
+import { createTeacherValidationSchema, ICreateTeacherPayload } from "@/zod/teacherZodValidation"
 
 export const getAllTeacher = async (): Promise<ApiSuccessResponse<ITeacher[]>> => {
   const response = await httpClient.get<ITeacher[]>("/teacher")
@@ -32,5 +33,18 @@ export const updateTeacher = async (id: string, data: FormData): Promise<ApiSucc
  */
 export const deleteTeacher = async (id: string): Promise<ApiSuccessResponse<any>> => {
   const response = await httpClient.delete(`/teacher/${id}`)
+  return response
+}
+
+export const createTeacher = async (data: ICreateTeacherPayload): Promise<ICreateTeacherPayload | ApiErrorResponse> => {
+  const parsPayload = createTeacherValidationSchema.safeParse(data)
+  if (!parsPayload.success) {
+    const firstError = parsPayload.error.issues[0].message || "Invalid Input";
+    return {
+      success: false,
+      message: firstError,
+    }
+  }
+  const response = await httpClient.post<ICreateTeacherPayload>("/users/create-teacher", parsPayload.data)
   return response
 }

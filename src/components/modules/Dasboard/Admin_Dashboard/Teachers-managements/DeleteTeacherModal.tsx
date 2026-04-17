@@ -10,7 +10,7 @@ import {
     DialogClose
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements"
+import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types"
 import {
     X,
     Trash2,
@@ -32,6 +32,7 @@ interface DeleteTeacherModalProps {
 }
 
 const DeleteTeacherModal = ({ teacher, isOpen, onOpenChange }: DeleteTeacherModalProps) => {
+
     const queryClient = useQueryClient()
     const [isConfirming, setIsConfirming] = useState(false)
 

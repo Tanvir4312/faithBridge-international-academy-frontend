@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 
-import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements";
+import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types";
 import UserInfoCell from "@/components/shared/cell/userInfoCell";
 import StatusBadgeCell from "@/components/shared/cell/statusBadgeCell";
 

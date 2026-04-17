@@ -10,7 +10,7 @@ import {
     DialogClose
 } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements'
+import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements.types'
 import { formatDate } from 'date-fns'
 import {
     User,
