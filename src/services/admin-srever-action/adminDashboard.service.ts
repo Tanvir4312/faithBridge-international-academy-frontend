@@ -6,7 +6,15 @@ import { IAdminDashboardStats } from "@/types/Dashboard/admin-dashboard-types/ad
 
 
 export const getAdminDashboardStats = async () => {
-    const response = await httpClient.get<IAdminDashboardStats>("/stats")
-    return response;
+    try {
+        const response = await httpClient.get<IAdminDashboardStats>("/stats")
+        return response;
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error?.response?.data?.message || "Unauthorized or unknown error fetching stats",
+            data: null
+        }
+    }
 }
 

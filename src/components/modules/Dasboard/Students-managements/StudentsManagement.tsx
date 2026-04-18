@@ -37,6 +37,25 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
         return sortBy ? [{ id: sortBy, desc: sortOrder === 'desc' }] : [];
     }, [sortBy, sortOrder]);
 
+    const searchTerm = currentQueryParams.get('searchTerm') ?? '';
+    const { data: studentsResponse, isLoading, isFetching } = useQuery<any>({
+        queryKey: ["students", currentQueryString],
+        queryFn: () => getAllStudent(currentQueryString),
+        refetchOnWindowFocus: true,
+        placeholderData: keepPreviousData,
+    })
+    const rawData = studentsResponse?.data
+
+    const students = Array.isArray(rawData) ? rawData : (Array.isArray(rawData?.data) ? rawData.data : [])
+
+    const apiMeta = rawData?.meta;
+    const pagination = {
+        current_page: Number(apiMeta?.current_Page) || Number(currentQueryParams.get('page')) || 1,
+        limit: Number(apiMeta?.limit) || Number(currentQueryParams.get('limit')) || 10,
+        total_page: Number(apiMeta?.total_page) || 1,
+        total: Number(apiMeta?.total) || 0,
+    };
+
     const handleSortingChange = (nextSortingState: SortingState) => {
         const [sort] = nextSortingState;
         const params = new URLSearchParams(currentQueryString);
@@ -54,7 +73,6 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
 
         setCurrentQueryString(queryString);
 
-        // Immediately update URL in the browser address bar for instant feedback
         if (typeof window !== 'undefined') {
             window.history.replaceState(null, '', destination);
         }
@@ -63,8 +81,6 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
     const handlePageChange = (page: number) => {
         const params = new URLSearchParams(currentQueryString);
         params.set('page', page.toString());
-
-        // Ensure limit remains in the URL for accurate hydration on refresh
         params.set('limit', pagination.limit.toString());
 
         const queryString = params.toString();
@@ -73,7 +89,6 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
         setCurrentQueryString(queryString);
 
         if (typeof window !== 'undefined') {
-            // Use pushState so history back-button respects the page change!
             window.history.pushState(null, '', destination);
         }
     };
@@ -81,7 +96,7 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
     const handleLimitChange = (limit: number) => {
         const params = new URLSearchParams(currentQueryString);
         params.set('limit', limit.toString());
-        params.set('page', '1'); // Always reset to page 1 when changing limit!
+        params.set('page', '1');
 
         const queryString = params.toString();
         const destination = queryString ? `${pathname}?${queryString}` : pathname;
@@ -92,8 +107,6 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
             window.history.pushState(null, '', destination);
         }
     };
-
-    const searchTerm = currentQueryParams.get('searchTerm') ?? '';
 
     const handleSearchChange = (newSearchTerm: string) => {
         const params = new URLSearchParams(currentQueryString);
@@ -104,11 +117,8 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
             params.delete('searchTerm');
         }
 
-        // Always reset to page 1 when searching
         params.set('page', '1');
-        if (pagination.limit) {
-            params.set('limit', pagination.limit.toString());
-        }
+        params.set('limit', pagination.limit.toString());
 
         const queryString = params.toString();
         const destination = queryString ? `${pathname}?${queryString}` : pathname;
@@ -122,23 +132,8 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
 
 
 
-    const { data: studentsResponse, isLoading, isFetching } = useQuery<any>({
-        queryKey: ["students", currentQueryString],
-        queryFn: () => getAllStudent(currentQueryString),
-        refetchOnWindowFocus: true,
-        placeholderData: keepPreviousData,
-    })
-    const rawData = studentsResponse?.data
 
-    const students = Array.isArray(rawData) ? rawData : (Array.isArray(rawData?.data) ? rawData.data : [])
 
-    const apiMeta = rawData?.meta;
-    const pagination = {
-        current_page: Number(apiMeta?.page) || Number(apiMeta?.current_Page) || Number(apiMeta?.current_Page) || Number(currentQueryParams.get('page')) || 1,
-        limit: Number(apiMeta?.limit) || Number(currentQueryParams.get('limit')) || 10,
-        total_page: Number(apiMeta?.total_page) || Number(apiMeta?.total_page) || 1,
-        total: Number(apiMeta?.total) || 0,
-    };
 
     const [selectedStudent, setSelectedStudent] = useState<IStudent | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -161,14 +156,20 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
         setSelectedStudentForDelete(student);
         setIsDeleteModalOpen(true);
     }
-    const isSortingLoading = isLoading || isFetching;
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isTableLoading = mounted && (isLoading || isFetching);
     return (
         <div>
             <DataTable
                 data={students}
                 columns={studentColumns}
                 emptyMessage="No students found"
-                isLoading={isSortingLoading}
+                isLoading={isTableLoading}
                 sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
                 searching={{ searchTerm, onSearchChange: handleSearchChange }}
                 actions={
@@ -180,11 +181,7 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
 
                 }
             />
-            <PaginationControls
-                meta={pagination}
-                onPageChange={handlePageChange}
-                onLimitChange={handleLimitChange}
-            />
+
             <StudentDetailsModal
                 student={selectedStudent}
                 isOpen={isModalOpen}
@@ -200,8 +197,14 @@ function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParams
                 isOpen={isDeleteModalOpen}
                 onOpenChange={setIsDeleteModalOpen}
             />
+            <PaginationControls
+                meta={pagination}
+                onPageChange={handlePageChange}
+                onLimitChange={handleLimitChange}
+            />
         </div>
     )
 }
 
 export default StudentsManagement
+

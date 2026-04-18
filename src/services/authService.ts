@@ -70,10 +70,40 @@ export async function getUserInfo() {
         }
 
         const { data } = await res.json();
-
         return data;
     } catch (error) {
         console.error("Error fetching user info:", error);
         return null;
+    }
+}
+
+export async function logoutUser() {
+    try {
+        const cookieStore = await cookies();
+        const accessToken = cookieStore.get("accessToken")?.value;
+        const sessionToken = cookieStore.get("better-auth.session_token")?.value;
+
+        const res = await fetch(`${BASE_API_URL}/auth/logout`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Cookie: `accessToken=${accessToken}; better-auth.session_token=${sessionToken}`
+            }
+        });
+
+        // Clear cookies on client side as well
+        cookieStore.delete("accessToken");
+        cookieStore.delete("refreshToken");
+        cookieStore.delete("better-auth.session_token");
+
+        if (!res.ok) {
+            console.error("Failed to logout from backend:", res.status, res.statusText);
+            return { success: false, message: "Server logout failed" };
+        }
+
+        return { success: true };
+    } catch (error) {
+        console.error("Error logging out:", error);
+        return { success: false, message: "An unexpected error occurred" };
     }
 }

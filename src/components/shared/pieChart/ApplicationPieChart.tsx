@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { PieChartData } from "@/types/Dashboard/admin-dashboard-types/types";
+import { PieChartData } from "@/types/Dashboard/admin-dashboard-types/admins-dashboardStat.types";
 
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 

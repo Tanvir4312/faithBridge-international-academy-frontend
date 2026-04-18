@@ -30,7 +30,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
             {/* Navigation Area */}
             <ScrollArea className="flex-1 px-3 py-4">
                 <nav className="space-y-6">
-                    {navItems.map((section, sectionId) => (
+                    {navItems?.map((section, sectionId) => (
                         <div key={sectionId}>
                             {section.title && (
                                 <h4 className="mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -39,7 +39,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
                             )}
 
                             <div className="space-y-1">
-                                {section.items.map((item, id) => {
+                                {section.items?.map((item, id) => {
                                     const isActive = pathname === item.href;
                                     // Icon Mapper Function
                                     const Icon = getIconComponent(item.icon);
@@ -64,7 +64,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
                                 })}
                             </div>
 
-                            {sectionId < navItems.length - 1 && (
+                            {sectionId < (navItems?.length || 0) - 1 && (
                                 <Separator className="my-4" />
                             )}
                         </div>
@@ -77,14 +77,14 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
                 <div className="flex items-center gap-3">
                     <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                         <span className="text-sm font-semibold text-primary">
-                            {userInfo?.name.charAt(0).toUpperCase()}
+                            {userInfo?.name?.charAt(0).toUpperCase()}
                         </span>
                     </div>
 
                     <div className="flex-1 overflow-hidden">
-                        <p className="text-sm font-medium truncate">{userInfo.name}</p>
+                        <p className="text-sm font-medium truncate">{userInfo?.name}</p>
                         <p className="text-xs text-muted-foreground capitalize">
-                            {userInfo?.role.toLocaleLowerCase().replace("_", " ")}
+                            {userInfo?.role?.toLocaleLowerCase().replace("_", " ")}
                         </p>
                     </div>
                 </div>

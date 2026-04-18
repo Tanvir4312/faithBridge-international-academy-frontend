@@ -185,7 +185,13 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
   setIsModalOpen(false);
  }
 
- const isSortingLoading = isLoading || isFetching;
+ const [mounted, setMounted] = useState(false);
+
+ useEffect(() => {
+  setMounted(true);
+ }, []);
+
+ const isTableLoading = mounted && (isLoading || isFetching);
 
 
 
@@ -201,7 +207,7 @@ const ApplicationsManagement = ({ queryParamsString, queryParamsObj }: { queryPa
    <DataTable
     data={applications}
     columns={applicationColumns}
-    isLoading={isSortingLoading}
+    isLoading={isTableLoading}
     emptyMessage="No application data available."
     sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
     searching={{ searchTerm, onSearchChange: handleSearchChange }}

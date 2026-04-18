@@ -57,6 +57,11 @@ export const adminNavItems: NavSection[] = [
                 title: "Students",
                 href: "/admin/dashboard/students-managements",
                 icon: "UserIcon"
+            },
+            {
+                title: "Users",
+                href: "/admin/dashboard/users-managements",
+                icon: "UserIcon"
             }
         ]
     },
@@ -226,5 +231,7 @@ export const getNavItemsByRole = (role: UserRole): NavSection[] => {
             return [...commonItems, ...applicantNavItems]
 
 
+        default:
+            return commonItems || [];
     }
 }

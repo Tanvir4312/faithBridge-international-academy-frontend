@@ -13,6 +13,7 @@ import CreateAdminModal from './CreateAdminModal';
 import AdminDetailsModal from '@/components/shared/adminModals/AdminDetailsModal';
 import UpdateAdminModal from '@/components/shared/adminModals/UpdateAdminModal';
 import DeleteAdminModal from './DeleteAdminModal';
+import { getUserInfo } from '@/services/authService';
 
 const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
 
@@ -130,7 +131,14 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
         setIsDeleteModalOpen(true);
     }
 
-    const isSortingLoading = isLoading || isFetching;
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isTableLoading = mounted && (isLoading || isFetching);
+
 
     return (
         <div className="space-y-6">
@@ -138,12 +146,12 @@ const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsStrin
                 <h1 className="text-2xl font-bold text-gray-800">Admin Management</h1>
                 <CreateAdminModal onSuccess={() => refetch()} />
             </div>
-            
+
             <DataTable
                 data={admins}
                 columns={adminColumns}
                 emptyMessage="No admin data available."
-                isLoading={isSortingLoading}
+                isLoading={isTableLoading}
                 sorting={{ state: sortingState, onSortingChange: handleSortingChange }}
                 actions={
                     {

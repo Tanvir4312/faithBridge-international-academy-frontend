@@ -30,24 +30,27 @@ export const loginAction = async (
       parsedPayload.data,
     );
     const { accessToken, refreshToken, token, user } = response.data;
-
-    const { role, email, emailVerified, needPasswordChange } = user
+    const { role, email, needPasswordChange, emailVerified } = user
 
     await setTokenInCookies("accessToken", accessToken);
     await setTokenInCookies("refreshToken", refreshToken);
     await setTokenInCookies("better-auth.session_token", token, 60 * 60 * 24);
 
-  if (needPasswordChange) {
-      redirect(`/reset-password?email=${email}`);
-    } else {
-      const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
-      redirect(targetPath);
+    if (!emailVerified) {
+      redirect(`/verify-email?email=${email}`);
     }
+
+    if (needPasswordChange) {
+      redirect(`/change-password`);
+    }
+
+    const targetPath = redirectPath && isValidRedirectForRole(redirectPath, role as UserRole) ? redirectPath : getDefaultDashboardRoute(role as UserRole);
+    redirect(targetPath);
 
 
   } catch (err: any) {
-  
-    if(err.response && err.response.data && err.response.data.message === "Email not verified"){
+
+    if (err.response && err.response.data && err.response.data.message === "Email not verified") {
       redirect(`/verify-email?email=${payload.email}`);
     }
     if (
@@ -61,7 +64,7 @@ export const loginAction = async (
     }
     return {
       success: false,
-      message: `Login Failed: ${err.message}`,
+      message: ``,
     };
   }
 };
