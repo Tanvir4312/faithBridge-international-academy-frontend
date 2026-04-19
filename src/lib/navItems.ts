@@ -112,6 +112,11 @@ export const adminNavItems: NavSection[] = [
                 title: "Assign Class Teacher",
                 href: "/admin/dashboard/assign-class-teacher",
                 icon: "UserCheckIcon"
+            },
+            {
+                title: "All Media",
+                href: "/admin/dashboard/all-media",
+                icon: "ImageIcon"
             }
         ]
     },

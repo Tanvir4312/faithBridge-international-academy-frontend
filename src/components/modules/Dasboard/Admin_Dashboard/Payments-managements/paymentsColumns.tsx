@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "date-fns";
 import { IPayment } from "@/types/Dashboard/admin-dashboard-types/payment-managements.types";
-import StatusBadgeCell from "@/components/shared/cell/statusBadgeCell";
 import PaymentStatusBadgeCell from "@/components/shared/cell/paymentStatusBadgeCell";
 
 export const paymentsColumns: ColumnDef<IPayment>[] = [

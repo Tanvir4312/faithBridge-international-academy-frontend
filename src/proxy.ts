@@ -20,6 +20,7 @@ async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
 
 
 export async function proxy(request: NextRequest) {
+
   try {
     const { pathname } = request.nextUrl; // eg /dashboard, /admin/dashboard, /doctor/dashboard
     const pathWithQuery = `${pathname}${request.nextUrl.search}`;
@@ -106,7 +107,7 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
-    //Rule - Enforcing user to stay in reset password or verify email page if their needPasswordChange or isEmailVerified flags are not satisfied respectively
+    //Rule - Enforcing user to stay in change password or verify email page if their needPasswordChange or isEmailVerified flags are not satisfied respectively
 
     if (accessToken) {
       const userInfo = await getUserInfo();

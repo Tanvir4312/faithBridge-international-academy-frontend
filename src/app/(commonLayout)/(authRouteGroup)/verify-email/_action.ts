@@ -1,16 +1,13 @@
 "use server";
 
 import { httpClient } from "@/lib/axios/httpClient";
-import { ApiErrorResponse, ApiSuccessResponse } from "@/types/api.types";
 import { IVerifyEmailPayload, verifyEmailSchema } from "@/zod/auth.validation";
 import { redirect } from "next/navigation";
-import { getUserInfo } from "@/services/authService";
-import { getDefaultDashboardRoute, UserRole } from "@/lib/authUtils";
+
 
 export const verifyEmailAction = async (
   payload: IVerifyEmailPayload
 ) => {
-  const userInfo = await getUserInfo();
   const parsedPayload = verifyEmailSchema.safeParse(payload);
 
 
@@ -28,12 +25,7 @@ export const verifyEmailAction = async (
     );
 
     if (response?.success) {
-      if (userInfo?.role) {
-        redirect(getDefaultDashboardRoute(userInfo?.role as UserRole));
-      } else {
-
-        redirect(`/login?email=${parsedPayload.data.email}&verified=true`);
-      }
+      redirect(`/login?email=${parsedPayload.data.email}&verified=true`);
     }
 
 

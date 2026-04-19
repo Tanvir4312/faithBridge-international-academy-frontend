@@ -11,8 +11,8 @@ import { SortingState } from "@tanstack/react-table"
 import PaginationControls from "@/components/shared/pagination_controll/PaginationControll"
 import { keepPreviousData } from '@tanstack/react-query'
 
-import StudentDetailsModal from "../../../shared/studentModals/StudentDetailsModal"
-import UpdateStudentModal from "../../../shared/studentModals/UpdateStudentModal"
+import StudentDetailsModal from "../../../../shared/studentModals/StudentDetailsModal"
+import UpdateStudentModal from "../../../../shared/studentModals/UpdateStudentModal"
 import DeleteStudentModal from "./DeleteStudentModal"
 
 function StudentsManagement({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) {

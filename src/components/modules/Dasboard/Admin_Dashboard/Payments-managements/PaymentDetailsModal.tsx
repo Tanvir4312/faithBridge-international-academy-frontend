@@ -29,7 +29,7 @@ const PaymentDetailsModal = ({ payment, isOpen, onOpenChange }: PaymentDetailsMo
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent className="max-w-md sm:max-w-lg rounded-[2.5rem] border-none shadow-2xl p-0 overflow-hidden bg-background max-h-[95vh] flex flex-col">
                 {/* Visual Header Background */}
-                <div className="absolute top-0 left-0 right-0 h-32 bg-primary/5 -z-10" />
+
 
                 <div className="flex-1 overflow-y-auto custom-scrollbar px-6 sm:px-8 py-8 space-y-8">
                     <DialogHeader className="text-left relative p-0 mb-8 mt-2">
@@ -67,9 +67,9 @@ const PaymentDetailsModal = ({ payment, isOpen, onOpenChange }: PaymentDetailsMo
                                     <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em] leading-none">Registered Student</p>
                                 </div>
                             </div>
-                            
+
                             <Separator className="bg-primary/10" />
-                            
+
                             <div className="grid grid-cols-2 gap-y-6 gap-x-8">
                                 <div className="space-y-1.5">
                                     <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">Registration ID</span>

@@ -1,4 +1,4 @@
-import StudentsManagement from '@/components/modules/Dasboard/Students-managements/StudentsManagement';
+import StudentsManagement from '@/components/modules/Dasboard/Admin_Dashboard/Students-managements/StudentsManagement';
 import { getAllStudent } from '@/services/admin-srever-action/students-managements.service';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';
