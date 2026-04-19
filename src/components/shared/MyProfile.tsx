@@ -12,15 +12,21 @@ import {
     GraduationCap,
     Clock,
     Camera,
+    MapPin,
+    Edit,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import UpdateTeacherModal from "./teacherModals/UpdateTeacherModal";
+
+import { Button } from "@/components/ui/button";
 
 interface MyProfileProps {
     userInfo: any;
 }
 
 const MyProfile = ({ userInfo }: MyProfileProps) => {
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
     if (!userInfo) return null;
 
     const role = userInfo.role;
@@ -33,6 +39,9 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
     };
 
     const roleData = getRoleData();
+    // Pre-map roleData for teacher to match ITeacher if needed, 
+    // although roleData likely already matches.
+    const teacherData = role === "TEACHER" ? roleData : null;
 
     const profilePhoto = roleData?.profilePhoto || userInfo.image || null;
 
@@ -83,16 +92,30 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                                 {userInfo.name}
                             </h1>
 
-                            <span
-                                className={cn(
-                                    "px-3 py-1 rounded-xl text-xs font-bold w-fit mx-auto lg:mx-0",
-                                    userInfo.status === "ACTIVE"
-                                        ? "bg-green-500 text-white"
-                                        : "bg-red-500 text-white"
+                            <div className="flex items-center gap-2 mx-auto lg:mx-0">
+                                <span
+                                    className={cn(
+                                        "px-3 py-1 rounded-xl text-xs font-bold w-fit",
+                                        userInfo.status === "ACTIVE"
+                                            ? "bg-green-500 text-white"
+                                            : "bg-red-500 text-white"
+                                    )}
+                                >
+                                    {userInfo.status}
+                                </span>
+
+                                {role === "TEACHER" && (
+                                    <Button 
+                                        onClick={() => setIsUpdateModalOpen(true)}
+                                        size="sm" 
+                                        variant="outline" 
+                                        className="rounded-xl border-indigo-200 text-indigo-600 hover:bg-indigo-50 font-bold gap-2 h-8"
+                                    >
+                                        <Edit className="w-3.5 h-3.5" />
+                                        Edit Profile
+                                    </Button>
                                 )}
-                            >
-                                {userInfo.status}
-                            </span>
+                            </div>
                         </div>
 
                         {/* Role + Email */}
@@ -133,6 +156,15 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                             value={format(new Date(userInfo.createdAt), "MMM d, h:mm a")}
                         />
                         <InfoItem icon={Phone} label="Contact" value={roleData?.contactNumber || "N/A"} />
+                        {roleData?.designation && (
+                            <InfoItem icon={Briefcase} label="Designation" value={roleData.designation} />
+                        )}
+                        {roleData?.qualification && (
+                            <InfoItem icon={GraduationCap} label="Qualification" value={roleData.qualification} />
+                        )}
+                        {roleData?.address && (
+                            <InfoItem icon={MapPin} label="Address" value={roleData.address} />
+                        )}
 
                     </div>
 
@@ -175,6 +207,12 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                     </div>
                 </div>
             </div>
+
+            <UpdateTeacherModal 
+                teacher={teacherData} 
+                isOpen={isUpdateModalOpen} 
+                onOpenChange={setIsUpdateModalOpen} 
+            />
         </div>
     );
 };

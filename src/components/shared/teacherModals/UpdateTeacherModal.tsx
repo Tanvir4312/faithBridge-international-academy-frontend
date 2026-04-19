@@ -34,6 +34,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateTeacher } from '@/services/admin-srever-action/teachers-managements.service'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 const updateTeacherSchema = z.object({
     name: z.string().min(5, "Name must be at least 5 characters").max(30).optional().or(z.literal('')),
@@ -41,7 +42,6 @@ const updateTeacherSchema = z.object({
     contactNumber: z.string().min(11).max(15).optional().or(z.literal('')),
     address: z.string().min(10).max(100).optional().or(z.literal('')),
     qualification: z.string().min(2).max(50).optional().or(z.literal('')),
-    gender: z.enum(['MALE', 'FEMALE']).optional(),
     designation: z.string().min(2).max(50).optional().or(z.literal('')),
 })
 
@@ -55,6 +55,7 @@ interface UpdateTeacherModalProps {
 
 const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModalProps) => {
     const queryClient = useQueryClient()
+    const router = useRouter()
     const [previewImage, setPreviewImage] = useState<string | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
@@ -62,7 +63,7 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
         resolver: zodResolver(updateTeacherSchema),
         defaultValues: {
             name: '', email: '', contactNumber: '', address: '',
-            qualification: '', gender: 'MALE', designation: '',
+            qualification: '', designation: '',
         }
     })
 
@@ -74,7 +75,6 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
                 contactNumber: teacher.contactNumber || '',
                 address: teacher.address || '',
                 qualification: teacher.qualification || '',
-                gender: (teacher.gender as 'MALE' | 'FEMALE') || 'MALE',
                 designation: teacher.designation || '',
             })
             setPreviewImage(teacher.profilePhoto)
@@ -85,6 +85,7 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
         mutationFn: (formData: FormData) => updateTeacher(teacher!.id, formData),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['teachers'] })
+            router.refresh()
             toast.success("Teacher profile updated successfully")
             onOpenChange(false)
         },
@@ -124,7 +125,7 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            {/* মূল ট্রিক: DialogContent কে স্ক্রলেবল করা হয়েছে */}
+
             <DialogContent
                 showCloseButton={false}
                 className="max-w-[95vw] md:max-w-4xl p-0 border-none shadow-3xl rounded-[2rem] md:rounded-[3rem] bg-background overflow-y-auto max-h-[95vh] custom-scrollbar focus-visible:ring-0"
@@ -195,26 +196,12 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
                         {/* Section: Professional */}
                         <div className="space-y-8">
                             <SectionDivider icon={Briefcase} title="Career Credentials" />
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <CustomField label="Designation">
                                     <Input {...form.register('designation')} className="field-input" />
                                 </CustomField>
                                 <CustomField label="Qualification">
                                     <Input {...form.register('qualification')} className="field-input" />
-                                </CustomField>
-                                <CustomField label="Gender Identity">
-                                    <Select
-                                        defaultValue={form.getValues('gender')}
-                                        onValueChange={(val) => form.setValue('gender', val as 'MALE' | 'FEMALE', { shouldDirty: true })}
-                                    >
-                                        <SelectTrigger className="field-input">
-                                            <SelectValue placeholder="Select" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="MALE">MALE</SelectItem>
-                                            <SelectItem value="FEMALE">FEMALE</SelectItem>
-                                        </SelectContent>
-                                    </Select>
                                 </CustomField>
                             </div>
                         </div>

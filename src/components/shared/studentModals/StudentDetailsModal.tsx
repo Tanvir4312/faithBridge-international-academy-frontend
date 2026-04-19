@@ -50,7 +50,7 @@ const StudentDetailsModal = ({ student, isOpen, onOpenChange }: StudentDetailsMo
                 </div>
                 <h3 className="text-[11px] sm:text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">{title}</h3>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {children}
             </div>
         </div>
@@ -74,7 +74,7 @@ const StudentDetailsModal = ({ student, isOpen, onOpenChange }: StudentDetailsMo
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent
                 showCloseButton={false}
-                className="max-w-[95vw] sm:max-w-[90vw] lg:max-w-5xl p-0 overflow-hidden border-none rounded-[2rem] sm:rounded-[3rem] shadow-2xl bg-background focus-visible:outline-none"
+                className="max-w-[95vw] sm:max-w-[90vw] lg:max-w-6xl p-0 border-none rounded-[2rem] sm:rounded-[3rem] shadow-2xl bg-background focus-visible:outline-none max-h-[90vh] overflow-y-auto overflow-x-hidden custom-scrollbar"
             >
                 {/* Accessibility: Hidden Header for Screen Readers */}
                 <DialogHeader className="sr-only">
@@ -84,7 +84,7 @@ const StudentDetailsModal = ({ student, isOpen, onOpenChange }: StudentDetailsMo
                     </DialogDescription>
                 </DialogHeader>
 
-                <div className="max-h-[92vh] overflow-y-auto custom-scrollbar focus-visible:outline-none">
+                <div className="focus-visible:outline-none">
 
                     {/* Hero Header Section */}
                     <div className="relative">
@@ -158,7 +158,7 @@ const StudentDetailsModal = ({ student, isOpen, onOpenChange }: StudentDetailsMo
                     </div>
 
                     {/* Main Content Body */}
-                    <div className="p-6 sm:p-12 lg:p-16 space-y-12 bg-background">
+                    <div className="p-6 sm:p-8 lg:p-10 space-y-12 bg-background">
 
                         {/* Top Stats Cards */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
