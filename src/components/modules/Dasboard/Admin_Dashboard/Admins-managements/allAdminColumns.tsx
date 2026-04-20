@@ -14,11 +14,12 @@ export const adminColumns
             header: 'Name',
             enableSorting: false,
             cell: ({ row }) => {
+
                 return (
                     <UserInfoCell
                         name={row.original.name}
                         email={row.original.email}
-                        profilePhoto={row.original.profilePhoto}
+                        profilePhoto={row.original.profilePhoto || undefined}
                     />
                 )
             }

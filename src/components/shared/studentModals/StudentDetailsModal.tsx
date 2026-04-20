@@ -209,7 +209,7 @@ const StudentDetailsModal = ({ student, isOpen, onOpenChange }: StudentDetailsMo
 
                                 <InfoSection title="Academic Registry" icon={GraduationCap}>
                                     <InfoItem label="Application ID" value={student.applicationId} icon={Fingerprint} />
-                                    <InfoItem label="Academic Level" value={student.class?.academicLevel?.name || 'General'} icon={BookOpen} />
+
                                 </InfoSection>
                             </div>
                         </div>

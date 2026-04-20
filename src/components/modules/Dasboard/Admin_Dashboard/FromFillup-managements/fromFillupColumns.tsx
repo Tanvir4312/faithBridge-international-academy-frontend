@@ -3,6 +3,8 @@ import { IFromFillupData } from "@/types/Dashboard/admin-dashboard-types/fromFil
 import { formatDate } from "date-fns";
 import UserInfoCell from "@/components/shared/cell/userInfoCell";
 
+import FromFillupStatusBadgeCell from "@/components/shared/cell/fromFillupStatusBadgeCell";
+
 export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
  {
   id: "nameEn",
@@ -53,6 +55,17 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   cell: ({ row }) => {
    const year = row.original.exam.year;
    return year;
+  }
+ },
+ {
+  id: "status",
+  accessorKey: "status",
+  header: "Status",
+  enableSorting: false,
+  cell: ({ row }) => {
+   return (
+    <FromFillupStatusBadgeCell status={row.original.status} />
+   )
   }
  },
  {

@@ -20,8 +20,8 @@ const MySubjects = ({ teacherId }: { teacherId: string }) => {
     queryKey: ["teacher-info", teacherId],
     queryFn: () => gettAllInfoForTeacher(teacherId),
   });
-
   const teacherInfo = teacherInfoResponse?.data;
+
 
   if (isLoading) {
     return (
@@ -35,7 +35,7 @@ const MySubjects = ({ teacherId }: { teacherId: string }) => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 animate-in fade-in duration-500">
-      
+
       {/* COMPACT PROFILE HEADER */}
       <section className="relative overflow-hidden rounded-3xl border bg-card/50 backdrop-blur-md shadow-lg p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-6">
         <Avatar className="h-28 w-28 md:h-20 md:w-20 border-2 border-primary/20 shrink-0">
@@ -68,8 +68,8 @@ const MySubjects = ({ teacherId }: { teacherId: string }) => {
         {teacherInfo.teacherSubjects?.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {teacherInfo.teacherSubjects.map((item) => (
-              <Card 
-                key={item.subject.name} 
+              <Card
+                key={item.subject.name}
                 className="group relative overflow-hidden border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <div className="absolute inset-x-0 top-0 h-1 bg-primary/10 group-hover:bg-primary transition-colors" />

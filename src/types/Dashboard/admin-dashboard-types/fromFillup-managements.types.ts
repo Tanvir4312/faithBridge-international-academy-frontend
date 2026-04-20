@@ -1,9 +1,10 @@
+import { FromFillupStatus } from "../shared_Enums/enums";
 
 export interface IFromFillupData {
  id: string;
  registrationNo: string;
  classRoll: string;
- status: string;
+ status: FromFillupStatus;
  paymentStatus: string;
  createdAt: string;
  updatedAt: string;

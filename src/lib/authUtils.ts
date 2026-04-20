@@ -25,7 +25,7 @@ export type RouteConfig = {
 };
 
 export const commonProtectedRoutes: RouteConfig = {
-  exact: ["/my-profile", "/change-password"],
+  exact: ["/my-profile", "/change-password", "/dashboard/payment/payment-success"],
   pattern: [],
 };
 
@@ -66,6 +66,12 @@ export const getRouteOwner = (
   | "SUPER_ADMIN"
   | "COMMON"
   | null => {
+  // Check common routes first so shared pages like /dashboard/payment/payment-success
+  // are not incorrectly claimed by the broad applicant /^\/dashboard/ pattern.
+  if (isRouteMatches(pathname, commonProtectedRoutes)) {
+    return "COMMON";
+  }
+
   if (isRouteMatches(pathname, teacherProtectedRoute)) {
     return "TEACHER";
   }
@@ -77,12 +83,9 @@ export const getRouteOwner = (
   if (isRouteMatches(pathname, applicantProtectedRoute)) {
     return "APPLICANT";
   }
+
   if (isRouteMatches(pathname, studentProtectedRoute)) {
     return "STUDENT";
-  }
-
-  if (isRouteMatches(pathname, commonProtectedRoutes)) {
-    return "COMMON";
   }
 
   return null; // public route

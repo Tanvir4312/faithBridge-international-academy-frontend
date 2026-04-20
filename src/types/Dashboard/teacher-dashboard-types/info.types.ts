@@ -15,7 +15,7 @@ export interface TeacherInfoResponse {
  }[]
  classTeacher: {
   class: {
-   id: string
+
    name: string
    notices: {
     notice: {

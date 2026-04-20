@@ -1,24 +1,13 @@
 "use client";
 
-import React from "react";
-import {
-    User,
-    Mail,
-    ShieldCheck,
-    Calendar,
-    Phone,
-    BadgeCheck,
-    Briefcase,
-    GraduationCap,
-    Clock,
-    Camera,
-    MapPin,
-    Edit,
-} from "lucide-react";
+import React, { useState } from "react";
+import MyProfile_Teacher from "./MyProfile/MyProfile_Teacher";
+import MyProfile_Student from "./MyProfile/MyProfile_Student";
+import MyProfile_Admin from "./MyProfile/MyProfile_Admin";
+import { ShieldCheck, Mail, User, Clock, Phone, MapPin, Edit, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import UpdateTeacherModal from "./teacherModals/UpdateTeacherModal";
-
+import UpdateAdminModal from "./adminModals/UpdateAdminModal";
 import { Button } from "@/components/ui/button";
 
 interface MyProfileProps {
@@ -26,7 +15,7 @@ interface MyProfileProps {
 }
 
 const MyProfile = ({ userInfo }: MyProfileProps) => {
-    const [isUpdateModalOpen, setIsUpdateModalOpen] = React.useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     if (!userInfo) return null;
 
     const role = userInfo.role;
@@ -39,177 +28,161 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
     };
 
     const roleData = getRoleData();
-    // Pre-map roleData for teacher to match ITeacher if needed, 
-    // although roleData likely already matches.
-    const teacherData = role === "TEACHER" ? roleData : null;
 
-    const profilePhoto = roleData?.profilePhoto || userInfo.image || null;
+    if (role === "TEACHER") {
+        return <MyProfile_Teacher userInfo={userInfo} roleData={roleData} />;
+    }
 
-    const joinDate = roleData?.createdAt
-        ? format(new Date(roleData.createdAt), "MMMM d, yyyy")
+    if (role === "STUDENT") {
+        return <MyProfile_Student userInfo={userInfo} roleData={roleData} />;
+    }
+
+    if (role === "ADMIN") {
+        return <MyProfile_Admin userInfo={userInfo} roleData={roleData} />;
+    }
+
+    const profilePhoto =
+        roleData?.profilePhoto ||
+        roleData?.profileImage ||
+        userInfo.image ||
+        null;
+
+    const joinDate = userInfo.createdAt
+        ? format(new Date(userInfo.createdAt), "MMMM d, yyyy")
         : "N/A";
 
     return (
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 animate-in fade-in duration-500">
 
-            {/* HERO */}
-            <div className="relative overflow-visible md:overflow-hidden bg-white/60 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-5 sm:p-8">
+            {/* 🔥 HERO SECTION */}
+            <div className="relative rounded-3xl overflow-hidden bg-white/70 backdrop-blur-xl border shadow-xl">
 
-                {/* Gradient */}
-                <div className="absolute top-0 left-0 w-full h-32 sm:h-40 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 opacity-90 rounded-t-3xl" />
+                {/* Gradient Top */}
+                <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-r from-gray-900 to-gray-800" />
 
-                <div className="relative flex flex-col lg:flex-row items-center lg:items-end gap-6">
+                <div className="relative flex flex-col lg:flex-row items-center lg:items-end gap-6 lg:gap-10 p-6 sm:p-10 pt-20">
 
                     {/* Avatar */}
-                    <div className="relative flex-shrink-0 mt-10 lg:mt-0">
-                        <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 rounded-2xl overflow-hidden border-4 border-white shadow-xl bg-gray-100 flex items-center justify-center group">
-
+                    <div className="relative">
+                        <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-gray-100 flex items-center justify-center group relative ring-8 ring-white/10">
                             {profilePhoto ? (
                                 <img
                                     src={profilePhoto}
                                     alt="profile"
-                                    className="w-full h-full object-cover transition group-hover:scale-110"
+                                    className="w-full h-full object-cover transition duration-500 group-hover:scale-110"
                                 />
                             ) : (
-                                <User className="w-12 h-12 text-gray-300" />
+                                <User className="w-14 h-14 text-gray-300" />
                             )}
-
-                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <Camera className="w-6 h-6 text-white" />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer" onClick={() => setIsUpdateModalOpen(true)}>
+                                <Camera className="w-8 h-8 text-white" />
                             </div>
                         </div>
 
-                        <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
+                        <div className="absolute -bottom-2 -right-2 bg-indigo-600 p-2 rounded-xl border-4 border-white shadow-md">
+                            <ShieldCheck className="w-4 h-4 text-white" />
+                        </div>
                     </div>
 
-                    {/* INFO */}
-                    <div className="flex-1 min-w-0 text-center lg:text-left space-y-3 w-full">
-
-                        {/* Name + Status */}
-                        <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4">
-
-                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold break-words bg-gradient-to-r from-gray-900 via-indigo-700 to-purple-700 bg-clip-text text-transparent">
-                                {userInfo.name}
-                            </h1>
-
-                            <div className="flex items-center gap-2 mx-auto lg:mx-0">
-                                <span
-                                    className={cn(
-                                        "px-3 py-1 rounded-xl text-xs font-bold w-fit",
-                                        userInfo.status === "ACTIVE"
-                                            ? "bg-green-500 text-white"
-                                            : "bg-red-500 text-white"
-                                    )}
-                                >
-                                    {userInfo.status}
-                                </span>
-
-                                {role === "TEACHER" && (
-                                    <Button 
-                                        onClick={() => setIsUpdateModalOpen(true)}
-                                        size="sm" 
-                                        variant="outline" 
-                                        className="rounded-xl border-indigo-200 text-indigo-600 hover:bg-indigo-50 font-bold gap-2 h-8"
-                                    >
-                                        <Edit className="w-3.5 h-3.5" />
-                                        Edit Profile
-                                    </Button>
-                                )}
+                    {/* Info */}
+                    <div className="flex-1 text-center lg:text-left space-y-3">
+                        <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
+                            <div className="space-y-1">
+                                <p className="text-[10px] uppercase tracking-[0.3em] text-indigo-400 font-bold">
+                                    Master Authority
+                                </p>
+                                <h1 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight text-gray-900">
+                                    {userInfo.name}
+                                </h1>
                             </div>
+                            <Button onClick={() => setIsUpdateModalOpen(true)} size="sm" variant="secondary" className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all mx-auto lg:mx-0">
+                                <Edit className="w-3.5 h-3.5 mr-2" />
+                                Update Profile
+                            </Button>
                         </div>
 
-                        {/* Role + Email */}
-                        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-5 justify-center lg:justify-start">
-
-                            <span className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-1.5 rounded-xl text-xs sm:text-sm font-bold">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-2">
+                            <span className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold tracking-wide shadow">
                                 <ShieldCheck className="w-4 h-4" />
                                 {role.replace("_", " ")}
                             </span>
 
-                            <div
-                                title={userInfo.email}
-                                className="flex items-center gap-2 text-gray-500 text-xs sm:text-sm bg-gray-50 px-3 py-1.5 rounded-xl border truncate max-w-full sm:max-w-[250px]"
-                            >
+                            <span className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-1.5 rounded-xl text-sm shadow border">
                                 <Mail className="w-4 h-4 text-indigo-500" />
                                 {userInfo.email}
-                            </div>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* GRID */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* 🔥 GRID SECTION */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
                 {/* LEFT */}
-                <div className="space-y-6">
+                <div className="lg:col-span-4 space-y-6">
+                    <div className="bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border shadow-md hover:shadow-lg transition">
+                        <SectionTitle icon={Clock} title="Enrollment Info" />
 
-                    <div className="bg-white/60 backdrop-blur-xl p-5 sm:p-6 rounded-2xl border shadow hover:shadow-lg transition">
-                        <h3 className="font-bold mb-4 flex items-center gap-2 text-sm sm:text-base">
-                            <BadgeCheck className="text-indigo-500" />
-                            Core Info
-                        </h3>
-
-                        <InfoItem
-                            icon={Clock}
-                            label="Joined Date"
-                            value={format(new Date(userInfo.createdAt), "MMM d, h:mm a")}
-                        />
-                        <InfoItem icon={Phone} label="Contact" value={roleData?.contactNumber || "N/A"} />
-                        {roleData?.designation && (
-                            <InfoItem icon={Briefcase} label="Designation" value={roleData.designation} />
-                        )}
-                        {roleData?.qualification && (
-                            <InfoItem icon={GraduationCap} label="Qualification" value={roleData.qualification} />
-                        )}
-                        {roleData?.address && (
-                            <InfoItem icon={MapPin} label="Address" value={roleData.address} />
-                        )}
-
+                        <div className="space-y-4">
+                            <InfoItem icon={Clock} label="Joined" value={joinDate} />
+                            <InfoItem
+                                icon={Phone}
+                                label="Contact"
+                                value={roleData?.contactNumber}
+                            />
+                            <InfoItem
+                                icon={MapPin}
+                                label="Address"
+                                value={roleData?.address}
+                            />
+                        </div>
                     </div>
 
-                    <div className="bg-gray-900 text-white p-5 sm:p-6 rounded-2xl shadow-lg">
-                        <h4 className="font-bold text-lg mb-2">System Secure</h4>
-                        <p className="text-gray-400 text-sm">
-                            Your account is protected with encryption.
+                    {/* Status Card */}
+                    <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-6 rounded-3xl shadow-lg">
+                        <p className="text-xs uppercase tracking-widest text-indigo-400 mb-2">
+                            Security Level
                         </p>
-
-                        <div className="mt-3 h-2 bg-white/10 rounded-full">
-                            <div className="h-full w-[95%] bg-indigo-500 rounded-full" />
-                        </div>
+                        <h4 className="text-2xl font-bold">Full Access</h4>
+                        <p className="text-xs text-gray-400 mt-1">
+                            System fully authorized
+                        </p>
                     </div>
                 </div>
 
                 {/* RIGHT */}
-                <div className="lg:col-span-2 bg-white/60 backdrop-blur-xl rounded-2xl p-5 sm:p-6 border shadow hover:shadow-lg transition">
+                <div className="lg:col-span-8">
+                    <div className="bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border shadow-md h-full">
 
-                    <h3 className="font-bold mb-4 flex items-center gap-2 text-sm sm:text-base">
-                        {role === "STUDENT" ? <GraduationCap /> : <Briefcase />}
-                        Role Insights
-                    </h3>
+                        <SectionTitle icon={ShieldCheck} title="Privileges" />
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-                        {[
-                            { label: "Integrity", value: "Perfect" },
-                            { label: "Uptime", value: "100%" },
-                            { label: "Tier", value: "Elite" },
-                            { label: "Alerts", value: "Safe" },
-                        ].map((item) => (
-                            <div key={item.label}>
-                                <p className="text-[10px] text-gray-400 uppercase">
-                                    {item.label}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+
+                            <div className="p-6 bg-indigo-50 rounded-2xl border">
+                                <p className="text-xs uppercase text-indigo-500 font-bold mb-1">
+                                    Access
                                 </p>
-                                <p className="text-base sm:text-lg font-bold text-gray-900">
-                                    {item.value}
-                                </p>
+                                <p className="text-xl font-bold">ROOT ACCESS</p>
                             </div>
-                        ))}
+
+                            <div className="p-6 bg-green-50 rounded-2xl border">
+                                <p className="text-xs uppercase text-green-500 font-bold mb-1">
+                                    Status
+                                </p>
+                                <p className="text-xl font-bold">{userInfo.status}</p>
+                            </div>
+
+                            <div className="sm:col-span-2 p-6 bg-gray-50 rounded-2xl border text-sm text-gray-500 italic">
+                                “With great power comes great responsibility.”
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <UpdateTeacherModal 
-                teacher={teacherData} 
+            <UpdateAdminModal 
+                admin={{...roleData, name: userInfo.name}} 
                 isOpen={isUpdateModalOpen} 
                 onOpenChange={setIsUpdateModalOpen} 
             />
@@ -217,19 +190,25 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
     );
 };
 
-export default MyProfile;
 
-/* Reusable */
-const InfoItem = ({ icon: Icon, label, value }: any) => (
+const SectionTitle = ({ icon: Icon, title }: any) => (
     <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 bg-gray-100 rounded-lg">
-            <Icon className="w-4 h-4 text-indigo-500" />
+        <div className="p-2 bg-indigo-100 rounded-xl text-indigo-600">
+            <Icon size={18} />
         </div>
-        <div className="min-w-0">
-            <p className="text-[10px] text-gray-400 uppercase">{label}</p>
-            <p className="font-semibold text-sm sm:text-base break-words">
-                {value}
-            </p>
+        <h3 className="text-sm font-bold tracking-wide">{title}</h3>
+        <div className="flex-1 h-px bg-gray-200" />
+    </div>
+);
+
+const InfoItem = ({ icon: Icon, label, value }: any) => (
+    <div className="flex items-center gap-3">
+        <Icon className="w-4 h-4 text-indigo-500" />
+        <div>
+            <p className="text-xs text-gray-400">{label}</p>
+            <p className="font-semibold text-gray-800">{value || "N/A"}</p>
         </div>
     </div>
 );
+
+export default MyProfile;

@@ -91,10 +91,12 @@ export async function proxy(request: NextRequest) {
       pathname !== "/change-password"
 
     ) {
+      const redirectParam = request.nextUrl.searchParams.get("redirect");
+      if (redirectParam && redirectParam.startsWith("/")) {
+        return NextResponse.redirect(new URL(redirectParam, request.url));
+      }
       return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
     }
-
-
     // Rule-3 User trying to access Public route -> allow
     if (routerOwner === null) {
       return NextResponse.next();
@@ -140,6 +142,35 @@ export async function proxy(request: NextRequest) {
         if (!userInfo.needPasswordChange && pathname === "/reset-password") {
           return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
         }
+
+        if (userInfo?.role === "STUDENT") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.next();
+          }
+        }
+        if (userInfo?.role === "APPLICANT") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.next();
+          }
+        }
+        if (userInfo?.role === "TEACHER") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+          }
+        }
+        if (userInfo?.role === "ADMIN") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+          }
+        }
+        if (userInfo?.role === "SUPER_ADMIN") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+          }
+        }
+
+
+
       }
     }
 

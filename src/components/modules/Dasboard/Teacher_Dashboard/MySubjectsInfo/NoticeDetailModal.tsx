@@ -48,6 +48,9 @@ const NoticeDetailModal = ({ notice, isOpen, onOpenChange }: NoticeDetailModalPr
             </span>
           </div>
           <DialogTitle className="text-2xl font-bold leading-tight">{notice.title}</DialogTitle>
+          <DialogDescription className="sr-only">
+            Detailed information about the notice titled "{notice.title}" of type {notice.type}.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4 py-4">

@@ -7,11 +7,15 @@ import { examColumns } from './examsColumn';
 import { IExamsData } from '@/types/Dashboard/admin-dashboard-types/exams-managements';
 import CreateExamsModal from './CreateExamsModal';
 import ViewExamsModal from './ViewExamsModal';
+import UpdateExamsModal from './UpdateExamsModal';
+import DeleteExamModal from './DeleteExamModal';
 
 
 const ExamsManagements = () => {
  const [selectedExam, setSelectedExam] = useState<IExamsData | null>(null);
  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+ const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+ const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
  const { data: examsResponse, refetch } = useQuery({
   queryKey: ["exams"],
@@ -19,12 +23,20 @@ const ExamsManagements = () => {
   refetchOnWindowFocus: true,
 
  })
- 
+
  const { data: exams = [] } = examsResponse || {}
 
  const handleView = (exam: IExamsData) => {
   setSelectedExam(exam);
   setIsViewModalOpen(true);
+ }
+ const handleEdit = (exam: IExamsData) => {
+    setSelectedExam(exam);
+    setIsUpdateModalOpen(true);
+ }
+ const handleDelete = (exam: IExamsData) => {
+    setSelectedExam(exam);
+    setIsDeleteModalOpen(true);
  }
 
 
@@ -40,14 +52,28 @@ const ExamsManagements = () => {
     actions={
      {
       onView: handleView,
+      onEdit: handleEdit,
+      onDelete: handleDelete,
      }
     }
    />
 
-   <ViewExamsModal 
-    open={isViewModalOpen} 
-    onOpenChange={setIsViewModalOpen} 
-    exam={selectedExam} 
+   <ViewExamsModal
+    open={isViewModalOpen}
+    onOpenChange={setIsViewModalOpen}
+    exam={selectedExam}
+   />
+
+   <UpdateExamsModal 
+    isOpen={isUpdateModalOpen}
+    onOpenChange={setIsUpdateModalOpen}
+    exam={selectedExam}
+   />
+
+   <DeleteExamModal 
+    isOpen={isDeleteModalOpen}
+    onOpenChange={setIsDeleteModalOpen}
+    exam={selectedExam}
    />
   </div>
  );

@@ -15,3 +15,9 @@ export enum PaymentStatus {
  FAILED = "FAILED",
  PENDING = "PENDING"
 }
+
+export enum FromFillupStatus {
+ PENDING = "PENDING",
+ APPROVED = "APPROVED",
+ REJECTED = "REJECTED"
+}

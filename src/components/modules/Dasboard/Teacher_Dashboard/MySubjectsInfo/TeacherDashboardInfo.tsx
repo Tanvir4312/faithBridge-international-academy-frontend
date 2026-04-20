@@ -20,7 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useMemo } from "react";
 import NoticeDetailModal from "./NoticeDetailModal";
-import StudentDetailsModal from "@/components/shared/studentModals/StudentDetailsModal";
+import StudentDetailsForTeacher from "./StudentDetailsForTeacher";
 import { Button } from "@/components/ui/button";
 
 const TeacherDashboardInfo = ({ teacherId }: { teacherId: string }) => {
@@ -33,9 +33,10 @@ const TeacherDashboardInfo = ({ teacherId }: { teacherId: string }) => {
   });
 
   const teacherInfo = teacherInfoResponse?.data;
+
   const classData = teacherInfo?.classTeacher?.class;
   const students = classData?.students || [];
-  
+
   const stats = useMemo(() => {
     return {
       total: students.length,
@@ -56,23 +57,17 @@ const TeacherDashboardInfo = ({ teacherId }: { teacherId: string }) => {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 animate-in fade-in duration-500 pb-10">
-      
-      <NoticeDetailModal 
-        notice={selectedNotice} 
-        isOpen={!!selectedNotice} 
-        onOpenChange={(open) => !open && setSelectedNotice(null)} 
+
+      <NoticeDetailModal
+        notice={selectedNotice}
+        isOpen={!!selectedNotice}
+        onOpenChange={(open) => !open && setSelectedNotice(null)}
       />
-      <StudentDetailsModal 
-        student={selectedStudent ? {
-          ...selectedStudent,
-          user: selectedStudent.user || {
-            email: teacherInfo.email, // fallback
-            role: "STUDENT",
-            status: "ACTIVE"
-          }
-        } : null} 
-        isOpen={!!selectedStudent} 
-        onOpenChange={(open: boolean) => !open && setSelectedStudent(null)} 
+      <StudentDetailsForTeacher
+        student={selectedStudent}
+        classData={classData}
+        isOpen={!!selectedStudent}
+        onOpenChange={(open: boolean) => !open && setSelectedStudent(null)}
       />
 
       {/* PROFILE CARD */}

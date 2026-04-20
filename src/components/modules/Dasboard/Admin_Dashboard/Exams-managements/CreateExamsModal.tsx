@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { Plus, Loader2, Calendar, Save, Type, Clock } from "lucide-react"
 import { toast } from 'sonner'
 import { createExam } from '@/services/admin-srever-action/exams-managements.service'
+import { IExamCreatePayload } from '@/types/Dashboard/admin-dashboard-types/exams-managements'
 
 interface CreateExamsModalProps {
     onSuccess: () => void;
@@ -27,12 +28,13 @@ const CreateExamsModal = ({ onSuccess }: CreateExamsModalProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
-        
-        const payload = {
+
+        const payload: IExamCreatePayload = {
             name: formData.get('name') as string,
             year: formData.get('year') as string,
             formFillupStart: formData.get('formFillupStart') as string,
             formFillupEnd: formData.get('formFillupEnd') as string,
+            examDate: formData.get('examDate') as string,
         }
 
         if (!payload.name || !payload.year || !payload.formFillupStart || !payload.formFillupEnd) {
@@ -158,22 +160,37 @@ const CreateExamsModal = ({ onSuccess }: CreateExamsModalProps) => {
                                         />
                                     </div>
                                 </div>
+                                <div className="space-y-3 text-left">
+                                    <Label htmlFor="examDate" className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-primary/60 ml-1">
+                                        Exam Date
+                                    </Label>
+                                    <div className="relative text-left flex items-center">
+                                        <Clock className="absolute left-4 h-4 w-4 text-primary z-20" />
+                                        <Input
+                                            id="examDate"
+                                            name="examDate"
+                                            type="datetime-local"
+                                            required
+                                            className="pl-12 h-14 rounded-2xl border-muted-foreground/20 focus-visible:ring-primary shadow-inner bg-muted/20 font-bold text-xs sm:text-sm"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         {/* Action Buttons Stacking for Mobile */}
                         <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-dashed">
-                            <Button 
-                                type="submit" 
+                            <Button
+                                type="submit"
                                 disabled={isSubmitting}
                                 className="w-full sm:flex-1 h-14 rounded-2xl font-black bg-primary hover:bg-primary/90 text-white gap-3 shadow-lg shadow-primary/20 transition-all hover:-translate-y-1 active:scale-95 text-sm sm:text-base"
                             >
                                 {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
                                 SAVE EXAMINATION
                             </Button>
-                            <Button 
-                                type="button" 
-                                variant="ghost" 
+                            <Button
+                                type="button"
+                                variant="ghost"
                                 onClick={() => setIsOpen(false)}
                                 disabled={isSubmitting}
                                 className="w-full sm:w-auto h-14 rounded-2xl font-bold text-muted-foreground px-8 hover:bg-muted text-xs sm:text-sm"

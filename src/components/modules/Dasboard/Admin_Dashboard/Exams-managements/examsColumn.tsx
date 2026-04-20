@@ -36,6 +36,17 @@ export const examColumns: ColumnDef<IExamsData>[] = [
   }
  },
  {
+  id: "examDate",
+  accessorKey: "examDate",
+  header: "Exam Date",
+  enableSorting: false,
+  cell: ({ row }) => {
+   if (!row.original.examDate) return "N/A";
+   const date = formatDate(new Date(row.original.examDate), "MMMM d, yyyy");
+   return date;
+  }
+ },
+ {
   id: "createdAt",
   accessorKey: "createdAt",
   header: "Created At",

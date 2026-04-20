@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { User, Camera, Save, X, Phone, MapPin, Fingerprint, Languages } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 // Schema matching backend requirements
 const updateStudentSchema = z.object({
@@ -39,6 +40,7 @@ interface UpdateStudentModalProps {
 
 const UpdateStudentModal = ({ student, isOpen, onOpenChange }: UpdateStudentModalProps) => {
     const queryClient = useQueryClient()
+    const router = useRouter()
     const [imagePreview, setImagePreview] = useState<string | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
@@ -79,6 +81,7 @@ const UpdateStudentModal = ({ student, isOpen, onOpenChange }: UpdateStudentModa
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['students'] })
+            router.refresh()
             toast.success("Student profile updated successfully", {
                 description: "The registry has been synchronized with your changes.",
                 className: "bg-emerald-500 text-white border-none shadow-2xl",
@@ -132,7 +135,8 @@ const UpdateStudentModal = ({ student, isOpen, onOpenChange }: UpdateStudentModa
                         <div className="relative flex items-center gap-6 md:gap-10 w-full z-10 transition-transform duration-500 group-hover:translate-x-2 min-w-0">
                             <div className="relative h-24 w-24 sm:h-32 sm:w-32 rounded-[2rem] overflow-hidden border-4 border-white shadow-2xl bg-white group-hover:rotate-2 transition-transform">
                                 {imagePreview ? (
-                                    <Image src={imagePreview} alt="Preview" fill className="object-cover" />
+                                    <Image src={imagePreview} alt="Preview" fill className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                                 ) : (
                                     <div className="h-full w-full flex items-center justify-center bg-muted">
                                         <User className="h-12 w-12 text-muted-foreground/30" />

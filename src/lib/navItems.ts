@@ -161,8 +161,8 @@ export const studentNavItems: NavSection[] = [
             //     icon: "UserIcon"
             // },
             {
-                title: "My Exams",
-                href: "/student/dashboard/my-exam",
+                title: "My Exams & Results",
+                href: "/student/dashboard/my-exam-results",
                 icon: "FileTextIcon"
             },
             {
@@ -178,7 +178,7 @@ export const studentNavItems: NavSection[] = [
         items: [
             {
                 title: "My Payments",
-                href: "/student/my-payments",
+                href: "/student/my-payments/success",
                 icon: "CreditCardIcon"
             }
         ]
@@ -211,7 +211,7 @@ export const applicantNavItems: NavSection[] = [
         items: [
             {
                 title: "My Payment",
-                href: "/dashboard/payment",
+                href: "/applicant-payment/success",
                 icon: "CreditCardIcon"
             }
         ]

@@ -3,8 +3,9 @@ export interface IExamsData {
  id: string;
  name: string;
  year: string;
- formFillupStart: string;
- formFillupEnd: string;
+ formFillupStart: Date;
+ formFillupEnd: Date;
+ examDate?: Date;
  createdAt: string;
  formFillupStatus?: string[];
  isDeleted?: boolean;
@@ -42,4 +43,13 @@ export interface IExamCreatePayload {
  year: string;
  formFillupStart: string;
  formFillupEnd: string;
+ examDate: string;
+}
+
+export interface IExamUpdatePayload {
+  name?: string;
+  year?: string;
+  formFillupStart?: string;
+  formFillupEnd?: string;
+  examDate?: string;
 }
