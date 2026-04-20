@@ -7,11 +7,9 @@ import { Badge } from '@/components/ui/badge'
 
 
 const PaymentDashboard = ({ userInfo }: { userInfo: any }) => {
- const [txId, setTxId] = React.useState<string | null>(null)
- console.log(userInfo)
- React.useEffect(() => {
-  setTxId(`SYS-${Math.random().toString(36).substr(2, 6).toUpperCase()}`)
- }, [])
+
+
+
  return (
   <div className="min-h-[85vh] w-full flex items-center justify-center p-6 bg-slate-50/30">
    <div className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-700">
@@ -47,15 +45,7 @@ const PaymentDashboard = ({ userInfo }: { userInfo: any }) => {
 
       {/* Transaction Detail Card */}
       <div className="w-full bg-slate-50/50 rounded-[2rem] border border-slate-100 p-6 mb-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
-       <div className="flex items-center gap-4 text-left">
-        <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center border border-slate-100 shadow-sm">
-         <Receipt className="h-5 w-5 text-emerald-500" />
-        </div>
-        <div>
-         <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">Transaction ID</p>
-         <p className="text-xs font-black text-slate-900 uppercase">{txId ? txId : <span className="opacity-50">SYNCING...</span>}</p>
-        </div>
-       </div>
+
        <div className="flex items-center gap-4 text-left">
         <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center border border-slate-100 shadow-sm">
          <Lock className="h-5 w-5 text-indigo-500" />

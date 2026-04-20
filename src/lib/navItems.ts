@@ -117,6 +117,11 @@ export const adminNavItems: NavSection[] = [
                 title: "All Media",
                 href: "/admin/dashboard/all-media",
                 icon: "ImageIcon"
+            },
+            {
+                title: "Admission Time Config",
+                href: "/admin/dashboard/admission-time-config",
+                icon: "ClockIcon"
             }
         ]
     },
@@ -142,11 +147,7 @@ export const teacherNavItems: NavSection[] = [
                 href: "/teacher/dashboard/my-subjects",
                 icon: "BookIcon"
             },
-            // {
-            //     title: "My Profile",
-            //     href: "/teacher/dashboard/my-profile",
-            //     icon: "UserIcon"
-            // }
+
         ]
     }
 ]
@@ -155,11 +156,7 @@ export const studentNavItems: NavSection[] = [
     {
         title: "Academics",
         items: [
-            // {
-            //     title: "My Profile",
-            //     href: "/student/dashboard/my-profile",
-            //     icon: "UserIcon"
-            // },
+
             {
                 title: "My Exams & Results",
                 href: "/student/dashboard/my-exam-results",
@@ -199,11 +196,7 @@ export const applicantNavItems: NavSection[] = [
                 href: "/dashboard/my-application",
                 icon: "FileTextIcon"
             },
-            // {
-            //     title: "My Profile",
-            //     href: "/dashboard/my-profile",
-            //     icon: "UserIcon"
-            // }
+
         ]
     },
     {

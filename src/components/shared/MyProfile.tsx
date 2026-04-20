@@ -18,7 +18,7 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
     if (!userInfo) return null;
 
-    const role = userInfo.role;
+    const role = userInfo?.role;
 
     const getRoleData = () => {
         if (userInfo.admin) return userInfo.admin;
@@ -74,9 +74,11 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                             ) : (
                                 <User className="w-14 h-14 text-gray-300" />
                             )}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer" onClick={() => setIsUpdateModalOpen(true)}>
-                                <Camera className="w-8 h-8 text-white" />
-                            </div>
+                            {role !== "APPLICANT" && (
+                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer" onClick={() => setIsUpdateModalOpen(true)}>
+                                    <Camera className="w-8 h-8 text-white" />
+                                </div>
+                            )}
                         </div>
 
                         <div className="absolute -bottom-2 -right-2 bg-indigo-600 p-2 rounded-xl border-4 border-white shadow-md">
@@ -89,16 +91,18 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                         <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
                             <div className="space-y-1">
                                 <p className="text-[10px] uppercase tracking-[0.3em] text-indigo-400 font-bold">
-                                    Master Authority
+                                    {role === "APPLICANT" ? "Candidate Profile" : "Master Authority"}
                                 </p>
                                 <h1 className="text-2xl sm:text-4xl lg:text-6xl font-black tracking-tight text-gray-900">
                                     {userInfo.name}
                                 </h1>
                             </div>
-                            <Button onClick={() => setIsUpdateModalOpen(true)} size="sm" variant="secondary" className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all mx-auto lg:mx-0">
-                                <Edit className="w-3.5 h-3.5 mr-2" />
-                                Update Profile
-                            </Button>
+                            {role !== "APPLICANT" && (
+                                <Button onClick={() => setIsUpdateModalOpen(true)} size="sm" variant="secondary" className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all mx-auto lg:mx-0">
+                                    <Edit className="w-3.5 h-3.5 mr-2" />
+                                    Update Profile
+                                </Button>
+                            )}
                         </div>
 
                         <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-2">
@@ -142,11 +146,16 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                     {/* Status Card */}
                     <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-6 rounded-3xl shadow-lg">
                         <p className="text-xs uppercase tracking-widest text-indigo-400 mb-2">
-                            Security Level
+                            {role === "APPLICANT" ? "Portal Status" : "Security Level"}
                         </p>
-                        <h4 className="text-2xl font-bold">Full Access</h4>
+                        <h4 className="text-2xl font-bold">
+                            {role === "APPLICANT" ? "Registered Member" : "Full Access"}
+                        </h4>
                         <p className="text-xs text-gray-400 mt-1">
-                            System fully authorized
+                            {role === "APPLICANT"
+                                ? "Complete your admission application to proceed"
+                                : "System fully authorized"
+                            }
                         </p>
                     </div>
                 </div>
@@ -155,15 +164,17 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                 <div className="lg:col-span-8">
                     <div className="bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border shadow-md h-full">
 
-                        <SectionTitle icon={ShieldCheck} title="Privileges" />
+                        <SectionTitle icon={ShieldCheck} title={role === "APPLICANT" ? "Permissions" : "Privileges"} />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
 
                             <div className="p-6 bg-indigo-50 rounded-2xl border">
                                 <p className="text-xs uppercase text-indigo-500 font-bold mb-1">
-                                    Access
+                                    {role === "APPLICANT" ? "Account Level" : "Access"}
                                 </p>
-                                <p className="text-xl font-bold">ROOT ACCESS</p>
+                                <p className="text-xl font-bold">
+                                    {role === "APPLICANT" ? "STANDARD USER" : "ROOT ACCESS"}
+                                </p>
                             </div>
 
                             <div className="p-6 bg-green-50 rounded-2xl border">
@@ -174,17 +185,20 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                             </div>
 
                             <div className="sm:col-span-2 p-6 bg-gray-50 rounded-2xl border text-sm text-gray-500 italic">
-                                “With great power comes great responsibility.”
+                                {role === "APPLICANT"
+                                    ? "“You have successfully joined our portal. Explore the dashboard to start your journey with us.”"
+                                    : "“With great power comes great responsibility.”"
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <UpdateAdminModal 
-                admin={{...roleData, name: userInfo.name}} 
-                isOpen={isUpdateModalOpen} 
-                onOpenChange={setIsUpdateModalOpen} 
+            <UpdateAdminModal
+                admin={{ ...roleData, name: userInfo.name }}
+                isOpen={isUpdateModalOpen}
+                onOpenChange={setIsUpdateModalOpen}
             />
         </div>
     );

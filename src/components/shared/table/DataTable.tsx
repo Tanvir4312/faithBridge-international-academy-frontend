@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { ColumnDef, flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ArrowUpDown, MoreHorizontal, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -135,38 +136,47 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
             }
 
             {/* Table Actions / Search Toolbar */}
-            {searching && (
-                <div className="flex items-center justify-between pb-4">
-                    <div className="relative w-full max-w-sm group">
-                        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary">
-                            {isLoading ? (
-                                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                            ) : (
-                                <Search className="h-4 w-4" />
+            {(searching || toolbarAction) && (
+                <div className={cn("flex flex-col sm:flex-row items-center justify-between gap-4 pb-6", !searching && "justify-end")}>
+                    {searching && (
+                        <div className="relative w-full max-w-sm group">
+                            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary">
+                                {isLoading ? (
+                                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                                ) : (
+                                    <Search className="h-4 w-4" />
+                                )}
+                            </div>
+                            <Input
+                                placeholder="Fine-grained search..."
+                                value={localSearchTerm}
+                                onChange={(e) => setLocalSearchTerm(e.target.value)}
+                                className="pl-10 pr-10 h-11 bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl shadow-sm focus:shadow-md"
+                            />
+                            {localSearchTerm && (
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-transparent text-muted-foreground hover:text-rose-500"
+                                    onClick={() => {
+                                        setLocalSearchTerm("");
+                                        searching.onSearchChange("");
+                                    }}
+                                >
+                                    <X className="h-4 w-4" />
+                                </Button>
                             )}
                         </div>
-                        <Input
-                            placeholder="Fine-grained search..."
-                            value={localSearchTerm}
-                            onChange={(e) => setLocalSearchTerm(e.target.value)}
-                            className="pl-10 pr-10 h-11 bg-gray-50/50 border-gray-100 focus:bg-white transition-all rounded-2xl shadow-sm focus:shadow-md"
-                        />
-                        {localSearchTerm && (
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-transparent text-muted-foreground hover:text-rose-500"
-                                onClick={() => {
-                                    setLocalSearchTerm("");
-                                    searching.onSearchChange("");
-                                }}
-                            >
-                                <X className="h-4 w-4" />
-                            </Button>
-                        )}
-                    </div>
+                    )}
+
+                    {toolbarAction && (
+                        <div className="flex items-center gap-2 w-full sm:w-auto">
+                            {toolbarAction}
+                        </div>
+                    )}
                 </div>
             )}
+
 
             {/* Table */}
             <div className="rounded-lg border">
