@@ -9,8 +9,10 @@ const MyApplicationPage = async () => {
     const applicantId = userInfo?.application?.id
     const queryClient = new QueryClient()
     await queryClient.prefetchQuery({
-        queryKey: ["my-application"],
+        queryKey: ["my-application", applicantId],
         queryFn: () => getMyApplicationInfo(applicantId),
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 10,
     })
     return (
         <div>

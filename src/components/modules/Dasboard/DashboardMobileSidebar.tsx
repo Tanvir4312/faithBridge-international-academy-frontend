@@ -34,16 +34,16 @@ const DashboardMobileSidebar = ({ dashboardHome, navItems, userInfo }: Dashboard
 
       <ScrollArea className="flex-1 px-3 py-4">
         <nav className="space-y-1">
-          {navItems.map((section, sectionId) => (
+          {navItems?.map((section, sectionId) => (
             <div key={sectionId}>
-              {section.title && (
+              {section?.title && (
                 <h4 className="mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase">
-                  {section.title}
+                  {section?.title}
                 </h4>
               )}
 
               <div className="space-y-1">
-                {section.items.map((item, id) => {
+                {section?.items?.map((item, id) => {
                   const isActive = pathname === item.href;
                   const Icon = getIconComponent(item.icon);
 

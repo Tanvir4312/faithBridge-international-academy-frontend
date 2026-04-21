@@ -9,6 +9,7 @@ const CreateApplicationPage
         await queryClient.prefetchQuery({
             queryKey: ["admission-config"],
             queryFn: getAdmissionTimeConfig,
+
         });
         return (
             <div>

@@ -15,9 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "School management system",
+  title: "FaithBridge International Academy",
   description:
-    "School management system with Next.js and Geist UI and Tailwind CSS framework with shadcn/ui components and Radix UI. Next.js, Geist UI, Tailwind CSS, shadcn/ui, Radix UI and TypeScript are used in this project.",
+    "FaithBridge International Academy is a school management system with Next.js and Geist UI and Tailwind CSS framework with shadcn/ui components and Radix UI. Next.js, Geist UI, Tailwind CSS, shadcn/ui, Radix UI and TypeScript are used in this project.",
+  icons: {
+    icon: '/favicon.jpg', // public ফোল্ডারে থাকা ফাইলের পাথ
+  },
 };
 
 export default function RootLayout({

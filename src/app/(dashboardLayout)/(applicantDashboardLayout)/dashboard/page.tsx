@@ -8,12 +8,14 @@ const DashboardPage = async () => {
     const userInfo = await getUserInfo()
     const applicantId = userInfo?.application?.id
     const queryClient = new QueryClient();
-    
-    // We prefetch using the same query key format
+
+
     if (applicantId) {
         await queryClient.prefetchQuery({
-            queryKey: ["my-application"],
+            queryKey: ["my-application", applicantId],
             queryFn: () => getMyApplicationInfo(applicantId),
+            staleTime: 1000 * 60 * 5,
+            gcTime: 1000 * 60 * 10,
         });
     }
 

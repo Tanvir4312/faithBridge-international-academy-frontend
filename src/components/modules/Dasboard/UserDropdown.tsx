@@ -16,18 +16,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 interface UserDropdownProps {
     userInfo: UserInfo;
 }
 
 const UserDropdown = ({ userInfo }: UserDropdownProps) => {
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const handleLogout = async () => {
         try {
             const result = await logoutUser();
 
             if (result.success) {
+                queryClient.clear();
                 toast.success("Logged out successfully");
                 router.push("/login");
                 router.refresh();

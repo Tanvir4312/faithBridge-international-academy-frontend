@@ -169,6 +169,13 @@ export async function proxy(request: NextRequest) {
           }
         }
 
+        if (userInfo?.role !== "APPLICANT") {
+          if (pathname === "/dashboard/create-application") {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+          }
+
+        }
+        return NextResponse.next();
 
 
       }

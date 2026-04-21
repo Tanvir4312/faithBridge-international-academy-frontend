@@ -19,8 +19,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const ApplicantDashboardHomeClient = ({ applicantId }: { applicantId: string }) => {
     const { data: applicationResponse, isLoading } = useQuery({
-        queryKey: ["my-application"],
+        queryKey: ["my-application", applicantId],
         queryFn: () => getMyApplicationInfo(applicantId),
+        refetchOnMount: true,
+        refetchOnWindowFocus: true,
     });
 
     const application = applicationResponse?.data;

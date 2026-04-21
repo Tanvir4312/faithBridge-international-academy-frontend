@@ -29,8 +29,10 @@ import Image from "next/image"
 
 const MyApplicationClient = ({ applicantId }: { applicantId: string }) => {
  const { data: myApplicationInfoResponse, isLoading } = useQuery({
-  queryKey: ["my-application"],
+  queryKey: ["my-application", applicantId],
   queryFn: () => getMyApplicationInfo(applicantId),
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
  })
 
  const application = myApplicationInfoResponse?.data;
