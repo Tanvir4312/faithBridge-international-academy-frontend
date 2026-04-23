@@ -10,7 +10,7 @@ interface UserInfoCellProps {
 const UserInfoCell = ({ name, email, profilePhoto }: UserInfoCellProps) => {
     const initials = name
         .split(" ")
-        .map((part) => part.charAt(0).toUpperCase())
+        ?.map((part) => part.charAt(0).toUpperCase())
         .join("")
         .slice(0, 2); // Limit to 2 characters
 

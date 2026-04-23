@@ -29,20 +29,20 @@ const AcademicLevel = () => {
                         <p className="text-muted-foreground text-sm">Organize and manage school tiers and class groupings.</p>
                     </div>
                 </div>
-                
+
                 <CreateAcademicLevelModal onSuccess={() => refetch()} />
             </div>
 
             {isLoading ? (
                 <div className="grid grid-cols-1 gap-4">
-                    {[1, 2, 3].map((i) => (
+                    {[1, 2, 3]?.map((i) => (
                         <Skeleton key={i} className="h-24 w-full rounded-xl" />
                     ))}
                 </div>
             ) : (
-                <AcademicLevelTable 
-                    data={academicLevels} 
-                    onRefresh={() => refetch()} 
+                <AcademicLevelTable
+                    data={academicLevels}
+                    onRefresh={() => refetch()}
                 />
             )}
         </div>

@@ -12,10 +12,10 @@ export interface IChangePasswordPayload {
 
 export const changePasswordAction = async (payload: IChangePasswordPayload) => {
   const userInfo = await getUserInfo();
-  if (!payload.currentPassword || payload.currentPassword.length < 1) {
+  if (!payload.currentPassword || payload.currentPassword?.length < 1) {
     return { success: false, message: "Current password is required" };
   }
-  if (!payload.newPassword || payload.newPassword.length < 8) {
+  if (!payload.newPassword || payload.newPassword?.length < 8) {
     return { success: false, message: "New password must be at least 8 characters" };
   }
 

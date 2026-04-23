@@ -44,13 +44,13 @@ export default function PaymentSuccessClient({ studentId }: { studentId: string 
     </p>
    </div>
 
-   {paymentsData.length === 0 ? (
+   {paymentsData?.length === 0 ? (
     <div className="text-center p-12 bg-gray-50 dark:bg-gray-900 rounded-xl border border-dashed border-gray-300 dark:border-gray-800">
      <p className="text-gray-500 dark:text-gray-400">No payment records found.</p>
     </div>
    ) : (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-     {paymentsData.map((payment: any) => (
+     {paymentsData?.map((payment: any) => (
       <Card
        key={payment.id}
        className="overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300"

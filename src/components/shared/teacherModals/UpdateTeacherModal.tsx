@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
+
 import {
     Dialog,
     DialogContent,
@@ -11,22 +11,19 @@ import {
     DialogTitle,
     DialogDescription,
     DialogClose,
-    DialogFooter
+
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
 import { Field, FieldLabel, FieldError } from '@/components/ui/field'
 import { ITeacher } from '@/types/Dashboard/admin-dashboard-types/teachers-managements.types'
 import {
     X,
-    Save,
-    CheckCircle2,
+
     Briefcase,
     User,
-    Mail,
-    Phone,
-    MapPin,
+
     Camera
 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -35,17 +32,9 @@ import { updateTeacher } from '@/services/admin-srever-action/teachers-managemen
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { IUpdateTeacherFormValues, updateTeacherSchema } from '@/zod/teacherZodValidation'
 
-const updateTeacherSchema = z.object({
-    name: z.string().min(5, "Name must be at least 5 characters").max(30).optional().or(z.literal('')),
-    email: z.string().email("Invalid email").optional().or(z.literal('')),
-    contactNumber: z.string().min(11).max(15).optional().or(z.literal('')),
-    address: z.string().min(10).max(100).optional().or(z.literal('')),
-    qualification: z.string().min(2).max(50).optional().or(z.literal('')),
-    designation: z.string().min(2).max(50).optional().or(z.literal('')),
-})
 
-type UpdateFormValues = z.infer<typeof updateTeacherSchema>
 
 interface UpdateTeacherModalProps {
     teacher: ITeacher | null
@@ -59,7 +48,7 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
     const [previewImage, setPreviewImage] = useState<string | null>(null)
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
 
-    const form = useForm<UpdateFormValues>({
+    const form = useForm<IUpdateTeacherFormValues>({
         resolver: zodResolver(updateTeacherSchema),
         defaultValues: {
             name: '', email: '', contactNumber: '', address: '',
@@ -70,12 +59,12 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
     useEffect(() => {
         if (teacher) {
             form.reset({
-                name: teacher.name || '',
-                email: teacher.email || '',
-                contactNumber: teacher.contactNumber || '',
-                address: teacher.address || '',
-                qualification: teacher.qualification || '',
-                designation: teacher.designation || '',
+                name: teacher?.name || '',
+                email: teacher?.email || '',
+                contactNumber: teacher?.contactNumber || '',
+                address: teacher?.address || '',
+                qualification: teacher?.qualification || '',
+                designation: teacher?.designation || '',
             })
             setPreviewImage(teacher.profilePhoto)
         }
@@ -92,13 +81,13 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
         onError: (error: any) => toast.error(error?.message || "Failed to update teacher")
     })
 
-    const onSubmit = (values: UpdateFormValues) => {
+    const onSubmit = (values: IUpdateTeacherFormValues) => {
         const formData = new FormData()
 
         // Append all fields directly to FormData (flat structure)
         // This allows Multer to populate req.body correctly for the spread operator
-        Object.keys(values).forEach(key => {
-            const val = values[key as keyof UpdateFormValues]
+        Object.keys(values)?.forEach(key => {
+            const val = values[key as keyof IUpdateTeacherFormValues]
             if (val !== undefined && val !== '') {
                 formData.append(key, val)
             }
@@ -197,10 +186,10 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
                         <div className="space-y-8">
                             <SectionDivider icon={Briefcase} title="Career Credentials" />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <CustomField label="Designation">
+                                <CustomField label="Designation" error={form.formState.errors.designation?.message}>
                                     <Input {...form.register('designation')} className="field-input" />
                                 </CustomField>
-                                <CustomField label="Qualification">
+                                <CustomField label="Qualification" error={form.formState.errors.qualification?.message}>
                                     <Input {...form.register('qualification')} className="field-input" />
                                 </CustomField>
                             </div>
@@ -209,10 +198,10 @@ const UpdateTeacherModal = ({ teacher, isOpen, onOpenChange }: UpdateTeacherModa
 
                         {/* Section: Communication */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-10">
-                            <CustomField label="Contact Phone">
+                            <CustomField label="Contact Phone" error={form.formState.errors.contactNumber?.message}>
                                 <Input {...form.register('contactNumber')} className="field-input" />
                             </CustomField>
-                            <CustomField label="Permanent Address">
+                            <CustomField label="Permanent Address" error={form.formState.errors.address?.message}>
                                 <Input {...form.register('address')} className="field-input" />
                             </CustomField>
                         </div>
@@ -268,7 +257,7 @@ const SectionDivider = ({ icon: Icon, title }: any) => (
 )
 
 const CustomField = ({ label, children, error }: any) => (
-    <Field className="space-y-3">
+    <Field className="space-y-3" data-invalid={!!error}>
         <FieldLabel className="text-[10px] font-black uppercase tracking-widest opacity-50 ml-1">{label}</FieldLabel>
         {children}
         <FieldError errors={[{ message: error }]} />

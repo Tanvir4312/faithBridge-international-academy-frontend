@@ -65,7 +65,7 @@ const DashboardMobileSidebar = ({ dashboardHome, navItems, userInfo }: Dashboard
                 })}
               </div>
 
-              {sectionId < navItems.length - 1 && (
+              {sectionId < navItems?.length - 1 && (
                 <Separator className="my-4" />
               )}
             </div>

@@ -17,9 +17,9 @@ export const adminColumns
 
                 return (
                     <UserInfoCell
-                        name={row.original.name}
-                        email={row.original.email}
-                        profilePhoto={row.original.profilePhoto || undefined}
+                        name={row.original?.name}
+                        email={row.original?.email}
+                        profilePhoto={row.original?.profilePhoto || undefined}
                     />
                 )
             }
@@ -37,7 +37,7 @@ export const adminColumns
             enableSorting: false,
             cell: ({ row }) => {
                 return (
-                    <span>{row.original.contactNumber || <span className="text-orange-500">N/A</span>}</span>
+                    <span>{row.original?.contactNumber || <span className="text-orange-500">N/A</span>}</span>
                 )
             }
         },
@@ -47,7 +47,7 @@ export const adminColumns
             header: 'Joined Date',
             enableSorting: true,
             cell: ({ row }) => {
-                const date = format(new Date(row.original.createdAt), "MMM dd, yyyy");
+                const date = format(new Date(row.original?.createdAt), "MMM dd, yyyy");
                 return (
                     <span className="text-sm capitalize">{date}</span>
                 )
@@ -60,7 +60,7 @@ export const adminColumns
             enableSorting: false,
             cell: ({ row }) => {
                 return (
-                    <StatusBadgeCell status={row.original.user.status} />
+                    <StatusBadgeCell status={row.original?.user?.status} />
                 )
             }
         },

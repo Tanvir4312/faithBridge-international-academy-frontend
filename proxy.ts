@@ -1,8 +1,11 @@
+import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute, UserRole } from "@/lib/authUtils";
+import { jwtUtils } from "@/lib/jwtUtils";
+
+import { isTokenExpiringSoon } from "@/lib/tokenUtils";
+import { getNewTokensWithRefreshToken, getUserInfo } from "@/services/authService";
+
 import { NextRequest, NextResponse } from "next/server";
-import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute, UserRole } from "./lib/authUtils";
-import { jwtUtils } from "./lib/jwtUtils";
-import { isTokenExpiringSoon } from "./lib/tokenUtils";
-import { getNewTokensWithRefreshToken, getUserInfo } from "./services/authService";
+
 
 
 async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
@@ -126,6 +129,7 @@ export async function proxy(request: NextRequest) {
 
           return NextResponse.next();
         }
+
         if (userInfo.emailVerified && pathname.startsWith("/verify-email")) {
 
           return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
@@ -143,41 +147,20 @@ export async function proxy(request: NextRequest) {
           return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
         }
 
-        if (userInfo?.role === "STUDENT") {
-          if (pathname === "/dashboard/payment/payment-success") {
-            return NextResponse.next();
-          }
-        }
-        if (userInfo?.role === "APPLICANT") {
-          if (pathname === "/dashboard/payment/payment-success") {
-            return NextResponse.next();
-          }
-        }
-        if (userInfo?.role === "TEACHER") {
-          if (pathname === "/dashboard/payment/payment-success") {
-            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
-          }
-        }
-        if (userInfo?.role === "ADMIN") {
-          if (pathname === "/dashboard/payment/payment-success") {
-            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
-          }
-        }
-        if (userInfo?.role === "SUPER_ADMIN") {
-          if (pathname === "/dashboard/payment/payment-success") {
-            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
-          }
-        }
-
-        if (userInfo?.role !== "APPLICANT") {
+        if (userInfo.role !== "APPLICANT") {
           if (pathname === "/dashboard/create-application") {
             return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
           }
 
+
         }
-        return NextResponse.next();
 
+        if (userInfo?.role !== "STUDENT" && userInfo?.role !== "APPLICANT") {
+          if (pathname === "/dashboard/payment/payment-success") {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+          }
 
+        }
       }
     }
 
@@ -188,11 +171,13 @@ export async function proxy(request: NextRequest) {
 
     //Rule-6 User trying to visit role based protected but doesn't have required role -> redirect to their default dashboard
 
-    // if (routerOwner === "ADMIN" || routerOwner === "APPLICANT" || routerOwner === "STUDENT" || routerOwner === "TEACHER") {
-    //   if (routerOwner !== userRole) {
-    //     return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
-    //   }
-    // }
+    if (routerOwner === "ADMIN" || routerOwner === "APPLICANT" || routerOwner === "STUDENT" || routerOwner === "TEACHER") {
+      if (routerOwner !== userRole) {
+        // console.log("user role", userRole);
+        // console.log("router owner", routerOwner);
+        return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
+      }
+    }
 
     return NextResponse.next();
 

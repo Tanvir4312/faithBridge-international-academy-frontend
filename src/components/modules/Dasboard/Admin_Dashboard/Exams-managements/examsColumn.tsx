@@ -21,7 +21,7 @@ export const examColumns: ColumnDef<IExamsData>[] = [
   header: "Form Fillup Start",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.formFillupStart), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.formFillupStart), "MMMM d, yyyy");
    return date;
   }
  },
@@ -31,7 +31,7 @@ export const examColumns: ColumnDef<IExamsData>[] = [
   header: "Form Fillup End",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.formFillupEnd), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.formFillupEnd), "MMMM d, yyyy");
    return date;
   }
  },
@@ -41,8 +41,8 @@ export const examColumns: ColumnDef<IExamsData>[] = [
   header: "Exam Date",
   enableSorting: false,
   cell: ({ row }) => {
-   if (!row.original.examDate) return "N/A";
-   const date = formatDate(new Date(row.original.examDate), "MMMM d, yyyy");
+   if (!row.original?.examDate) return "N/A";
+   const date = formatDate(new Date(row.original?.examDate), "MMMM d, yyyy");
    return date;
   }
  },
@@ -52,7 +52,7 @@ export const examColumns: ColumnDef<IExamsData>[] = [
   header: "Created At",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.createdAt), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.createdAt), "MMMM d, yyyy");
    return date;
   }
  },

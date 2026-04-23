@@ -76,9 +76,9 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
 
     const handleNewSubjectToggle = (id: string) => {
         setNewSelectedSubjects(prev => {
-            const isSelected = prev.includes(id)
+            const isSelected = prev?.includes(id)
             if (isSelected) {
-                const filtered = prev.filter(sid => sid !== id)
+                const filtered = prev?.filter(sid => sid !== id)
                 if (newPrimarySubject === id) setNewPrimarySubject("")
                 return filtered
             } else {
@@ -91,7 +91,7 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
     }
 
     const handleAssignNew = async () => {
-        if (!selectedTeacherId || newSelectedSubjects.length === 0) return
+        if (!selectedTeacherId || newSelectedSubjects?.length === 0) return
 
         setIsSubmitting(true)
         try {
@@ -160,7 +160,7 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                     <SelectValue placeholder="Select faculty member..." />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl border-none shadow-2xl">
-                                    {teachers.map(t => (
+                                    {teachers?.map(t => (
                                         <SelectItem key={t.id} value={t.id} className="font-bold">{t.name}</SelectItem>
                                     ))}
                                 </SelectContent>
@@ -180,7 +180,7 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                 <span className="font-black text-sm sm:text-lg uppercase tracking-tight">Active Roster</span>
                             </div>
                             <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 font-black text-[9px] sm:text-[10px]">
-                                {assignedSubjects.length} SUBJECTS
+                                {assignedSubjects?.length} SUBJECTS
                             </Badge>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6 space-y-4">
@@ -189,14 +189,14 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                     <div className="h-8 w-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
                                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Syncing data...</p>
                                 </div>
-                            ) : assignedSubjects.length === 0 ? (
+                            ) : assignedSubjects?.length === 0 ? (
                                 <div className="text-center py-10 rounded-2xl border-2 border-dashed border-muted text-muted-foreground flex flex-col items-center gap-3">
                                     <Info className="h-8 w-8 opacity-20" />
                                     <p className="text-xs font-bold uppercase tracking-widest">No assigned subjects</p>
                                 </div>
                             ) : (
                                 <div className="space-y-3">
-                                    {assignedSubjects.map((sub) => (
+                                    {assignedSubjects?.map((sub) => (
                                         <div key={sub.subjectId} className={`flex items-center justify-between p-3 sm:p-4 rounded-xl border transition-all ${sub.isPrimary ? 'bg-amber-50 border-amber-200 ring-1 ring-amber-300 shadow-sm' : 'bg-background hover:border-muted-foreground/30'}`}>
                                             <div className="flex items-center gap-3 min-w-0">
                                                 <div className={`h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-lg flex items-center justify-center font-black text-sm ${sub.isPrimary ? 'bg-amber-100 text-amber-700' : 'bg-muted text-muted-foreground'}`}>
@@ -237,14 +237,14 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                             </div>
                         </CardHeader>
                         <CardContent className="p-4 sm:p-6">
-                            {availableSubjects.length === 0 ? (
+                            {availableSubjects?.length === 0 ? (
                                 <div className="text-center py-10 text-muted-foreground text-sm flex flex-col items-center gap-3">
                                     <CheckCircle2 className="h-10 w-10 text-emerald-500" />
                                     <p className="font-black uppercase tracking-widest text-xs">Maximum catalog assigned</p>
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-[350px] sm:max-h-[450px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
-                                    {availableSubjects.map((subject) => {
+                                    {availableSubjects?.map((subject) => {
                                         const isChecked = newSelectedSubjects.includes(subject.id)
                                         const isPrimarySelection = newPrimarySubject === subject.id
                                         return (
@@ -297,7 +297,7 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                 <Button
                                     size="lg"
                                     className="w-full font-black rounded-xl h-14 md:h-12 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all text-xs sm:text-sm bg-primary text-white uppercase tracking-widest order-1 sm:order-2"
-                                    disabled={isSubmitting || newSelectedSubjects.length === 0}
+                                    disabled={isSubmitting || newSelectedSubjects?.length === 0}
                                     onClick={handleAssignNew}
                                 >
                                     {isSubmitting ? "SYNCING..." : "COMMIT CHANGES"}

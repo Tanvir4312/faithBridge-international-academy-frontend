@@ -18,7 +18,7 @@ const FromFillupsManagements = () => {
  const { data: fromFillupResponse, isLoading, refetch } = useQuery({
   queryKey: ["from-fillup"],
   queryFn: getAllFromFillup,
-  refetchOnWindowFocus: false,
+  refetchOnWindowFocus: true,
  })
 
  const { data: fromFillupData = [] } = fromFillupResponse || {}
@@ -54,20 +54,20 @@ const FromFillupsManagements = () => {
     }
    />
 
-   <ViewFromFillupModal 
-    open={isViewModalOpen} 
-    onOpenChange={setIsViewModalOpen} 
-    data={selectedData} 
+   <ViewFromFillupModal
+    open={isViewModalOpen}
+    onOpenChange={setIsViewModalOpen}
+    data={selectedData}
    />
 
-   <UpdateFromFillupStatusModal 
+   <UpdateFromFillupStatusModal
     open={isEditModalOpen}
     onOpenChange={setIsEditModalOpen}
     data={selectedData}
     onSuccess={() => refetch()}
    />
 
-   <DeleteFromFillupModal 
+   <DeleteFromFillupModal
     open={isDeleteModalOpen}
     onOpenChange={setIsDeleteModalOpen}
     data={selectedData}

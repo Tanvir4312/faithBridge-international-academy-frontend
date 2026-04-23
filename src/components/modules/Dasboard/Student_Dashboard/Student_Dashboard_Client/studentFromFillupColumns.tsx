@@ -23,8 +23,8 @@ export const studentFromFillupColumns
 
                 return (
                     <UserInfoCell
-                        name={row.original.student.nameEn}
-                        profilePhoto={row.original.student.profileImage || undefined}
+                        name={row.original?.student?.nameEn}
+                        profilePhoto={row.original?.student?.profileImage || undefined}
                     />
                 )
             }
@@ -72,7 +72,7 @@ export const studentFromFillupColumns
             enableSorting: false,
             cell: ({ row }) => {
                 return (
-                    <FromFillupStatusBadgeCell status={row.original.status} />
+                    <FromFillupStatusBadgeCell status={row.original?.status} />
                 )
             }
         },
@@ -80,8 +80,8 @@ export const studentFromFillupColumns
             id: "admitCard",
             header: 'Admit Card',
             cell: ({ row }) => {
-                const status = row.original.status;
-                const admitCardUrl = row.original.admitCard;
+                const status = row.original?.status;
+                const admitCardUrl = row.original?.admitCard;
 
                 if (status === FromFillupStatus.APPROVED && admitCardUrl) {
                     return (

@@ -12,9 +12,11 @@ export const setCookie = async (
   cookieStor.set(name, value, {
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "none",
     path: "/",
     maxAge: maxAgeInSecond,
+    // @ts-ignore
+    partitioned: true,
   });
 };
 
@@ -23,7 +25,15 @@ const cookieStor = await cookies()
 return cookieStor.get(name)?.value
 }
 
-export const deleteCookie = async(name : string) =>{
-    const cookieStor = await cookies()
-    cookieStor.delete(name)
-}
+export const deleteCookie = async (name: string) => {
+  const cookieStor = await cookies();
+  cookieStor.set(name, "", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+    maxAge: 0,
+    // @ts-ignore
+    partitioned: true,
+  });
+};

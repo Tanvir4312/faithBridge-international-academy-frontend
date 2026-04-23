@@ -4,6 +4,7 @@ import { formatDate } from "date-fns";
 import UserInfoCell from "@/components/shared/cell/userInfoCell";
 
 import FromFillupStatusBadgeCell from "@/components/shared/cell/fromFillupStatusBadgeCell";
+import PaymentStatusBadgeCell from "@/components/shared/cell/paymentStatusBadgeCell";
 
 export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
  {
@@ -14,8 +15,8 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   cell: ({ row }) => {
    return (
     <UserInfoCell
-     name={row.original.student.nameEn}
-     profilePhoto={row.original.student.profileImage}
+     name={row.original?.student.nameEn}
+     profilePhoto={row.original?.student.profileImage}
     />
    )
   }
@@ -33,7 +34,7 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   header: "Class",
   enableSorting: false,
   cell: ({ row }) => {
-   const className = row.original.class.name;
+   const className = row.original?.class.name;
    return className;
   }
  },
@@ -43,7 +44,7 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   header: "Exam",
   enableSorting: false,
   cell: ({ row }) => {
-   const examName = row.original.exam.name;
+   const examName = row.original?.exam?.name;
    return examName;
   }
  },
@@ -53,7 +54,7 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   header: "Year",
   enableSorting: false,
   cell: ({ row }) => {
-   const year = row.original.exam.year;
+   const year = row.original?.exam?.year;
    return year;
   }
  },
@@ -64,7 +65,18 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   enableSorting: false,
   cell: ({ row }) => {
    return (
-    <FromFillupStatusBadgeCell status={row.original.status} />
+    <FromFillupStatusBadgeCell status={row.original?.status} />
+   )
+  }
+ },
+ {
+  id: "paymentStatus",
+  accessorKey: "paymentStatus",
+  header: "Payment Status",
+  enableSorting: false,
+  cell: ({ row }) => {
+   return (
+    <PaymentStatusBadgeCell status={row.original?.paymentStatus} />
    )
   }
  },
@@ -74,7 +86,7 @@ export const fromFillupColumns: ColumnDef<IFromFillupData>[] = [
   header: "From-Fillup Time",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.createdAt), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.createdAt), "MMMM d, yyyy");
    return date;
   }
  },

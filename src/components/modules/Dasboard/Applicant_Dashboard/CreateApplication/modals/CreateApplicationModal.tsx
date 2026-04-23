@@ -71,7 +71,7 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
     const classesFromLevels = academicLevels.flatMap((level: any) => level.classes || []);
 
     // Prioritize direct classes, then flattened classes
-    const classes = classesFromApi.length > 0 ? classesFromApi : classesFromLevels;
+    const classes = classesFromApi?.length > 0 ? classesFromApi : classesFromLevels;
 
 
 
@@ -105,7 +105,7 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                 const formData = new FormData()
 
                 // Append all fields to FormData
-                Object.entries(value).forEach(([key, val]) => {
+                Object.entries(value)?.forEach(([key, val]) => {
                     if (val !== undefined && val !== null) {
                         if (key === "dob" && val instanceof Date) {
                             formData.append(key, val.toISOString())
@@ -256,14 +256,14 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                         >
                             {(field) => (
                                 <div className="space-y-1.5">
-                                    <Label className={field.state.meta.errors.length > 0 ? "text-destructive" : ""}>Date of Birth</Label>
+                                    <Label className={field.state.meta.errors?.length > 0 ? "text-destructive" : ""}>Date of Birth</Label>
                                     <input
                                         type="date"
                                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                         onChange={(e) => field.handleChange(new Date(e.target.value))}
                                         onBlur={field.handleBlur}
                                     />
-                                    {field.state.meta.errors.length > 0 && (
+                                    {field.state.meta.errors?.length > 0 && (
                                         <p className="text-sm text-destructive">{getErrorMessage(field.state.meta.errors[0])}</p>
                                     )}
                                 </div>
@@ -277,11 +277,11 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                         >
                             {(field) => (
                                 <div className="space-y-1.5">
-                                    <Label className={field.state.meta.errors.length > 0 ? "text-destructive" : ""}>Gender</Label>
+                                    <Label className={field.state.meta.errors?.length > 0 ? "text-destructive" : ""}>Gender</Label>
                                     <Select
                                         value={field.state.value}
                                         onValueChange={(val) => {
-                                            console.log("Gender changed to:", val);
+
                                             field.handleChange(val as Gender);
                                         }}
                                     >
@@ -293,7 +293,7 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                                             <SelectItem value={Gender.FEMALE}>Female</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                    {field.state.meta.errors.length > 0 && (
+                                    {field.state.meta.errors?.length > 0 && (
                                         <p className="text-sm text-destructive">{getErrorMessage(field.state.meta.errors[0])}</p>
                                     )}
                                 </div>
@@ -349,11 +349,11 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                         >
                             {(field) => (
                                 <div className="space-y-1.5">
-                                    <Label className={field.state.meta.errors.length > 0 ? "text-destructive" : ""}>Desired Class</Label>
+                                    <Label className={field.state.meta.errors?.length > 0 ? "text-destructive" : ""}>Desired Class</Label>
                                     <Select
                                         value={field.state.value}
                                         onValueChange={(val) => {
-                                            console.log("Class changed to:", val);
+
                                             field.handleChange(val);
                                         }}
                                     >
@@ -361,14 +361,14 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
                                             <SelectValue placeholder="Select Class" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {classes.map((item: any) => (
+                                            {classes?.map((item: any) => (
                                                 <SelectItem key={item.id} value={item.name}>
                                                     {item.name}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
-                                    {field.state.meta.errors.length > 0 && (
+                                    {field.state.meta.errors?.length > 0 && (
                                         <p className="text-sm text-destructive">{getErrorMessage(field.state.meta.errors[0])}</p>
                                     )}
                                 </div>

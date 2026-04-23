@@ -25,7 +25,7 @@ const ImageSwiper = () => {
 
   })
   const images = imagesResponse?.data || []
-  const homeBannerImages = images.filter((image) => image.sectionName === "HOME_BANNER")
+  const homeBannerImages = images?.filter((image) => image.sectionName === "HOME_BANNER")
 
   const progressCircle = useRef<SVGSVGElement | null>(null);
   const progressContent = useRef<HTMLSpanElement | null>(null);

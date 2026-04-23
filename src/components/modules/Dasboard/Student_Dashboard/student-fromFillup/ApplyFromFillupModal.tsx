@@ -203,7 +203,7 @@ const ApplyFromFillupModal = ({ isOpen, onOpenChange, exam, userInfo }: ApplyFro
                                             { icon: ClipboardCheck, label: "Registry No", value: fromFillupResult?.fromFillupData?.registrationNo || "N/A" },
                                             { icon: Calendar, label: "Exam Cycle", value: `${fromFillupResult?.exam?.name} (${fromFillupResult?.exam?.year})` },
                                             { icon: Banknote, label: "Total Payable", value: `${fromFillupResult?.paymentData?.amount} ${fromFillupResult?.paymentData?.currency}`, highlight: true }
-                                        ].map((item, idx) => (
+                                        ]?.map((item, idx) => (
                                             <div key={idx} className="bg-white p-5 flex items-start gap-4 hover:bg-slate-50 transition-colors">
                                                 <div className={`p-2 rounded-xl shrink-0 ${item.highlight ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}>
                                                     <item.icon className="h-4 w-4" />

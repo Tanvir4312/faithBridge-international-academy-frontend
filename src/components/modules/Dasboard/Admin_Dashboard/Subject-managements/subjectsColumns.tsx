@@ -17,8 +17,8 @@ export const subjectsColumns: ColumnDef<ISubject>[] = [
   header: "Teacher Name",
   enableSorting: false,
   cell: ({ row }) => {
-   const teachers = row.original.teacherSubjects;
-   if (!teachers || teachers.length === 0) return <span>-</span>;
+   const teachers = row.original?.teacherSubjects;
+   if (!teachers || teachers?.length === 0) return <span>-</span>;
 
    return (
     <div className="flex flex-col gap-3 py-1">
@@ -36,12 +36,12 @@ export const subjectsColumns: ColumnDef<ISubject>[] = [
   header: "Contact Number",
   enableSorting: false,
   cell: ({ row }) => {
-   const teachers = row.original.teacherSubjects;
-   if (!teachers || teachers.length === 0) return <span>-</span>;
+   const teachers = row.original?.teacherSubjects;
+   if (!teachers || teachers?.length === 0) return <span>-</span>;
 
    return (
     <div className="flex flex-col gap-3 py-1">
-     {teachers.map((t, idx) => (
+     {teachers?.map((t, idx) => (
       <span key={idx} className="border-b last:border-0 pb-1 last:pb-0 border-border/50">
        {t?.teacher?.contactNumber || "-"}
       </span>

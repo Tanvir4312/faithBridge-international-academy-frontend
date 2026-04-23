@@ -26,7 +26,7 @@ export const createStudentApplicationSchema = z.object({
 
   studentMobile: z
     .string().optional()
-    .refine((val) => !val || val.length >= 11, "Mobile number must be 11 digits"),
+    .refine((val) => !val || val?.length >= 11, "Mobile number must be 11 digits"),
 
   dob: z.preprocess((arg) => {
     if (typeof arg === "string" || arg instanceof Date) {

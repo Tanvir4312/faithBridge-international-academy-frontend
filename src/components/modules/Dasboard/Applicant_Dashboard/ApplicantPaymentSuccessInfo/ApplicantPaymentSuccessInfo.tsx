@@ -28,7 +28,7 @@ const ApplicantPaymentSuccessInfo = ({ applicantId }: { applicantId: string }) =
   )
  }
 
- if (payments.length === 0) {
+ if (payments?.length === 0) {
   return (
    <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
     <div className="bg-gray-100 p-6 rounded-full">
@@ -55,7 +55,7 @@ const ApplicantPaymentSuccessInfo = ({ applicantId }: { applicantId: string }) =
    </div>
 
    <div className="grid grid-cols-1 gap-12">
-    {payments.map((payment: any) => (
+    {payments?.map((payment: any) => (
      <Card
       key={payment.id}
       className="overflow-hidden border-none shadow-2xl rounded-[3rem] bg-white transition-all duration-500 hover:translate-y-[-4px]"

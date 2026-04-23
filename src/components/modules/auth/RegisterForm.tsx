@@ -184,7 +184,7 @@ const RegisterForm = () => {
           </div>
         </div>
 
-        <Button
+        {/* <Button
           variant="outline"
           className="w-full"
           onClick={() => {
@@ -211,7 +211,7 @@ const RegisterForm = () => {
             />
           </svg>
           Continue with Google
-        </Button>
+        </Button> */}
       </CardContent>
 
       <CardFooter className="justify-center border-t pt-4">

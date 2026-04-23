@@ -23,7 +23,7 @@ export const noticesColumns: ColumnDef<INoticeData>[] = [
   header: "Class",
   enableSorting: false,
   cell: ({ row }) => {
-   const className = row.original.noticeClasses.map((classData) => classData?.class?.name).join(", ");
+   const className = row.original?.noticeClasses?.map((classData) => classData?.class?.name).join(", ");
    if (!className) {
     return <span>-</span>;
    }
@@ -37,7 +37,7 @@ export const noticesColumns: ColumnDef<INoticeData>[] = [
   header: "Notice Time",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.createdAt), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.createdAt), "MMMM d, yyyy");
    return date;
   }
  },

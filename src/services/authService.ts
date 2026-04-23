@@ -2,6 +2,7 @@
 
 import { setTokenInCookies } from "@/lib/tokenUtils";
 import { cookies } from "next/headers";
+import { deleteCookie } from "@/lib/cookieUtils";
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -47,8 +48,8 @@ export async function getNewTokensWithRefreshToken(refreshToken  : string) : Pro
 }
 
 export async function getUserInfo() {
+    const cookieStore = await cookies();
     try {
-        const cookieStore = await cookies();
         const accessToken = cookieStore.get("accessToken")?.value;
         const sessionToken = cookieStore.get("better-auth.session_token")?.value
 
@@ -78,8 +79,8 @@ export async function getUserInfo() {
 }
 
 export async function logoutUser() {
+    const cookieStore = await cookies();
     try {
-        const cookieStore = await cookies();
         const accessToken = cookieStore.get("accessToken")?.value;
         const sessionToken = cookieStore.get("better-auth.session_token")?.value;
 
@@ -92,9 +93,9 @@ export async function logoutUser() {
         });
 
         // Clear cookies on client side as well
-        cookieStore.delete("accessToken");
-        cookieStore.delete("refreshToken");
-        cookieStore.delete("better-auth.session_token");
+        await deleteCookie("accessToken");
+        await deleteCookie("refreshToken");
+        await deleteCookie("better-auth.session_token");
 
         if (!res.ok) {
             console.error("Failed to logout from backend:", res.status, res.statusText);

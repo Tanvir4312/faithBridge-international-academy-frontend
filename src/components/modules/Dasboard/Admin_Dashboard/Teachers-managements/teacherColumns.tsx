@@ -14,11 +14,12 @@ export const teacherColumns: ColumnDef<ITeacher>[] = [
   header: "Teacher Name",
   enableSorting: false,
   cell: ({ row }) => {
+
    return (
     <UserInfoCell
-     name={row.original.name}
-     email={row.original.email}
-     profilePhoto={row.original.profilePhoto}
+     name={row.original?.name}
+     email={row.original?.email}
+     profilePhoto={row.original?.profilePhoto || undefined}
     />
    )
 
@@ -30,7 +31,7 @@ export const teacherColumns: ColumnDef<ITeacher>[] = [
   header: "Contact Number",
   enableSorting: false,
   cell: ({ row }) => {
-   const teacherContactNumber = row.original.contactNumber;
+   const teacherContactNumber = row.original?.contactNumber;
    return teacherContactNumber
   }
  },
@@ -46,7 +47,7 @@ export const teacherColumns: ColumnDef<ITeacher>[] = [
   header: "Status",
   enableSorting: false,
   cell: ({ row }) => {
-   const status = row.original.user.status
+   const status = row.original?.user?.status
    return (
     <StatusBadgeCell
      status={status}

@@ -1,11 +1,11 @@
-import { FromFillupStatus } from "../shared_Enums/enums";
+import { FromFillupStatus, PaymentStatus } from "../shared_Enums/enums";
 
 export interface IFromFillupData {
  id: string;
  registrationNo: string;
  classRoll: string;
  status: FromFillupStatus;
- paymentStatus: string;
+ paymentStatus: PaymentStatus;
  createdAt: string;
  updatedAt: string;
  admitCard?: string;

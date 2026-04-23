@@ -9,6 +9,7 @@ import { Home, HomeIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+// Trigger re-build to fix Turbopack module factory error
 
 interface DashboardSidebarContentProps {
     userInfo: UserInfo

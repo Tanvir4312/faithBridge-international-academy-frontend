@@ -80,7 +80,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-6 text-lg font-semibold text-white">
 
-          {menuItems.map((item, i) => (
+          {menuItems?.map((item, i) => (
             <div key={i} className="relative group">
 
               {/* Main Menu */}
@@ -106,7 +106,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
                     backgroundPosition: "center",
                   }}
                   className={`absolute top-10 left-0  rounded-xl shadow-lg p-3 w-52 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300`}>
-                  {item.children.map((sub, idx) => (
+                  {item.children?.map((sub, idx) => (
                     <Link key={idx} href={sub.path}>
                       <p className="py-1 hover:text-amber-300 cursor-pointer">
                         {sub.name}
@@ -178,9 +178,9 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
               )}
 
               {/* Children */}
-              {item.children && (
+              {item?.children && (
                 <div className="ml-3 mt-2 space-y-1 text-sm opacity-90">
-                  {item.children.map((sub, idx) => (
+                  {item.children?.map((sub, idx) => (
                     <Link
                       key={idx}
                       href={sub.path}

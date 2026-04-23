@@ -16,9 +16,9 @@ export const applicationColumns
    cell: ({ row }) => {
     return (
      <UserInfoCell
-      name={row.original.nameEn}
-      email={row.original.user?.email}
-      profilePhoto={row.original.profileImage}
+      name={row.original?.nameEn}
+      email={row.original?.user?.email}
+      profilePhoto={row.original?.profileImage}
      />
     )
    }
@@ -31,7 +31,7 @@ export const applicationColumns
    enableSorting: false,
    cell: ({ row }) => {
     return (
-     <span>{row.original.applicationNo}</span>
+     <span>{row.original?.applicationNo}</span>
     )
    }
   },
@@ -42,7 +42,7 @@ export const applicationColumns
    enableSorting: false,
    cell: ({ row }) => {
     return (
-     <span>{row.original.desiredClass}</span>
+     <span>{row.original?.desiredClass}</span>
     )
    }
   },
@@ -53,7 +53,7 @@ export const applicationColumns
    enableSorting: false,
    cell: ({ row }) => {
     return (
-     <span>{row.original.applicationFee}</span>
+     <span>{row.original?.applicationFee}</span>
     )
    }
   },
@@ -64,7 +64,7 @@ export const applicationColumns
    enableSorting: false,
    cell: ({ row }) => {
     return (
-     <PaymentStatusBadgeCell status={row.original.paymentStatus} />
+     <PaymentStatusBadgeCell status={row.original?.paymentStatus} />
     )
    }
   },
@@ -75,7 +75,7 @@ export const applicationColumns
    enableSorting: false,
    cell: ({ row }) => {
     return (
-     <ApplicationStatusBadgeCell status={row.original.status} />
+     <ApplicationStatusBadgeCell status={row.original?.status} />
     )
    }
   },
@@ -85,7 +85,7 @@ export const applicationColumns
    header: 'Application Date',
    enableSorting: true,
    cell: ({ row }) => {
-    const date = format(new Date(row.original.createdAt), "MMM dd, yyyy");
+    const date = format(new Date(row.original?.createdAt), "MMM dd, yyyy");
     return (
      <span className="text-sm capitalize">{date}</span>
     )

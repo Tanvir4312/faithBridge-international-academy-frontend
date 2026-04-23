@@ -82,7 +82,7 @@ const CreateNoticeModal = ({ open, onOpenChange, refetch }: CreateNoticeModalPro
     const toggleClass = (classId: string) => {
         setSelectedClasses(prev =>
             prev.includes(classId)
-                ? prev.filter(id => id !== classId)
+                ? prev?.filter(id => id !== classId)
                 : [...prev, classId]
         )
     }
@@ -157,7 +157,7 @@ const CreateNoticeModal = ({ open, onOpenChange, refetch }: CreateNoticeModalPro
                                     <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] border-2 border-dashed border-muted-foreground/30 bg-muted/10">
                                         <ScrollArea className="h-[140px] sm:h-[180px] pr-4">
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-left">
-                                                {classes.map((cls) => (
+                                                {classes?.map((cls) => (
                                                     <div key={cls.id} className="flex items-center space-x-3 sm:space-x-4 group justify-start p-1.5 sm:p-2 rounded-xl hover:bg-background transition-colors">
                                                         <Checkbox
                                                             id={cls.id}
@@ -199,7 +199,7 @@ const CreateNoticeModal = ({ open, onOpenChange, refetch }: CreateNoticeModalPro
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6 sm:pt-10 border-t border-dashed">
                             <Button
                                 type="submit"
-                                disabled={isSubmitting || (noticeType === "CLASS_SPECIFIC" && selectedClasses.length === 0)}
+                                disabled={isSubmitting || (noticeType === "CLASS_SPECIFIC" && selectedClasses?.length === 0)}
                                 className="w-full sm:flex-1 h-12 sm:h-16 rounded-xl sm:rounded-3xl font-black bg-primary hover:bg-primary/90 text-white gap-2 sm:gap-3 shadow-2xl shadow-primary/30 transition-all hover:-translate-y-1 active:scale-95 text-xs sm:text-lg uppercase tracking-widest"
                             >
                                 {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : <Megaphone className="h-5 w-5" />}

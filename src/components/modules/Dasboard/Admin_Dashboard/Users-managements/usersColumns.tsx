@@ -25,7 +25,7 @@ export const usersColumns: ColumnDef<IUsersManagements>[] = [
   header: "Status",
   cell: ({ row }) => {
    return (
-    <StatusBadgeCell status={row.original.status} />
+    <StatusBadgeCell status={row.original?.status} />
    )
   }
  },
@@ -35,7 +35,7 @@ export const usersColumns: ColumnDef<IUsersManagements>[] = [
   header: "Email Verified",
   cell: ({ row }) => {
    return (
-    row.original.emailVerified ? <p className="text-green-500">Yes</p> : <p className="text-red-500">No</p>
+    row.original?.emailVerified ? <p className="text-green-500">Yes</p> : <p className="text-red-500">No</p>
    )
   }
  },
@@ -45,7 +45,7 @@ export const usersColumns: ColumnDef<IUsersManagements>[] = [
   header: "Need Password Change",
   cell: ({ row }) => {
    return (
-    row.original.needPasswordChange ? <p className="text-red-500">Yes</p> : <p className="text-green-500">No</p>
+    row.original?.needPasswordChange ? <p className="text-red-500">Yes</p> : <p className="text-green-500">No</p>
    )
   }
  },
@@ -54,7 +54,7 @@ export const usersColumns: ColumnDef<IUsersManagements>[] = [
   accessorKey: "createdAt",
   header: "Created At",
   cell: ({ row }) => {
-   const date = row.original.createdAt
+   const date = row.original?.createdAt
    const createTime = date && format(new Date(date), "yyyy-MM-dd")
    return (
     <p>{createTime}</p>
@@ -66,7 +66,7 @@ export const usersColumns: ColumnDef<IUsersManagements>[] = [
   accessorKey: "updatedAt",
   header: "Updated At",
   cell: ({ row }) => {
-   const date = row.original.updatedAt
+   const date = row.original?.updatedAt
    const createTime = date && format(new Date(date), "yyyy-MM-dd")
    return (
     <p>{createTime}</p>

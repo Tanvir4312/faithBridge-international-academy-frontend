@@ -121,7 +121,7 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
                                     <SelectValue placeholder="Select Academic Level" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {academicLevels.map((level) => (
+                                    {academicLevels?.map((level) => (
                                         <SelectItem key={level.id} value={level.id}>
                                             {level.name}
                                         </SelectItem>
@@ -142,7 +142,7 @@ const CreateClassModal = ({ academicLevels, teachers, onSuccess }: CreateClassMo
                                     <SelectValue placeholder="Assign a Teacher (Optional)" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    {teachers.map((teacher) => (
+                                    {teachers?.map((teacher) => (
                                         <SelectItem key={teacher.id} value={teacher.id}>
                                             {teacher.name}
                                         </SelectItem>

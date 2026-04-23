@@ -12,10 +12,10 @@ const ApplicationsManagementsPage = async ({
     const queryParamsObj = await searchParams;
 
 
-    const queryParamsString = Object.keys(queryParamsObj).map(key => {
+    const queryParamsString = Object.keys(queryParamsObj)?.map(key => {
         const value = queryParamsObj[key];
         if (Array.isArray(value)) {
-            return value.map((val) => `${key}=${val}`).join('&');
+            return value?.map((val) => `${key}=${val}`).join('&');
         }
         return `${key}=${value}`;
     }).join('&');

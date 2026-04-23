@@ -23,7 +23,11 @@ function TeachersManagements() {
     refetchOnWindowFocus: true
   })
 
+
+
   const teachers = teachersResponse?.data || []
+
+  // const teachers = teachersArr?.filter((teacher) => (teacher.user.emailVerified && !teacher.user.needPasswordChange)) || []
 
   const handleView = (teacher: ITeacher) => {
     setSelectedTeacher(teacher)

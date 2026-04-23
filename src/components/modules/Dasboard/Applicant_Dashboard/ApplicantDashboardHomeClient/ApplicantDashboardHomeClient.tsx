@@ -26,7 +26,7 @@ const ApplicantDashboardHomeClient = ({ applicantId }: { applicantId: string }) 
     });
 
     const application = applicationResponse?.data;
-    console.log(application);
+
 
     if (isLoading) {
         return (

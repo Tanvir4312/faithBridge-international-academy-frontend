@@ -3,15 +3,17 @@
 import { httpClient } from "@/lib/axios/httpClient"
 import { ApiSuccessResponse } from "@/types/api.types"
 import { IGetFromFillupByStudentId } from "@/types/Dashboard/student-dashboard-types/get-fromFillup.types"
-import { ICreateFromFillupPayload } from "@/types/Dashboard/student-dashboard-types/studentCreateFromFillup.types"
+import { ICreateFromFillupPayload, ICreateFromFillupResponse } from "@/types/Dashboard/student-dashboard-types/studentCreateFromFillup.types"
 
 
 
-export const createFromFillup = async (payload: ICreateFromFillupPayload): Promise<ApiSuccessResponse<ICreateFromFillupPayload>> => {
+
+export const createFromFillup = async (payload: ICreateFromFillupPayload): Promise<ApiSuccessResponse<ICreateFromFillupResponse>> => {
     try {
-        const response = await httpClient.post<ICreateFromFillupPayload>("/from-fillup/create", payload)
+        const response = await httpClient.post<ICreateFromFillupResponse>("/from-fillup/create", payload)
         return response
     } catch (error: any) {
+        console.log(error.response)
         return error.response?.data || { success: false, message: error.message }
     }
 }

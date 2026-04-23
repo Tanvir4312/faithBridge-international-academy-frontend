@@ -94,14 +94,14 @@ const ViewExamsModal = ({ open, onOpenChange, exam }: ViewExamsModalProps) => {
                                 <div className="text-center">
                                     <p className="text-[10px] font-black text-emerald-600 uppercase mb-1">Paid</p>
                                     <p className="text-2xl font-black text-emerald-600">
-                                        {exam.formFillups?.filter(f => f.paymentStatus === 'PAID').length || 0}
+                                        {exam.formFillups?.filter(f => f.paymentStatus === 'PAID')?.length || 0}
                                     </p>
                                 </div>
                                 <div className="h-8 w-[1px] bg-muted" />
                                 <div className="text-center">
                                     <p className="text-[10px] font-black text-amber-600 uppercase mb-1">Pending</p>
                                     <p className="text-2xl font-black text-amber-600">
-                                        {exam.formFillups?.filter(f => f.paymentStatus !== 'PAID').length || 0}
+                                        {exam.formFillups?.filter(f => f.paymentStatus !== 'PAID')?.length || 0}
                                     </p>
                                 </div>
                             </div>

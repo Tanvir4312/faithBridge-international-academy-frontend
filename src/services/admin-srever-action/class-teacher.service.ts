@@ -17,13 +17,13 @@ export const assignClassTeacher = async (data: IClassTeacherPayload): Promise<Ap
         const data = error?.response?.data;
         const backendMessage = data?.message;
         const errorSources = data?.errorSources;
-        
+
         let finalMessage = "Failed to assign class teacher";
 
         // 1. Try to get message from errorSources (most specific)
-        if (errorSources && Array.isArray(errorSources) && errorSources.length > 0) {
+        if (errorSources && Array.isArray(errorSources) && errorSources?.length > 0) {
             finalMessage = errorSources[0].message;
-        } 
+        }
         // 2. Fallback to main backend message
         else if (backendMessage) {
             finalMessage = backendMessage;
@@ -35,7 +35,7 @@ export const assignClassTeacher = async (data: IClassTeacherPayload): Promise<Ap
 
         // 4. CLEANUP: If the message is a cryptic Prisma error or just "in", make it user-friendly
         const isPrismaError = finalMessage.includes("Prisma Client Known Request Error") || finalMessage.toLowerCase() === "in";
-        
+
         if (isPrismaError) {
             // Check for common unique constraint error (P2002)
             if (finalMessage.includes("unique constraint") || finalMessage.includes("already exist") || finalMessage.toLowerCase() === "in") {

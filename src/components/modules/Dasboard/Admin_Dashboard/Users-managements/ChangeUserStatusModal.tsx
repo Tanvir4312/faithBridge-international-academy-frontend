@@ -170,7 +170,7 @@ const ChangeUserStatusModal = ({ user, isOpen, onOpenChange }: ChangeUserStatusM
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl shadow-2xl border-none">
-                                                    {Object.values(UserStatus).map((status) => (
+                                                    {Object.values(UserStatus)?.map((status) => (
                                                         <SelectItem
                                                             key={status}
                                                             value={status}

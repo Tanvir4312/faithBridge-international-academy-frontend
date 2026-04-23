@@ -35,10 +35,10 @@ const ViewAcademicLevelModal = ({ open, onOpenChange, level }: ViewAcademicLevel
                     {/* Visual Banner - Responsive Height */}
                     <div className="relative h-40 sm:h-52 bg-muted overflow-hidden">
                         {level.image ? (
-                            <img 
-                                src={level.image} 
-                                alt={level.name} 
-                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" 
+                            <img
+                                src={level.image}
+                                alt={level.name}
+                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                             />
                         ) : (
                             <div className="w-full h-full flex items-center justify-center bg-primary/5">
@@ -89,8 +89,8 @@ const ViewAcademicLevelModal = ({ open, onOpenChange, level }: ViewAcademicLevel
                                 <Badge variant="outline" className="text-[8px] font-black uppercase border-primary/20 text-primary">{level.classes?.length || 0} CLASSES</Badge>
                             </div>
                             <div className="flex flex-wrap gap-2 sm:gap-3">
-                                {level.classes && level.classes.length > 0 ? (
-                                    level.classes.map((cls) => (
+                                {level.classes && level.classes?.length > 0 ? (
+                                    level.classes?.map((cls) => (
                                         <Badge key={cls.id} variant="secondary" className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-black text-[9px] sm:text-xs tracking-tight bg-muted/50 hover:bg-primary hover:text-white transition-all transform hover:-translate-y-0.5 cursor-default border-none shadow-sm">
                                             {cls.name.toUpperCase()}
                                         </Badge>
@@ -105,7 +105,7 @@ const ViewAcademicLevelModal = ({ open, onOpenChange, level }: ViewAcademicLevel
 
                         {/* Footer Action for Mobile */}
                         <div className="pt-4 border-t border-dashed">
-                            <Button 
+                            <Button
                                 onClick={() => onOpenChange(false)}
                                 className="w-full h-12 rounded-xl sm:rounded-2xl font-black bg-primary/10 hover:bg-primary/20 text-primary border-none text-[10px] sm:text-xs uppercase tracking-widest transition-all active:scale-95"
                             >

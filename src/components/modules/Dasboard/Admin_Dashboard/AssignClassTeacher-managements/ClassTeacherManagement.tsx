@@ -86,7 +86,7 @@ const ClassTeacherManagement = ({ teachers, classes }: ClassTeacherManagementPro
                                 <SelectValue placeholder="CHOOSE FACULTY..." />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl sm:rounded-2xl border-none shadow-2xl">
-                                {teachers.map(t => (
+                                {teachers?.map(t => (
                                     <SelectItem key={t.id} value={t.id} className="font-bold py-2 sm:py-3 text-xs sm:text-sm">
                                         {t.name}
                                     </SelectItem>
@@ -111,7 +111,7 @@ const ClassTeacherManagement = ({ teachers, classes }: ClassTeacherManagementPro
                                 <SelectValue placeholder="CHOOSE CLASS..." />
                             </SelectTrigger>
                             <SelectContent className="rounded-xl sm:rounded-2xl border-none shadow-2xl">
-                                {classes.map(c => (
+                                {classes?.map(c => (
                                     <SelectItem key={c.id} value={c.id} className="font-bold py-2 sm:py-3 text-xs sm:text-sm">
                                         CLASS: {c.name.toUpperCase()}
                                     </SelectItem>

@@ -17,22 +17,22 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 
 const examUpdateSchema = z.object({
-  name: z.string().min(2, "Exam name too short").max(100, "Exam name too long").optional().or(z.literal('')),
-  year: z.string().regex(/^\d{4}$/, "Year must be a valid 4 digit year (e.g. 2026)").optional().or(z.literal('')),
-  formFillupStart: z.string().optional().or(z.literal('')),
-  formFillupEnd: z.string().optional().or(z.literal('')),
-  examDate: z.string().optional().or(z.literal('')),
+    name: z.string().min(2, "Exam name too short").max(100, "Exam name too long").optional().or(z.literal('')),
+    year: z.string().regex(/^\d{4}$/, "Year must be a valid 4 digit year (e.g. 2026)").optional().or(z.literal('')),
+    formFillupStart: z.string().optional().or(z.literal('')),
+    formFillupEnd: z.string().optional().or(z.literal('')),
+    examDate: z.string().optional().or(z.literal('')),
 }).refine(
-  (data) => {
-    if (data.formFillupEnd && data.formFillupStart) {
-      return new Date(data.formFillupEnd) > new Date(data.formFillupStart);
+    (data) => {
+        if (data.formFillupEnd && data.formFillupStart) {
+            return new Date(data.formFillupEnd) > new Date(data.formFillupStart);
+        }
+        return true;
+    },
+    {
+        message: "Form fill-up end date must be after start date",
+        path: ["formFillupEnd"],
     }
-    return true;
-  },
-  {
-    message: "Form fill-up end date must be after start date",
-    path: ["formFillupEnd"],
-  }
 ).refine(
     (data) => {
         if (data.examDate && data.formFillupEnd) {
@@ -86,7 +86,7 @@ const UpdateExamsModal = ({ exam, isOpen, onOpenChange }: UpdateExamsModalProps)
             if (!exam) throw new Error("No exam selected")
             // Clean empty strings
             const payload: any = {}
-            Object.entries(data).forEach(([key, value]) => {
+            Object.entries(data)?.forEach(([key, value]) => {
                 if (value !== '') payload[key] = value
             })
             const res = await updateExam(exam.id, payload)
@@ -129,7 +129,7 @@ const UpdateExamsModal = ({ exam, isOpen, onOpenChange }: UpdateExamsModalProps)
                     <div className="relative h-40 bg-gradient-to-r from-gray-900 via-gray-800 to-indigo-950 flex items-center px-8 sm:px-12 overflow-hidden">
                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] opacity-10" />
                         <div className="absolute -right-20 -top-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
-                        
+
                         <div className="relative flex items-center gap-6 sm:gap-10 w-full z-10">
                             <div className="h-20 w-20 sm:h-24 sm:w-24 bg-white/10 backdrop-blur-xl rounded-[2rem] flex items-center justify-center border border-white/20 shadow-2xl shrink-0">
                                 <ClipboardList className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-400" />
@@ -219,12 +219,12 @@ const UpdateExamsModal = ({ exam, isOpen, onOpenChange }: UpdateExamsModalProps)
 
                         {/* Audit Notice */}
                         <div className="p-6 bg-slate-900 rounded-[2.5rem] text-white flex items-center gap-6 shadow-2xl relative overflow-hidden group">
-                             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                             <ShieldAlert className="h-10 w-10 text-indigo-500 shrink-0" />
-                             <div>
+                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            <ShieldAlert className="h-10 w-10 text-indigo-500 shrink-0" />
+                            <div>
                                 <h4 className="text-xs font-black uppercase tracking-widest text-indigo-400 mb-1">Administrative Audit Active</h4>
                                 <p className="text-[10px] text-gray-400 leading-relaxed max-w-md">Modified scheduling parameters will be broadcasted to all registered candidates and faculty members globally.</p>
-                             </div>
+                            </div>
                         </div>
                     </div>
 

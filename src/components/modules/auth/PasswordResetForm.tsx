@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { resetPasswordAction } from "@/app/(commonLayout)/(authRouteGroup)/reset-password/_action";
 import AppField from "@/components/shared/AppField";
@@ -75,7 +75,7 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
           {isNeedPasswordChange ? "Set New Password" : "Reset Password"}
         </h1>
         <p className="text-muted-foreground text-balanced">
-          {isNeedPasswordChange 
+          {isNeedPasswordChange
             ? "Your email has been verified. Please set a strong password to secure your account and complete the setup."
             : "Enter the reset code sent to your email and your new password to restore access to your account."
           }
@@ -137,7 +137,7 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
               >
                 {(field) => (
                   <div className="space-y-3">
-                    <Label htmlFor="otp" className={field.state.meta.errors.length > 0 ? "text-destructive font-medium" : "font-medium"}>
+                    <Label htmlFor="otp" className={field.state.meta.errors?.length > 0 ? "text-destructive font-medium" : "font-medium"}>
                       Verification OTP
                     </Label>
                     <div className="flex flex-col items-center gap-4">
@@ -148,7 +148,7 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
                         containerClassName="group flex items-center justify-center w-full"
                       >
                         <InputOTPGroup className="gap-2">
-                          {[0, 1, 2, 3, 4, 5].map((index) => (
+                          {[0, 1, 2, 3, 4, 5]?.map((index) => (
                             <InputOTPSlot
                               key={index}
                               index={index}
@@ -158,7 +158,7 @@ const ResetPasswordForm = ({ email }: ResetPasswordFormProps) => {
                         </InputOTPGroup>
                       </InputOTP>
 
-                      {field.state.meta.isTouched && (field.state.meta.errors.length > 0) && (
+                      {field.state.meta.isTouched && (field.state.meta.errors?.length > 0) && (
                         <p className="text-sm text-destructive font-medium animate-in fade-in slide-in-from-top-2">
                           {String(field.state.meta.errors[0])}
                         </p>

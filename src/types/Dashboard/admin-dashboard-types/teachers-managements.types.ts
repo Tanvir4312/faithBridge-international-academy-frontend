@@ -11,8 +11,8 @@ export interface ITeacher {
   designation: string
   qualification: string
   isDeleted: boolean
-  createdAt: string
-  createdat?: string
+  createdat: Date
+
   updatedAt: string
   userId: string
   user: {
@@ -21,6 +21,7 @@ export interface ITeacher {
     role: string
     status: UserStatus
     needPasswordChange: boolean
+    emailVerified: boolean
     isDeleted: boolean
     createdAt: string
     updatedAt: string
@@ -43,17 +44,13 @@ export interface ITeacher {
   }[]
 }
 
-// export interface ICreateTeacherPayload {
-//   password: string;
-//   teacher: {
-//     name: string;
-//     email: string;
-//     contactNumber?: string;
-//     address?: string;
-//     qualification: string;
-//     gender: Gender;
-//     profilePhoto?: string;
-//     isDeleted: boolean;
-//     designation: string;
-//   };
-// }
+export interface IUpdateTeacherPayload {
+  name?: string
+  email?: string
+  contactNumber?: string
+  address?: string
+  gender?: Gender
+  designation?: string
+  qualification?: string
+  profilePhoto?: File | null
+}

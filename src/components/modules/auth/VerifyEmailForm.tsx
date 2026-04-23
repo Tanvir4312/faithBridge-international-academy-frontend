@@ -109,7 +109,7 @@ const VerifyEmailForm = ({ email }: VerifyEmailFormProps) => {
             >
               {(field) => (
                 <div className="space-y-3">
-                  <Label htmlFor="otp" className={field.state.meta.errors.length > 0 ? "text-destructive font-medium" : "font-medium"}>
+                  <Label htmlFor="otp" className={field.state.meta.errors?.length > 0 ? "text-destructive font-medium" : "font-medium"}>
                     One-Time Password
                   </Label>
                   <div className="flex flex-col items-center gap-4">
@@ -120,7 +120,7 @@ const VerifyEmailForm = ({ email }: VerifyEmailFormProps) => {
                       containerClassName="group flex items-center justify-center w-full"
                     >
                       <InputOTPGroup className="gap-2">
-                        {[0, 1, 2, 3, 4, 5].map((index) => (
+                        {[0, 1, 2, 3, 4, 5]?.map((index) => (
                           <InputOTPSlot
                             key={index}
                             index={index}
@@ -130,7 +130,7 @@ const VerifyEmailForm = ({ email }: VerifyEmailFormProps) => {
                       </InputOTPGroup>
                     </InputOTP>
 
-                    {field.state.meta.isTouched && field.state.meta.errors.length > 0 && (
+                    {field.state.meta.isTouched && field.state.meta.errors?.length > 0 && (
                       <p className="text-sm text-destructive font-medium animate-in fade-in slide-in-from-top-2">
                         {field.state.meta.errors[0]?.message || String(field.state.meta.errors[0])}
                       </p>

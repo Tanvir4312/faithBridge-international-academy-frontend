@@ -10,15 +10,24 @@ import {
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { 
-    CheckCircle2, 
-    AlertCircle, 
-    FileText, 
-    GraduationCap, 
+import {
+    CheckCircle2,
+    AlertCircle,
+    FileText,
+    GraduationCap,
     CreditCard,
-    Loader2
+    Loader2,
+    XCircle
 } from "lucide-react"
 import { IFromFillupData } from '@/types/Dashboard/admin-dashboard-types/fromFillup-managements.types'
+import { FromFillupStatus } from '@/types/Dashboard/shared_Enums/enums'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { updateFromFillupStatus } from '@/services/admin-srever-action/fromFillup-managements.service'
 import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -32,6 +41,14 @@ interface UpdateFromFillupStatusModalProps {
 
 const UpdateFromFillupStatusModal = ({ open, onOpenChange, data, onSuccess }: UpdateFromFillupStatusModalProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [selectedStatus, setSelectedStatus] = useState<string>(data?.status || FromFillupStatus.PENDING)
+
+    // Reset selected status when data changes or modal opens
+    React.useEffect(() => {
+        if (data) {
+            setSelectedStatus(data.status);
+        }
+    }, [data, open]);
 
     if (!data) return null;
 
@@ -39,6 +56,8 @@ const UpdateFromFillupStatusModal = ({ open, onOpenChange, data, onSuccess }: Up
         setIsSubmitting(true)
         try {
             const res = await updateFromFillupStatus(data.id, newStatus)
+
+
             if (res.success) {
                 toast.success(`Application ${newStatus.toLowerCase()} successfully`)
                 onSuccess()
@@ -96,8 +115,8 @@ const UpdateFromFillupStatusModal = ({ open, onOpenChange, data, onSuccess }: Up
                                 <p className="text-[9px] sm:text-[10px] font-black text-muted-foreground uppercase tracking-widest flex items-center gap-1.5 text-left">
                                     <CreditCard className="h-3 w-3" /> Payment
                                 </p>
-                                <Badge variant={data.paymentStatus === 'PAID' ? 'outline' : 'destructive'} 
-                                       className={`font-black text-[8px] sm:text-[10px] uppercase h-5 px-2 ${data.paymentStatus === 'PAID' ? 'text-emerald-700 border-emerald-200 bg-emerald-50' : ''}`}>
+                                <Badge variant={data.paymentStatus === 'PAID' ? 'outline' : 'destructive'}
+                                    className={`font-black text-[8px] sm:text-[10px] uppercase h-5 px-2 ${data.paymentStatus === 'PAID' ? 'text-emerald-700 border-emerald-200 bg-emerald-50' : ''}`}>
                                     {data.paymentStatus}
                                 </Badge>
                             </div>
@@ -112,23 +131,59 @@ const UpdateFromFillupStatusModal = ({ open, onOpenChange, data, onSuccess }: Up
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2 sm:gap-3">
-                            <Button 
-                                onClick={() => handleUpdateStatus('APPROVED')}
-                                disabled={isSubmitting || data.status === 'APPROVED'}
-                                className="w-full h-12 rounded-xl sm:rounded-2xl font-black bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-lg shadow-emerald-600/20 text-xs sm:text-sm"
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-[10px] sm:text-xs font-black text-muted-foreground uppercase tracking-widest text-left block px-1">
+                                    Change Status To
+                                </label>
+                                <Select
+                                    value={selectedStatus}
+                                    onValueChange={setSelectedStatus}
+                                    disabled={isSubmitting}
+                                >
+                                    <SelectTrigger className="w-full h-12 rounded-xl sm:rounded-2xl border-muted-foreground/20 bg-muted/20 font-bold focus:ring-primary/20">
+                                        <SelectValue placeholder="Select status" />
+                                    </SelectTrigger>
+                                    <SelectContent className="rounded-2xl border-muted-foreground/20 shadow-xl">
+                                        <SelectItem value={FromFillupStatus.APPROVED} className="font-bold text-emerald-600 focus:bg-emerald-50 focus:text-emerald-700 rounded-xl m-1">
+                                            <div className="flex items-center gap-2">
+                                                <CheckCircle2 className="h-4 w-4" /> APPROVED
+                                            </div>
+                                        </SelectItem>
+                                        <SelectItem value={FromFillupStatus.REJECTED} className="font-bold text-destructive focus:bg-destructive/5 focus:text-destructive rounded-xl m-1">
+                                            <div className="flex items-center gap-2">
+                                                <XCircle className="h-4 w-4" /> REJECTED
+                                            </div>
+                                        </SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <Button
+                                onClick={() => handleUpdateStatus(selectedStatus)}
+                                disabled={isSubmitting || selectedStatus === data.status}
+                                className={`w-full h-12 rounded-xl sm:rounded-2xl font-black text-white gap-2 shadow-lg transition-all active:scale-[0.98] text-xs sm:text-sm ${selectedStatus === FromFillupStatus.APPROVED
+                                    ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'
+                                    : 'bg-destructive hover:bg-destructive/90 shadow-destructive/20'
+                                    }`}
                             >
-                                {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
-                                {data.status === 'APPROVED' ? 'ALREADY APPROVED' : 'APPROVE & SEND'}
+                                {isSubmitting ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : selectedStatus === FromFillupStatus.APPROVED ? (
+                                    <CheckCircle2 className="h-4 w-4" />
+                                ) : (
+                                    <XCircle className="h-4 w-4" />
+                                )}
+                                {selectedStatus === data.status ? 'NO CHANGES' : `CONFIRM ${selectedStatus}`}
                             </Button>
-                            
-                            <Button 
+
+                            <Button
                                 variant="ghost"
                                 onClick={() => onOpenChange(false)}
                                 disabled={isSubmitting}
-                                className="w-full h-12 rounded-xl sm:rounded-2xl font-bold text-muted-foreground text-xs sm:text-sm"
+                                className="w-full h-10 rounded-xl sm:rounded-2xl font-bold text-muted-foreground hover:bg-muted/50 text-[10px] sm:text-xs"
                             >
-                                CANCEL
+                                DISCARD CHANGES
                             </Button>
                         </div>
                     </div>

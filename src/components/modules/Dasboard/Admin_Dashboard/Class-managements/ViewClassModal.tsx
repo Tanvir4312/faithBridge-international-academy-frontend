@@ -93,10 +93,10 @@ const ViewClassModal = ({ open, onOpenChange, classData }: ViewClassModalProps) 
                             </h3>
                             <Badge className="font-bold">{classData.students?.length || 0} Registered</Badge>
                         </div>
-                        
-                        {classData.students && classData.students.length > 0 ? (
+
+                        {classData.students && classData.students?.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {classData.students.map((student) => (
+                                {classData.students?.map((student) => (
                                     <div key={student.id} className="flex items-center gap-3 p-3 rounded-xl border bg-background hover:border-primary/30 transition-colors shadow-sm">
                                         <Avatar className="h-10 w-10 ring-2 ring-primary/5">
                                             <AvatarImage src={student.profileImage} />
@@ -117,13 +117,13 @@ const ViewClassModal = ({ open, onOpenChange, classData }: ViewClassModalProps) 
                     </div>
 
                     {/* History Tracking */}
-                    {classData.studentHistories && classData.studentHistories.length > 0 && (
+                    {classData.studentHistories && classData.studentHistories?.length > 0 && (
                         <div className="space-y-4">
                             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <History className="h-4 w-4" /> Academic Logs
                             </h3>
                             <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-                                {classData.studentHistories.map((log) => (
+                                {classData.studentHistories?.map((log) => (
                                     <Badge key={log.id} variant="secondary" className="whitespace-nowrap flex gap-2 py-1.5 px-3">
                                         <Calendar className="h-3 w-3 opacity-50" />
                                         Session Year: {log.year}

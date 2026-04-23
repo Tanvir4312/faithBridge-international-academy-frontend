@@ -2,7 +2,7 @@
 
 import { httpClient } from "@/lib/axios/httpClient"
 import { ApiErrorResponse, ApiSuccessResponse } from "@/types/api.types"
-import { ITeacher } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types"
+import { ITeacher, IUpdateTeacherPayload } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types"
 import { createTeacherValidationSchema, ICreateTeacherPayload } from "@/zod/teacherZodValidation"
 
 export const getAllTeacher = async (): Promise<ApiSuccessResponse<ITeacher[]>> => {
@@ -19,8 +19,8 @@ export const getSingleTeacher = async (id: string): Promise<ApiSuccessResponse<I
  * Updates a teacher's profile.
  * Aligned with the latest flat backend structure.
  */
-export const updateTeacher = async (id: string, data: FormData): Promise<ApiSuccessResponse<ITeacher>> => {
-  const response = await httpClient.put<ITeacher>(`/teacher/${id}`, data, {
+export const updateTeacher = async (id: string, data: FormData): Promise<ApiSuccessResponse<IUpdateTeacherPayload>> => {
+  const response = await httpClient.put<IUpdateTeacherPayload>(`/teacher/${id}`, data, {
     headers: {
       "Content-Type": "multipart/form-data"
     }
@@ -45,6 +45,10 @@ export const createTeacher = async (data: ICreateTeacherPayload): Promise<ICreat
       message: firstError,
     }
   }
-  const response = await httpClient.post<ICreateTeacherPayload>("/users/create-teacher", parsPayload.data)
-  return response
+  try {
+    const response = await httpClient.post<ICreateTeacherPayload>("/users/create-teacher", parsPayload.data)
+    return response
+  } catch (error: any) {
+    return error.response?.data || { success: false, message: error.message }
+  }
 }

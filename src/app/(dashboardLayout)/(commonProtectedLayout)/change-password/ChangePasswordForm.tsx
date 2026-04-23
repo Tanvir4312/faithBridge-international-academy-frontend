@@ -30,7 +30,7 @@ const ChangePasswordForm = () => {
     const errors: Record<string, string> = {};
     if (!currentPassword) errors.currentPassword = "Current password is required";
     if (!newPassword) errors.newPassword = "New password is required";
-    else if (newPassword.length < 8) errors.newPassword = "New password must be at least 8 characters";
+    else if (newPassword?.length < 8) errors.newPassword = "New password must be at least 8 characters";
     if (!confirmPassword) errors.confirmPassword = "Please confirm your new password";
     else if (newPassword !== confirmPassword) errors.confirmPassword = "Passwords do not match";
     return errors;
@@ -42,7 +42,7 @@ const ChangePasswordForm = () => {
 
     const errors = validate();
     setFieldErrors(errors);
-    if (Object.keys(errors).length > 0) return;
+    if (Object.keys(errors)?.length > 0) return;
 
     try {
       const result = await mutateAsync({ currentPassword, newPassword }) as any;

@@ -44,9 +44,9 @@ const AcademicLevelTable = ({ data, onRefresh }: AcademicLevelTableProps) => {
             enableSorting: false,
             cell: ({ row }) => (
                 <Avatar className="h-10 w-10 border shadow-sm">
-                    <AvatarImage src={row.original.image} alt={row.original.name} />
+                    <AvatarImage src={row.original?.image} alt={row.original?.name} />
                     <AvatarFallback className="bg-primary/10 text-primary font-bold">
-                        {row.original.name?.[0] || "?"}
+                        {row.original?.name?.[0] || "?"}
                     </AvatarFallback>
                 </Avatar>
             )
@@ -57,7 +57,7 @@ const AcademicLevelTable = ({ data, onRefresh }: AcademicLevelTableProps) => {
             enableSorting: false,
             cell: ({ row }) => (
                 <div className="flex flex-col">
-                    <span className="font-bold text-base">{row.original.name}</span>
+                    <span className="font-bold text-base">{row.original?.name}</span>
 
                 </div>
             )
@@ -68,8 +68,8 @@ const AcademicLevelTable = ({ data, onRefresh }: AcademicLevelTableProps) => {
             enableSorting: false,
             cell: ({ row }) => (
                 <div className="flex flex-wrap gap-1">
-                    {row.original.classes && row.original.classes.length > 0 ? (
-                        row.original.classes.slice(0, 3).map((cls) => (
+                    {row.original?.classes && row.original?.classes?.length > 0 ? (
+                        row.original?.classes?.slice(0, 3)?.map((cls) => (
                             <Badge key={cls.id} variant="secondary" className="text-[10px] font-bold">
                                 {cls.name}
                             </Badge>
@@ -77,9 +77,9 @@ const AcademicLevelTable = ({ data, onRefresh }: AcademicLevelTableProps) => {
                     ) : (
                         <span className="text-muted-foreground text-xs italic">No classes</span>
                     )}
-                    {(row.original.classes?.length || 0) > 3 && (
+                    {(row.original?.classes?.length || 0) > 3 && (
                         <Badge variant="outline" className="text-[10px]">
-                            +{(row.original.classes?.length || 0) - 3} more
+                            +{(row.original?.classes?.length || 0) - 3} more
                         </Badge>
                     )}
                 </div>
@@ -92,7 +92,7 @@ const AcademicLevelTable = ({ data, onRefresh }: AcademicLevelTableProps) => {
             cell: ({ row }) => (
                 <div className="flex items-center gap-2 text-muted-foreground text-xs">
                     <Calendar className="h-3 w-3" />
-                    {row.original.createdAt ? format(new Date(row.original.createdAt), 'MMM dd, yyyy') : "N/A"}
+                    {row.original?.createdAt ? format(new Date(row.original?.createdAt), 'MMM dd, yyyy') : "N/A"}
                 </div>
             )
         }

@@ -21,7 +21,7 @@ export const classessColumns: ColumnDef<IClass>[] = [
   enableSorting: false,
   cell: ({ row }) => {
    return (
-    <span>{row.original.classTeacher?.teacher?.name || "N/A"}</span>
+    <span>{row.original?.classTeacher?.teacher?.name || "N/A"}</span>
    )
   }
  },
@@ -32,7 +32,7 @@ export const classessColumns: ColumnDef<IClass>[] = [
   enableSorting: false,
   cell: ({ row }) => {
    return (
-    <span>{row.original.students.length}</span>
+    <span>{row.original?.students?.length}</span>
    )
   }
  },

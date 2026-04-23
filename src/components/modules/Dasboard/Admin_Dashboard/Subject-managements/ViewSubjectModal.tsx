@@ -37,7 +37,7 @@ const ViewSubjectModal = ({ open, onOpenChange, subject }: ViewSubjectModalProps
                         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
                             <BookOpen className="h-48 sm:h-64 w-48 sm:w-64" />
                         </div>
-                        
+
                         <div className="relative z-10 space-y-4">
                             <div className="flex items-center gap-3">
                                 <Badge variant="secondary" className="px-3 py-1 bg-primary text-white font-black text-[10px] tracking-widest uppercase">
@@ -48,7 +48,7 @@ const ViewSubjectModal = ({ open, onOpenChange, subject }: ViewSubjectModalProps
                                     <span className="text-[10px] sm:text-xs font-black uppercase tracking-tight">Verified Curriculum</span>
                                 </div>
                             </div>
-                            
+
                             <h2 className="text-2xl sm:text-4xl font-black tracking-tighter text-left leading-[1.1] uppercase">
                                 {subject.name}
                             </h2>
@@ -96,12 +96,12 @@ const ViewSubjectModal = ({ open, onOpenChange, subject }: ViewSubjectModalProps
                             </div>
 
                             <div className="space-y-4">
-                                {subject.teacherSubjects && subject.teacherSubjects.length > 0 ? (
-                                    subject.teacherSubjects.map((ts, idx) => (
+                                {subject.teacherSubjects && subject.teacherSubjects?.length > 0 ? (
+                                    subject.teacherSubjects?.map((ts, idx) => (
                                         <div key={idx} className="group p-5 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] bg-muted/30 border border-transparent hover:border-primary/20 hover:bg-background transition-all duration-300 relative overflow-hidden">
                                             {/* Decorative Background Icon */}
                                             <User className="absolute -right-4 -bottom-4 h-24 w-24 opacity-5 pointer-events-none" />
-                                            
+
                                             <div className="flex items-center gap-4 sm:gap-6 relative z-10">
                                                 <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-2xl sm:rounded-[1.5rem] bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors flex-shrink-0">
                                                     <User className="h-6 w-6 sm:h-8 sm:w-8" />
@@ -145,7 +145,7 @@ const ViewSubjectModal = ({ open, onOpenChange, subject }: ViewSubjectModalProps
 
                 {/* Footer */}
                 <div className="p-6 sm:p-10 border-t bg-muted/10">
-                    <button 
+                    <button
                         onClick={() => onOpenChange(false)}
                         className="w-full h-14 sm:h-16 rounded-2xl sm:rounded-3xl bg-primary text-white font-black text-xs sm:text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
                     >

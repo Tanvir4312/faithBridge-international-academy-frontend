@@ -26,7 +26,7 @@ export const paymentsColumns: ColumnDef<IPayment>[] = [
   enableSorting: false,
   cell: ({ row }) => {
    return (
-    <PaymentStatusBadgeCell status={row.original.status} />
+    <PaymentStatusBadgeCell status={row.original?.status} />
    )
   }
  },
@@ -44,7 +44,7 @@ export const paymentsColumns: ColumnDef<IPayment>[] = [
   header: "Payment Time",
   enableSorting: false,
   cell: ({ row }) => {
-   const date = formatDate(new Date(row.original.createdAt), "MMMM d, yyyy");
+   const date = formatDate(new Date(row.original?.createdAt), "MMMM d, yyyy");
    return date;
   }
  },

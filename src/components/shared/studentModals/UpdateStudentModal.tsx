@@ -109,7 +109,7 @@ const UpdateStudentModal = ({ student, isOpen, onOpenChange }: UpdateStudentModa
 
     const onSubmit = (values: UpdateFormValues) => {
         const formData = new FormData()
-        Object.keys(values).forEach(key => {
+        Object.keys(values)?.forEach(key => {
             const val = values[key as keyof UpdateFormValues]
             if (val) formData.append(key, val)
         })

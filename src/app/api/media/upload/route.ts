@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore
       .getAll()
-      .map((c) => `${c.name}=${c.value}`)
+      ?.map((c) => `${c.name}=${c.value}`)
       .join("; ");
 
     const backendFormData = new FormData();

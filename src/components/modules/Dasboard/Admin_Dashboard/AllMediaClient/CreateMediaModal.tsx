@@ -62,7 +62,7 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
         const fd = new FormData();
         fd.append("sectionName", value.sectionName);
         if (value.description) fd.append("description", value.description);
-        value.media.forEach((file) => fd.append("media", file));
+        value.media?.forEach((file) => fd.append("media", file));
 
         const res = await fetch("/api/media/upload", {
           method: "POST",
@@ -86,7 +86,7 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
   });
 
   const handleClose = useCallback(() => {
-    filePreviews.forEach((fp) => URL.revokeObjectURL(fp.objectUrl));
+    filePreviews?.forEach((fp) => URL.revokeObjectURL(fp.objectUrl));
     setFilePreviews([]);
     setIsDragOver(false);
     form.reset();
@@ -95,7 +95,7 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
 
   const addFiles = useCallback(
     (incoming: FileList | File[]) => {
-      const newFiles = Array.from(incoming).filter((f) =>
+      const newFiles = Array.from(incoming)?.filter((f) =>
         f.type.startsWith("image/")
       );
 
@@ -105,14 +105,14 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
       }
 
       form.setFieldValue("media", (prev: File[]) => {
-        const combined = [...prev, ...newFiles].slice(0, 20);
+        const combined = [...prev, ...newFiles]?.slice(0, 20);
         return combined;
       });
 
       setFilePreviews((prev) => {
         const next = [
           ...prev,
-          ...newFiles.map((file) => ({
+          ...newFiles?.map((file) => ({
             file,
             objectUrl: URL.createObjectURL(file),
           })),
@@ -126,9 +126,9 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
   const removeFile = useCallback(
     (index: number) => {
       URL.revokeObjectURL(filePreviews[index].objectUrl);
-      setFilePreviews((prev) => prev.filter((_, i) => i !== index));
+      setFilePreviews((prev) => prev?.filter((_, i) => i !== index));
       form.setFieldValue("media", (prev: File[]) =>
-        prev.filter((_, i) => i !== index)
+        prev?.filter((_, i) => i !== index)
       );
     },
     [filePreviews, form]
@@ -219,7 +219,7 @@ const CreateMediaModal = ({ onSuccess }: CreateMediaModalProps) => {
                   {/* Previews Grid - Above Input as requested */}
                   {filePreviews.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 animate-in fade-in zoom-in duration-300">
-                      {filePreviews.map((fp, idx) => (
+                      {filePreviews?.map((fp, idx) => (
                         <div key={fp.objectUrl} className="group relative aspect-square rounded-lg overflow-hidden border">
                           <img src={fp.objectUrl} alt="preview" className="h-full w-full object-cover transition-transform group-hover:scale-110" />
                           <button

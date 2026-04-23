@@ -76,7 +76,7 @@ const htttGet = async <TData>(
 
     return response.data;
   } catch (error) {
-    console.log(`Get request to ${endPoints} failed: `, error);
+    // console.log(`Get request to ${endPoints} failed: `, error);
     throw error;
   }
 };
@@ -98,7 +98,7 @@ const httpPost = async <TData>(
     );
     return response.data;
   } catch (error) {
-    console.log(`Post request to ${endPoints} failed: `, error);
+    // console.log(`Post request to ${endPoints} failed: `, error);
     throw error;
   }
 };
@@ -120,7 +120,7 @@ const httpPut = async <TData>(
     );
     return response.data;
   } catch (error) {
-    console.log(`Put request to ${endPoints} failed: `, error);
+    // console.log(`Put request to ${endPoints} failed: `, error);
     throw error;
   }
 };
@@ -142,7 +142,7 @@ const httpPatch = async <TData>(
     );
     return response.data;
   } catch (error) {
-    console.log(`Patch request to ${endPoints} failed: `, error);
+    // console.log(`Patch request to ${endPoints} failed: `, error);
     throw error;
   }
 };
@@ -163,7 +163,7 @@ const httpDelete = async <TData>(
     );
     return response.data;
   } catch (error) {
-    console.log(`Delete request to ${endPoints} failed: `, error);
+    // console.log(`Delete request to ${endPoints} failed: `, error);
     throw error;
   }
 };

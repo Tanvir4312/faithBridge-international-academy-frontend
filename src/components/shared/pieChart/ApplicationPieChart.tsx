@@ -18,9 +18,9 @@ const CHART_COLORS = [
     "oklch(0.769 0.188 70.08)", // chart-5 - orange variant
 ];
 
-const ApplicationPieChart = ({data, title, description}: ApplicationPieChartProps) => {
+const ApplicationPieChart = ({ data, title, description }: ApplicationPieChartProps) => {
 
-    if(!data || !Array.isArray(data)){
+    if (!data || !Array.isArray(data)) {
         return (
             <Card className="col-span-2">
                 <CardHeader>
@@ -37,17 +37,17 @@ const ApplicationPieChart = ({data, title, description}: ApplicationPieChartProp
     }
 
 
-    const formattedData = data.map((item) => ({
-      name: item.status
-        .replace(/_/g, " ") // Replace underscores with spaces for better readability
-        .toLowerCase()
-        .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize the first letter of each word
+    const formattedData = data?.map((item) => ({
+        name: item.status
+            .replace(/_/g, " ") // Replace underscores with spaces for better readability
+            .toLowerCase()
+            .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitalize the first letter of each word
         ,
-      value: Number(item.count),
+        value: Number(item.count),
     }));
 
 
-    if(!formattedData.length || formattedData.every(item => item.value === 0)){
+    if (!formattedData?.length || formattedData?.every(item => item.value === 0)) {
         return (
             <Card className="col-span-2">
                 <CardHeader>
@@ -63,37 +63,37 @@ const ApplicationPieChart = ({data, title, description}: ApplicationPieChartProp
             </Card>
         )
     }
-  return (
-    <Card className="col-span-2">
-        <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-        </CardHeader>
+    return (
+        <Card className="col-span-2">
+            <CardHeader>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
+            </CardHeader>
 
-        <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                    <Pie
-                        data={formattedData}
-                        cx="50%"
-                        cy="50%"
-                        outerRadius={80}
-                        dataKey={"value"}
-                    >
-                        {formattedData.map((entry, index) => (
-                            <Cell
-                                key={`cell-${index}`}
-                                fill={CHART_COLORS[index % CHART_COLORS.length]}
-                            />
-                        ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                </PieChart>
-            </ResponsiveContainer>
-        </CardContent>
-    </Card>
-  )
+            <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                        <Pie
+                            data={formattedData}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={80}
+                            dataKey={"value"}
+                        >
+                            {formattedData?.map((entry, index) => (
+                                <Cell
+                                    key={`cell-${index}`}
+                                    fill={CHART_COLORS[index % CHART_COLORS?.length]}
+                                />
+                            ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                    </PieChart>
+                </ResponsiveContainer>
+            </CardContent>
+        </Card>
+    )
 }
 
 export default ApplicationPieChart;

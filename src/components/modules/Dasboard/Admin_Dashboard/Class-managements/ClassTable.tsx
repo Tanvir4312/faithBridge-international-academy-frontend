@@ -29,7 +29,7 @@ const ClassTable = ({ data, onRefresh }: ClassTableProps) => {
                     <div className="p-2 bg-primary/5 rounded-lg">
                         <School className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="font-bold text-base">{row.original.name}</span>
+                    <span className="font-bold text-base">{row.original?.name}</span>
                 </div>
             )
         },
@@ -39,7 +39,7 @@ const ClassTable = ({ data, onRefresh }: ClassTableProps) => {
             enableSorting: false,
             cell: ({ row }) => (
                 <Badge variant="outline" className="font-bold border-primary/20 text-primary bg-primary/5">
-                    {row.original.AcademicLevel?.name || "Unassigned"}
+                    {row.original?.AcademicLevel?.name || "Unassigned"}
                 </Badge>
             )
         },
@@ -51,7 +51,7 @@ const ClassTable = ({ data, onRefresh }: ClassTableProps) => {
                 <div className="flex items-center gap-2">
                     <UserCircle className="h-4 w-4 text-muted-foreground" />
                     <span className="text-sm font-medium">
-                        {row.original.classTeacher?.teacher.name || "None Assigned"}
+                        {row.original?.classTeacher?.teacher?.name || "None Assigned"}
                     </span>
                 </div>
             )
@@ -63,7 +63,7 @@ const ClassTable = ({ data, onRefresh }: ClassTableProps) => {
             cell: ({ row }) => (
                 <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium">
                     <Calendar className="h-3 w-3" />
-                    {row.original.createdAt ? format(new Date(row.original.createdAt), 'MMM dd, yyyy') : "N/A"}
+                    {row.original?.createdAt ? format(new Date(row.original?.createdAt), 'MMM dd, yyyy') : "N/A"}
                 </div>
             )
         }

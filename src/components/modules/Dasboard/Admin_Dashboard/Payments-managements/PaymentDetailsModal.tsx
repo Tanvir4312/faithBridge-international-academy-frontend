@@ -95,7 +95,7 @@ const PaymentDetailsModal = ({ payment, isOpen, onOpenChange }: PaymentDetailsMo
                     <div className="space-y-4">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground pl-1">Transaction Details</h4>
                         <div className="grid grid-cols-1 gap-3">
-                            {details.map((item, idx) => (
+                            {details?.map((item, idx) => (
                                 <div key={idx} className="flex items-center justify-between p-4 sm:p-5 rounded-[1.5rem] bg-muted/30 border border-muted hover:border-primary/20 transition-all group">
                                     <div className="flex items-center gap-4 min-w-0">
                                         <div className="p-2.5 bg-background rounded-xl shadow-sm group-hover:text-primary transition-colors flex-shrink-0">

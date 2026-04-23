@@ -17,61 +17,61 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import CategoriesImageSwiper from "./CategoriesImageSwiper/CategoriesImageSwiper";
 
 const CategoriesImage = () => {
- const { data: MediaResponse, isLoading, isError } = useQuery({
-  queryKey: ["all-media"],
-  queryFn: getAllMedia,
-  refetchOnWindowFocus: true
- })
+  const { data: MediaResponse, isLoading, isError } = useQuery({
+    queryKey: ["all-media"],
+    queryFn: getAllMedia,
+    refetchOnWindowFocus: true
+  })
 
- const allMedia = MediaResponse?.data || []
- const categoriesImages = allMedia.filter((media: AllMediaResponse) => media.sectionName === "CATEGORIES")
+  const allMedia = MediaResponse?.data || []
+  const categoriesImages = allMedia?.filter((media: AllMediaResponse) => media.sectionName === "CATEGORIES")
 
- return (
-  <div className='mt-20'>
-
-
-   <Swiper
-
-    slidesPerView={3}
-    centeredSlides={false}
-    spaceBetween={30}
-    autoplay={{
-     delay: 2500,
-     disableOnInteraction: false,
-    }}
+  return (
+    <div className='mt-20'>
 
 
-    modules={[Autoplay, Pagination, Navigation]}
-    className="mySwiper"
-    breakpoints={{
-     0: {
-      slidesPerView: 1,
-     },
-     640: {
-      slidesPerView: 2,
-     },
-     1024: {
-      slidesPerView: 3,
-     },
-    }}
-   >
+      <Swiper
 
-    {categoriesImages.map(image => <SwiperSlide>
-     <CategoriesImageSwiper
-      key={image?.id}
-      image={image}></CategoriesImageSwiper>
-    </SwiperSlide>)
-    }
+        slidesPerView={3}
+        centeredSlides={false}
+        spaceBetween={30}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
 
 
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
+        }}
+      >
+
+        {categoriesImages?.map(image => <SwiperSlide>
+          <CategoriesImageSwiper
+            key={image?.id}
+            image={image}></CategoriesImageSwiper>
+        </SwiperSlide>)
+        }
 
 
 
-   </Swiper>
 
 
-  </div>
- );
+      </Swiper>
+
+
+    </div>
+  );
 };
 
 export default CategoriesImage;

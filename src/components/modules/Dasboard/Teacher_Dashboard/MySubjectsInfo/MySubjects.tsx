@@ -67,7 +67,7 @@ const MySubjects = ({ teacherId }: { teacherId: string }) => {
 
         {teacherInfo.teacherSubjects?.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {teacherInfo.teacherSubjects.map((item) => (
+            {teacherInfo.teacherSubjects?.map((item) => (
               <Card
                 key={item.subject.name}
                 className="group relative overflow-hidden border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"

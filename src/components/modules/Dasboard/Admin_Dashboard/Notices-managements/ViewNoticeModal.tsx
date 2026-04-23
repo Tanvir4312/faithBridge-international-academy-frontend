@@ -39,7 +39,7 @@ const ViewNoticeModal = ({ open, onOpenChange, notice }: ViewNoticeModalProps) =
                         <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none transform translate-x-1/4 -translate-y-1/4">
                             <Megaphone className="h-48 sm:h-64 w-48 sm:w-64" />
                         </div>
-                        
+
                         <div className="relative z-10 space-y-4">
                             <div className="flex items-center gap-3">
                                 <Badge variant="secondary" className="px-3 py-1 bg-primary text-white font-black text-[10px] tracking-widest uppercase">
@@ -52,7 +52,7 @@ const ViewNoticeModal = ({ open, onOpenChange, notice }: ViewNoticeModalProps) =
                                     </span>
                                 </div>
                             </div>
-                            
+
                             <h2 className="text-2xl sm:text-4xl font-black tracking-tighter text-left leading-[1.1] uppercase">
                                 {notice.title}
                             </h2>
@@ -73,7 +73,7 @@ const ViewNoticeModal = ({ open, onOpenChange, notice }: ViewNoticeModalProps) =
                                             General Notice
                                         </Badge>
                                     ) : (
-                                        notice.noticeClasses.map((nc) => (
+                                        notice.noticeClasses?.map((nc) => (
                                             <Badge key={nc.class.id} className="px-4 py-2 bg-muted text-foreground font-black text-xs uppercase rounded-xl border-none shadow-sm">
                                                 Class {nc.class.name}
                                             </Badge>
@@ -124,7 +124,7 @@ const ViewNoticeModal = ({ open, onOpenChange, notice }: ViewNoticeModalProps) =
 
                 {/* Footer Actions */}
                 <div className="p-6 sm:p-10 border-t bg-muted/10">
-                    <button 
+                    <button
                         onClick={() => onOpenChange(false)}
                         className="w-full h-14 sm:h-16 rounded-2xl sm:rounded-3xl bg-primary text-white font-black text-xs sm:text-sm uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
                     >

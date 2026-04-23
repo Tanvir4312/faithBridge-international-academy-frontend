@@ -13,10 +13,10 @@ const UsersManagementsPage = async ({
  const queryParamsObj = await searchParams;
  const currentUser = await getUserInfo();
 
- const queryParamsString = Object.keys(queryParamsObj).map(key => {
+ const queryParamsString = Object.keys(queryParamsObj)?.map(key => {
   const value = queryParamsObj[key];
   if (Array.isArray(value)) {
-   return value.map((val) => `${key}=${val}`).join('&');
+   return value?.map((val) => `${key}=${val}`).join('&');
   }
   return `${key}=${value}`;
  }).join('&');

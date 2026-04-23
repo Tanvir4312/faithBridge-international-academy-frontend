@@ -42,24 +42,24 @@ const ClassManagements = () => {
                         <p className="text-muted-foreground text-sm">Organize student groups, assign sections, and manage class teachers.</p>
                     </div>
                 </div>
-                
-                <CreateClassModal 
-                    academicLevels={academicLevels} 
-                    teachers={teachers} 
-                    onSuccess={() => refetch()} 
+
+                <CreateClassModal
+                    academicLevels={academicLevels}
+                    teachers={teachers}
+                    onSuccess={() => refetch()}
                 />
             </div>
 
             {isLoading ? (
                 <div className="grid grid-cols-1 gap-4">
-                    {[1, 2, 3].map((i) => (
+                    {[1, 2, 3]?.map((i) => (
                         <Skeleton key={i} className="h-24 w-full rounded-xl" />
                     ))}
                 </div>
             ) : (
-                <ClassTable 
-                    data={classes} 
-                    onRefresh={() => refetch()} 
+                <ClassTable
+                    data={classes}
+                    onRefresh={() => refetch()}
                 />
             )}
         </div>

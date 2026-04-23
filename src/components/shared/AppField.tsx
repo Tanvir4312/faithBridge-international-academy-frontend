@@ -38,7 +38,7 @@ const AppField = ({
     disabled = false,
 }: AppFieldProps) => {
 
-    const firstError = field.state.meta.isTouched && field.state.meta.errors.length > 0 ? getErrorMessage(field.state.meta.errors[0]) : null;
+    const firstError = field.state.meta.isTouched && field.state.meta.errors?.length > 0 ? getErrorMessage(field.state.meta.errors[0]) : null;
 
     const hasError = firstError !== null;
 

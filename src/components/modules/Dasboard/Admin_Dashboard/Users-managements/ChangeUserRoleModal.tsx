@@ -168,7 +168,7 @@ const ChangeUserRoleModal = ({ user, isOpen, onOpenChange }: ChangeUserRoleModal
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="rounded-2xl shadow-2xl border-none">
-                                                    {roles.map((role) => (
+                                                    {roles?.map((role) => (
                                                         <SelectItem
                                                             key={role}
                                                             value={role}

@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 
 const WelcomeMessage = () => {
- const [showFull, setShowFull] = useState<boolean>(false)
+   const [showFull, setShowFull] = useState<boolean>(false)
 
- const fullText = `Welcome to FaithBridge International Academy, where education is more than books, and learning is more than exams. Here, we believe in nurturing hearts along with minds — building students who not only excel in academics but also in character, discipline, and faith.
+   const fullText = `Welcome to FaithBridge International Academy, where education is more than books, and learning is more than exams. Here, we believe in nurturing hearts along with minds — building students who not only excel in academics but also in character, discipline, and faith.
     
     At FaithBridge, we envision a generation that leads with integrity and purpose — where Islamic values are not separate from worldly knowledge, but rather the foundation upon which wisdom is built. We are a co-educational, English-medium institution that offers a dual curriculum integrating Islamic education with modern general subjects. This ensures our students are prepared both for this life and the hereafter.
 
@@ -25,33 +25,32 @@ const WelcomeMessage = () => {
     Principal
     FaithBridge International Academy`
 
- // ৩০০০ ক্যারেক্টার বা নির্দিষ্ট শব্দের পর কাটা বেশি নিরাপদ
- const halfText = fullText.substring(0, 800) + '...'
 
- return (
-  <div className='flex flex-col'>
-   <div className='text-center'>
-    <h2 className='text-3xl font-bold heading'>Welcome Message</h2>
-    <h1 className='text-[#007B5E] text-4xl font-bold heading my-2'>FaithBridge International Academy</h1>
-    <h4 className='text-xl font-bold heading uppercase'>Bismillahir Rahmanir Raheem</h4>
+   const halfText = fullText.substring(0, 800) + '...'
 
-    {/* হোয়াইট স্পেস প্রিজার্ভ করার জন্য whitespace-pre-line ব্যবহার করা হয়েছে */}
-    <p className='text-justify leading-relaxed body mt-7 whitespace-pre-line transition-all duration-500'>
-     {showFull ? fullText : halfText}
-    </p>
-   </div>
+   return (
+      <div className='flex flex-col'>
+         <div className='text-center'>
+            <h2 className='text-3xl font-bold heading'>Welcome Message</h2>
+            <h1 className='text-[#007B5E] text-4xl font-bold heading my-2'>FaithBridge International Academy</h1>
+            <h4 className='text-xl font-bold heading uppercase'>Bismillahir Rahmanir Raheem</h4>
+
+            <p className='text-justify leading-relaxed body mt-7 whitespace-pre-line transition-all duration-500'>
+               {showFull ? fullText : halfText}
+            </p>
+         </div>
 
 
-   <Button
-    onClick={() => setShowFull(!showFull)}
-    variant="outline"
-    className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white transition-colors duration-300 z-50 w-30 cursor-pointer'
-   >
-    {showFull ? 'Show Less' : 'Read More'}
-   </Button>
-  </div>
+         <Button
+            onClick={() => setShowFull(!showFull)}
+            variant="outline"
+            className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white transition-colors duration-300 z-50 w-30 cursor-pointer'
+         >
+            {showFull ? 'Show Less' : 'Read More'}
+         </Button>
+      </div>
 
- )
+   )
 }
 
 export default WelcomeMessage

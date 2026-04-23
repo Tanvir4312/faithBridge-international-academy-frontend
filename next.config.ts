@@ -1,18 +1,4 @@
-// import type { NextConfig } from "next";
 
-// const nextConfig: NextConfig = {
-//   /* config options here */
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'res.cloudinary.com',
-//       },
-//     ],
-//   },
-// };
-
-// export default nextConfig;
 
 
 
@@ -20,6 +6,7 @@ import type { NextConfig } from "next";
 
 
 const nextConfig: NextConfig = {
+  // reactCompiler: true,
   /* config options here */
   images: {
     remotePatterns: [
@@ -37,6 +24,22 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '5mb',
     },
   },
+
+  async rewrites() {
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+    const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API;
+
+    return [
+      {
+        source: "/api/auth/:path*",
+        destination: `${BACKEND_API}/api/auth/:path*`,
+      },
+      {
+        source: "/api/v1/:path*",
+        destination: `${API_BASE_URL}/:path*`,
+      },
+    ];
+  }
 };
 
 export default nextConfig;

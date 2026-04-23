@@ -9,8 +9,12 @@ export const getAllFromFillup = async (): Promise<ApiSuccessResponse<IFromFillup
 }
 
 export const updateFromFillupStatus = async (id: string, status: string): Promise<ApiSuccessResponse<IFromFillupData>> => {
- const response = await httpClient.put<IFromFillupData>(`/from-fillup/${id}`, { status })
- return response
+ try {
+  const response = await httpClient.put<IFromFillupData>(`/from-fillup/${id}`, { status })
+  return response
+ } catch (error: any) {
+  return error?.response?.data;
+ }
 }
 
 export const deleteFromFillup = async (id: string): Promise<ApiSuccessResponse<IFromFillupData>> => {

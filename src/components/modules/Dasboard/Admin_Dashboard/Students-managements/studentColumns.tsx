@@ -14,9 +14,9 @@ export const studentColumns: ColumnDef<IStudent>[] = [
    return (
     <div>
      <UserInfoCell
-      name={row.original.nameEn}
-      email={row.original.user.email}
-      profilePhoto={row.original.profileImage}
+      name={row.original?.nameEn}
+      email={row.original?.user?.email}
+      profilePhoto={row.original?.profileImage}
      />
     </div>
    )
@@ -50,7 +50,7 @@ export const studentColumns: ColumnDef<IStudent>[] = [
   cell: ({ row }) => {
    return (
     <StatusBadgeCell
-     status={row.original.user.status}
+     status={row.original?.user?.status}
     />
    )
   }

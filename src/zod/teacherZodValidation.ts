@@ -42,3 +42,16 @@ export const createTeacherValidationSchema = z.object({
 });
 
 export type ICreateTeacherPayload = z.infer<typeof createTeacherValidationSchema>
+
+
+
+export const updateTeacherSchema = z.object({
+  name: z.string().min(5, "Name must be at least 5 characters").max(30).optional().or(z.literal('')),
+  email: z.string().email("Invalid email").optional().or(z.literal('')),
+  contactNumber: z.string().min(11, "Contact number must be at least 11 characters").max(15, "Contact number cannot exceed 15 characters").optional().or(z.literal('')),
+  address: z.string().min(10, "Address must be at least 10 characters").max(100).optional().or(z.literal('')),
+  qualification: z.string().min(2, "Qualification must be at least 2 characters").max(50).optional().or(z.literal('')),
+  designation: z.string().min(2, "Designation must be at least 2 characters").max(50).optional().or(z.literal('')),
+})
+
+export type IUpdateTeacherFormValues = z.infer<typeof updateTeacherSchema>

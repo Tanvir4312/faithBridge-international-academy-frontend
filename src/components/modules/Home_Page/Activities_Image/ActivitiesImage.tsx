@@ -12,7 +12,7 @@ const ActivitiesImage = () => {
   refetchOnWindowFocus: true
  })
  const allMedia = MediaResponse?.data || []
- const activities = allMedia.filter((media: AllMediaResponse) => media.sectionName === "ACTIVITIES")
+ const activities = allMedia?.filter((media: AllMediaResponse) => media.sectionName === "ACTIVITIES")
 
 
  return (

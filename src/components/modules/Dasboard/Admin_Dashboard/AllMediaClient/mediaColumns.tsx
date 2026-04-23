@@ -9,7 +9,7 @@ export const mediaColumns: ColumnDef<AllMediaResponse>[] = [
   header: "Image",
   enableSorting: false,
   cell: ({ row }) => (
-   <img src={row.original.url} alt={row.original.description} className="w-20 h-20 object-cover" />
+   <img src={row.original?.url} alt={row.original?.description} className="w-20 h-20 object-cover" />
   )
  },
 
@@ -23,7 +23,7 @@ export const mediaColumns: ColumnDef<AllMediaResponse>[] = [
   header: "Created At",
   enableSorting: false,
   cell: ({ row }) => (
-   <p>{format(new Date(row.original.createdAt), "yyyy-MM-dd")}</p>
+   <p>{format(new Date(row.original?.createdAt), "yyyy-MM-dd")}</p>
   )
  }
 ]

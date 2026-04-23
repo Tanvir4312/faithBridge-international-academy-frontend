@@ -182,9 +182,9 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
             <div className="rounded-lg border">
                 <Table>
                     <TableHeader>
-                        {getHeaderGroups().map((hg) => (
+                        {getHeaderGroups()?.map((hg) => (
                             <TableRow key={hg.id}>
-                                {hg.headers.map((header) => (
+                                {hg.headers?.map((header) => (
                                     <TableHead key={header.id}>
                                         {header.isPlaceholder ? null : header.column.getCanSort() ? (
                                             <Button
@@ -219,7 +219,7 @@ const DataTable = <TData,>({ data, columns, actions, toolbarAction, emptyMessage
                     </TableHeader>
                     <TableBody>
                         {
-                            getRowModel().rows.length ? (
+                            getRowModel().rows?.length ? (
                                 getRowModel().rows.map((row) => (
                                     <TableRow key={row.id}>
                                         {row.getVisibleCells().map((cell) => (

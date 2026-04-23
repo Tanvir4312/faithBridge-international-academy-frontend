@@ -37,10 +37,8 @@ interface TeacherDetailsModalProps {
 }
 
 const TeacherDetailsModal = ({ teacher, isOpen, onOpenChange }: TeacherDetailsModalProps) => {
+    console.log("teacher", teacher)
     if (!teacher) return null
-
-    const registrationDate = teacher.createdAt || teacher.createdat
-
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent
@@ -115,7 +113,7 @@ const TeacherDetailsModal = ({ teacher, isOpen, onOpenChange }: TeacherDetailsMo
                 <div className="px-6 md:px-16 -mt-8 relative z-20">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <StatCard icon={Hash} label="Teacher ID" value="" theme="dark" />
-                        <StatCard icon={BookOpen} label="Core Subject" value={teacher.teacherSubjects.find(s => s.isPrimary)?.subject?.name || 'N/A'} theme="indigo" />
+                        <StatCard icon={BookOpen} label="Core Subject" value={teacher.teacherSubjects?.find(s => s.isPrimary)?.subject?.name || 'N/A'} theme="indigo" />
                     </div>
                 </div>
 
@@ -140,7 +138,7 @@ const TeacherDetailsModal = ({ teacher, isOpen, onOpenChange }: TeacherDetailsMo
                             </InfoSection>
 
                             <InfoSection title="Service History" icon={Calendar}>
-                                <DetailItem label="Date of Appointment" value={teacher.createdAt ? formatDate(new Date(teacher.createdAt), "MMMM dd, yyyy") : 'N/A'} icon={Calendar} full />
+                                <DetailItem label="Date of Appointment" value={teacher.createdat ? formatDate(new Date(teacher.createdat), "MMMM dd, yyyy") : 'N/A'} icon={Calendar} full />
                                 <DetailItem label="Professional Designation" value={teacher.designation} icon={Briefcase} full />
                             </InfoSection>
                         </div>

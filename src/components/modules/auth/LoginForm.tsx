@@ -162,9 +162,10 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </div>
           </div>
 
-          <Button variant="outline" className="w-full" onClick={async () => {
+          {/* <Button variant="outline" className="w-full" onClick={async () => {
             const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
             window.location.href = `${baseUrl}/auth/login/google`;
+            // window.location.href = `api/auth/login/google`;
           }}>
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
@@ -185,7 +186,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               />
             </svg>
             Continue with Google
-          </Button>
+          </Button> */}
         </CardContent>
 
         <CardFooter className="justify-center border-t pt-4">

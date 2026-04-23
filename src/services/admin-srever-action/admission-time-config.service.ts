@@ -22,7 +22,7 @@ export const getAdmissionTimeConfig = async (): Promise<ApiSuccessResponse<GetAd
  */
 export const createAdmissionTimeConfig = async (payload: CreateAdmissionTimeConfig): Promise<ApiSuccessResponse<GetAdmissionTimeConfig>> => {
  try {
-  console.log("Creating admission config with payload:", payload)
+
   const response = await httpClient.post<GetAdmissionTimeConfig>("/admission-config/create-admission-config", payload)
   return response
  } catch (error: any) {
@@ -37,7 +37,7 @@ export const createAdmissionTimeConfig = async (payload: CreateAdmissionTimeConf
  */
 export const updateAdmissionTimeConfig = async (id: string, payload: UpdateAdmissionTimeConfig): Promise<ApiSuccessResponse<GetAdmissionTimeConfig>> => {
  try {
-  console.log(`Updating admission config ${id} with payload:`, payload)
+
   const response = await httpClient.patch<GetAdmissionTimeConfig>(`/admission-config/update-admission-config/${id}`, payload)
   return response
  } catch (error: any) {

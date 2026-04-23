@@ -1,7 +1,7 @@
 import FromFillupsManagements from '@/components/modules/Dasboard/Admin_Dashboard/FromFillup-managements/FromFillupsManagements';
 import { getAllFromFillup } from '@/services/admin-srever-action/fromFillup-managements.service';
-import { dehydrate, HydrationBoundary, QueryClient, useQuery } from '@tanstack/react-query';
-import React from 'react';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 
 const FromFillupsManagementsPage = async () => {
     const queryClient = new QueryClient()

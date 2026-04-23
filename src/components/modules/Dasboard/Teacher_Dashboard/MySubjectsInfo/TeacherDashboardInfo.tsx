@@ -39,9 +39,9 @@ const TeacherDashboardInfo = ({ teacherId }: { teacherId: string }) => {
 
   const stats = useMemo(() => {
     return {
-      total: students.length,
-      boys: students.filter((s: any) => s.gender === "MALE").length,
-      girls: students.filter((s: any) => s.gender === "FEMALE").length,
+      total: students?.length,
+      boys: students?.filter((s: any) => s.gender === "MALE")?.length,
+      girls: students?.filter((s: any) => s.gender === "FEMALE")?.length,
     };
   }, [students]);
 
@@ -169,7 +169,7 @@ const TeacherDashboardInfo = ({ teacherId }: { teacherId: string }) => {
               </div>
               <div className="space-y-3">
                 {classData.notices?.length > 0 ? (
-                  classData.notices.map((item: any, i: number) => {
+                  classData.notices?.map((item: any, i: number) => {
                     const notice = item.notice;
                     return (
                       <Card key={notice.id || notice.title || i} className="border bg-card/50 hover:border-primary/50 transition cursor-pointer group" onClick={() => setSelectedNotice(notice)}>
