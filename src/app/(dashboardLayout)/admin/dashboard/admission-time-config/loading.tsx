@@ -1,4 +1,5 @@
-export default function AdmissionTimeConfigLoading() {
-  // Or a custom loading skeleton component
-  return <p>Admission Time Config Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

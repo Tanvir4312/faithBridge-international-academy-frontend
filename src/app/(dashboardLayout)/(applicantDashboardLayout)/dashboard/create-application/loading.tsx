@@ -1,4 +1,5 @@
-export default function CreateApplicationLoading() {
-  // Or a custom loading skeleton component
-  return <p>Create Application Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

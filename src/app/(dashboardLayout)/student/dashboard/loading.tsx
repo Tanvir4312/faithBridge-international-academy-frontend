@@ -1,4 +1,5 @@
-export default function StudentdashboardLoading() {
-  // Or a custom loading skeleton component
-  return <p>Student Dashboard Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

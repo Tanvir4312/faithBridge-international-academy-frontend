@@ -1,4 +1,5 @@
-export default function PaymentsManagemntsLoading() {
-  // Or a custom loading skeleton component
-  return <p>Payments Managements Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

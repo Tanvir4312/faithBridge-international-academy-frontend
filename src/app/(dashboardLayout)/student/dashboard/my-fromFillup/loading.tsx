@@ -1,4 +1,5 @@
-export default function FromFillupLoading() {
-  // Or a custom loading skeleton component
-  return <p>From Fillup Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

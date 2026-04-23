@@ -1,4 +1,5 @@
-export default function AssignSubjectsToTeacherLoading() {
-  // Or a custom loading skeleton component
-  return <p>Assign Subjects To Teacher Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }

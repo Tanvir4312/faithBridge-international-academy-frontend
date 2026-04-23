@@ -1,4 +1,5 @@
-export default function TeachersManagementsLoading() {
-  // Or a custom loading skeleton component
-  return <p>Teachers Managements Loading...</p>
+import LoadingComponent from "@/components/shared/Loading"
+
+export default function Loading() {
+  return <LoadingComponent fullScreen={false} />
 }
