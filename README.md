@@ -52,6 +52,25 @@ Tailored experiences for four distinct user personas:
 - `/src/services`: Decoupled server action layer for API interactions.
 - `/src/zod`: Centralized validation schemas for cross-environment consistency.
 
+## 🛡️ Secure Lifecycle & Notifications
+
+### 📧 Automated Communications
+The platform ensures all stakeholders are kept in the loop with automated email notifications triggered by critical lifecycle events:
+- **Application Submission**: Confirmation sent to applicants upon successful form submission.
+- **Entity Creation**: Automated onboarding emails sent to newly created **Students**, **Teachers**, and **Admins** with their credentials and next steps.
+
+### 🔐 Advanced Authentication Flow
+- **OTP Verification**: If a user's email is unverified, the system enforces a mandatory OTP (One-Time Password) verification flow to ensure 100% account authenticity.
+- **Password Management**: Comprehensive security features including "Change Password" for logged-in users and "Reset Password" via email for forgotten credentials.
+
+## ⚙️ Intelligent Middleware (Proxy)
+
+The platform leverages a robust `proxy.ts` middleware to handle complex authentication and routing logic:
+- **Proactive Token Refresh**: Automatically detects expiring access tokens and refreshes them using the refresh token, ensuring zero session interruptions.
+- **Mandatory Flow Enforcement**: Intelligently redirects users to `/verify-email` or `/change-password` if their account status requires action before proceeding to the dashboard.
+- **Granular RBAC**: Validates user roles (Admin, Teacher, Student, Applicant) against route owners to prevent unauthorized access.
+- **Auth State Awareness**: Prevents logged-in users from accessing auth pages (like `/login`) while allowing them to reach critical state-management routes.
+
 ## 🚀 Getting Started
 
 ### 📦 Prerequisites
