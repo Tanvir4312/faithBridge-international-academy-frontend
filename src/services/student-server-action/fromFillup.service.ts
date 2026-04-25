@@ -13,7 +13,7 @@ export const createFromFillup = async (payload: ICreateFromFillupPayload): Promi
         const response = await httpClient.post<ICreateFromFillupResponse>("/from-fillup/create", payload)
         return response
     } catch (error: any) {
-        console.log(error.response)
+
         return error.response?.data || { success: false, message: error.message }
     }
 }

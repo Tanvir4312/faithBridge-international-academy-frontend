@@ -7,7 +7,7 @@ import Link from "next/link";
 import Marquee from "react-fast-marquee";
 
 const NoticeScroll = () => {
- const { data: noticesResponse, isLoading, isError } = useQuery({
+ const { data: noticesResponse } = useQuery({
   queryKey: ["notices"],
   queryFn: getAllNotice,
   refetchOnWindowFocus: true,

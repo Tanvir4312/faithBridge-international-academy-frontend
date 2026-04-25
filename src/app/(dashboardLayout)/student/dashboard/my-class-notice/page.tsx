@@ -8,7 +8,7 @@ const MyClassNoticePage = async () => {
  const userInfo = await getUserInfo()
 
  const studentClass = userInfo?.student?.class?.name
- console.log(studentClass)
+
 
  await queryClient.prefetchQuery({
   queryKey: ["notices"],

@@ -49,6 +49,11 @@ export const updateAdmin = async (id: string, data: IUpdateAdminPayload): Promis
     }
   }
 
+  const { cookies } = await import("next/headers");
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.getAll().map((cookie) => `${cookie.name}=${cookie.value}`).join("; ");
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const formData = new FormData();
   if (parsPayload.data.name) {
     formData.append("name", parsPayload.data.name);
@@ -61,15 +66,18 @@ export const updateAdmin = async (id: string, data: IUpdateAdminPayload): Promis
   }
 
   try {
-    const response = await httpClient.put<IUpdateAdminPayload>(`/admin/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
+    const res = await fetch(`${API_BASE_URL}/admin/${id}`, {
+      method: "PUT",
+      headers: { Cookie: cookieHeader },
+      body: formData,
     });
-    return response;
+
+    const json = await res.json();
+    if (!res.ok) throw new Error(json?.message || "Failed to update admin");
+    return json;
   } catch (error: any) {
     console.error("Error updating admin:", error);
-    const message = error?.data?.message || error?.response?.data?.message || error?.message || "Failed to update admin";
+    const message = error?.message || "Failed to update admin";
     throw new Error(message);
   }
 }

@@ -37,7 +37,7 @@ interface TeacherDetailsModalProps {
 }
 
 const TeacherDetailsModal = ({ teacher, isOpen, onOpenChange }: TeacherDetailsModalProps) => {
-    console.log("teacher", teacher)
+
     if (!teacher) return null
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>

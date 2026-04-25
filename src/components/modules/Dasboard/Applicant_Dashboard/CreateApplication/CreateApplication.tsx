@@ -20,7 +20,7 @@ const CreateApplication = () => {
 
  const admissionConfig = data?.data?.[0]; // Assuming we only need the first active one or the most relevant
  const today = new Date();
- console.log(admissionConfig)
+
 
  if (isLoading) {
   return <div className="flex items-center justify-center min-h-[400px]">

@@ -6,7 +6,15 @@ import { IMyApplicationInfo } from "@/types/Dashboard/applicant-dashboard-types/
 
 export const createApplication = async (payload: FormData): Promise<ApiSuccessResponse<any>> => {
     try {
-        const response = await httpClient.post<any>("/application/create-application", payload, {
+        const newFormData = new FormData();
+        payload.forEach((value, key) => {
+            if (value instanceof File && value.size === 0) {
+                return; // Skip empty files
+            }
+            newFormData.append(key, value);
+        });
+
+        const response = await httpClient.post<any>("/application/create-application", newFormData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

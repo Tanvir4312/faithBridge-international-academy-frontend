@@ -15,6 +15,7 @@ const NoticesPage = async () => {
     staleTime: 60 * 1000 * 60 * 24, // 1 day
     gcTime: 60 * 1000 * 60 * 20, // 20 hours
   })
+
   return (
     // Neat! Serialization is now as easy as passing props.
     // HydrationBoundary is a Client Component, so hydration will happen there.

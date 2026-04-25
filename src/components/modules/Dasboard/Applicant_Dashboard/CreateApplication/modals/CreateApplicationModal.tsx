@@ -106,7 +106,7 @@ const CreateApplicationModal = ({ onSuccess, currentYear }: CreateApplicationMod
 
                 // Append all fields to FormData
                 Object.entries(value)?.forEach(([key, val]) => {
-                    if (val !== undefined && val !== null) {
+                    if (val !== undefined && val !== null && val !== "") {
                         if (key === "dob" && val instanceof Date) {
                             formData.append(key, val.toISOString())
                         } else if (key === "profileImage" && val instanceof File) {
