@@ -1,6 +1,6 @@
 import UsersManagements from '@/components/modules/Dasboard/Admin_Dashboard/Users-managements/UsersManagements'
 import { getAllUser } from '@/services/admin-srever-action/users-managements.service'
-import { getUserInfo } from '@/services/authService'
+import { getUserInfo } from '../../../../../services/authService'
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import React from 'react'
 

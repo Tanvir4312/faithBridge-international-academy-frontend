@@ -1,7 +1,7 @@
 
 
 import PaymentDashboard from '@/components/modules/Dasboard/Payment_Dashboard/payment-dashboard/payment-dashboard'
-import { getUserInfo } from '@/services/authService'
+import { getUserInfo } from '../../../../../../services/authService'
 
 
 

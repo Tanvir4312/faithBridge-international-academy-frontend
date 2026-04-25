@@ -1,6 +1,6 @@
 import MyApplicationClient from '@/components/modules/Dasboard/Applicant_Dashboard/MyApplicationClient/MyApplicationClient';
 import { getMyApplicationInfo } from '@/services/applicant-server-action/application.service';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../../services/authService';
 import { dehydrate, HydrationBoundary, QueryClient, useQuery } from '@tanstack/react-query';
 import React from 'react';
 

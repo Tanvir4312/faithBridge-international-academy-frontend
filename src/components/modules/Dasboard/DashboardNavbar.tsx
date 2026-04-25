@@ -1,6 +1,6 @@
-import { getDefaultDashboardRoute } from '@/lib/authUtils';
+import { getDefaultDashboardRoute } from '../../../lib/authUtils';
 import { getNavItemsByRole } from '@/lib/navItems';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../services/authService';
 import React from 'react';
 import DashboardNavbarContent from './DashboardNavbarContent';
 

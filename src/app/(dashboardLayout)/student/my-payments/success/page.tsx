@@ -1,5 +1,5 @@
 import PaymentSuccessClient from '@/components/modules/Dasboard/Student_Dashboard/PaymentSuccessClient/PaymentSuccessClient';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../../services/authService';
 import { getAllStudentPaymentInfo } from '@/services/student-server-action/payment.info.service';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';

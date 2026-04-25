@@ -20,7 +20,7 @@ export const assignSubjectsToTeacher = async (data: {
     const response = await httpClient.post("/teacher-subject/assign-subjects", data)
     return response as ApiSuccessResponse<any>
   } catch (error: any) {
-    const message = error?.response?.data?.message || error?.message || "Failed to assign subjects";
+    const message = error?.response?.data?.message || error?.message || "Failed to assign subject";
     throw new Error(message);
   }
 }

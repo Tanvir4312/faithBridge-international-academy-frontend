@@ -160,8 +160,8 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                     <SelectValue placeholder="Select faculty member..." />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl border-none shadow-2xl">
-                                    {teachers?.map(t => (
-                                        <SelectItem key={t.id} value={t.id} className="font-bold">{t.name}</SelectItem>
+                                    {teachers?.map((t, idx) => (
+                                        <SelectItem key={t.id || `teacher-${idx}`} value={t.id} className="font-bold">{t.name}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
@@ -196,8 +196,8 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                 </div>
                             ) : (
                                 <div className="space-y-3">
-                                    {assignedSubjects?.map((sub) => (
-                                        <div key={sub.subjectId} className={`flex items-center justify-between p-3 sm:p-4 rounded-xl border transition-all ${sub.isPrimary ? 'bg-amber-50 border-amber-200 ring-1 ring-amber-300 shadow-sm' : 'bg-background hover:border-muted-foreground/30'}`}>
+                                    {assignedSubjects?.map((sub, idx) => (
+                                        <div key={sub.subjectId || `assigned-${idx}`} className={`flex items-center justify-between p-3 sm:p-4 rounded-xl border transition-all ${sub.isPrimary ? 'bg-amber-50 border-amber-200 ring-1 ring-amber-300 shadow-sm' : 'bg-background hover:border-muted-foreground/30'}`}>
                                             <div className="flex items-center gap-3 min-w-0">
                                                 <div className={`h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-lg flex items-center justify-center font-black text-sm ${sub.isPrimary ? 'bg-amber-100 text-amber-700' : 'bg-muted text-muted-foreground'}`}>
                                                     {sub.name[0]}
@@ -244,11 +244,11 @@ const AssignSubjectForm = ({ teachers, subjects, onAssign, onDelete, onUpdatePri
                                 </div>
                             ) : (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-[350px] sm:max-h-[450px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
-                                    {availableSubjects?.map((subject) => {
+                                    {availableSubjects?.map((subject, idx) => {
                                         const isChecked = newSelectedSubjects.includes(subject.id)
                                         const isPrimarySelection = newPrimarySubject === subject.id
                                         return (
-                                            <div key={subject.id}
+                                            <div key={subject.id || `available-${idx}`}
                                                 className={`p-3 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex flex-col gap-3 ${isChecked ? 'border-primary bg-primary/5 shadow-sm' : 'border-muted hover:border-muted-foreground/30'}`}
                                                 onClick={() => handleNewSubjectToggle(subject.id)}>
                                                 <div className="flex items-center justify-between">

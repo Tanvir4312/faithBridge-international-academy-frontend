@@ -1,5 +1,5 @@
 import StudentDashboardClient from '@/components/modules/Dasboard/Student_Dashboard/Student_Dashboard_Client/StudentDashboardClient';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../services/authService';
 import { getFromFillupByStudentId } from '@/services/student-server-action/fromFillup.service';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';

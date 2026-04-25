@@ -3,7 +3,7 @@
 
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { getAllExam } from '@/services/admin-srever-action/exams-managements.service'
-import { getUserInfo } from '@/services/authService'
+import { getUserInfo } from '../../../../../services/authService'
 import StudentFromFillup from '@/components/modules/Dasboard/Student_Dashboard/student-fromFillup/studentFromFillup'
 
 

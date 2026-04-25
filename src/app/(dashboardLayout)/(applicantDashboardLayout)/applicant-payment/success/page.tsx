@@ -1,6 +1,6 @@
 import ApplicantPaymentSuccessInfo from '@/components/modules/Dasboard/Applicant_Dashboard/ApplicantPaymentSuccessInfo/ApplicantPaymentSuccessInfo';
 import { getAllApplicantPaymentInfo } from '@/services/applicant-server-action/applicant-paymentInfo.service';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../../services/authService';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';
 

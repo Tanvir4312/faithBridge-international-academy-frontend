@@ -1,7 +1,7 @@
 "use client"
 
 
-import { getUserInfo } from '@/services/authService'
+import { getUserInfo } from '../../../../../services/authService'
 import { format, isPast, isFuture, isWithinInterval } from 'date-fns'
 import {
   ClipboardCheck,

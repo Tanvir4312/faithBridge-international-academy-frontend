@@ -1,5 +1,5 @@
 import TeacherDashboardInfo from '@/components/modules/Dasboard/Teacher_Dashboard/MySubjectsInfo/TeacherDashboardInfo';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../services/authService';
 import { gettAllInfoForTeacher } from '@/services/teacher-server-action/teacher-info.service';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import React from 'react';

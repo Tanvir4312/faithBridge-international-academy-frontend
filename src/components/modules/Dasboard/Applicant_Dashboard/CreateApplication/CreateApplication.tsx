@@ -20,6 +20,7 @@ const CreateApplication = () => {
 
  const admissionConfig = data?.data?.[0]; // Assuming we only need the first active one or the most relevant
  const today = new Date();
+ console.log(admissionConfig)
 
  if (isLoading) {
   return <div className="flex items-center justify-center min-h-[400px]">
@@ -27,7 +28,7 @@ const CreateApplication = () => {
   </div>;
  }
 
- if (!admissionConfig) {
+ if (!admissionConfig || !admissionConfig.isActive) {
   return (
    <Card className="border-red-200 bg-red-50">
     <CardContent className="pt-6">

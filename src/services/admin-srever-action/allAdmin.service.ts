@@ -35,9 +35,7 @@ export const createAdmin = async (data: ICreateAdminPayload): Promise<ICreateAdm
     const response = await httpClient.post<ICreateAdminPayload>("/users/create-admin", parsPayload.data);
     return response;
   } catch (error: any) {
-    console.error("Error creating admin:", error);
-    const message = error?.data?.message || error?.response?.data?.message || error?.message || "Failed to create admin";
-    throw new Error(message);
+    return error?.response?.data;
   }
 }
 

@@ -9,30 +9,28 @@ A premium, comprehensive, and highly scalable School Management System (SMS) des
 
 **🌐 [Live Demo](https://school-management-frontend-phi-lake.vercel.app)**
 
-## 🌟 Key Pillars of the Platform
+## 🌟 Key Features of the Application
 
-### 🔐 Multi-Role Ecosystem
-Tailored experiences for four distinct user personas:
-- **Administrators**: Complete institutional control and configuration.
-- **Teachers**: Academic management, subject assignments, and student monitoring.
-- **Students**: Result tracking, payment management, and academic updates.
-- **Applicants**: Seamless digital admission and payment workflow.
+### 🔐 Multi-Role Ecosystem & Authentication
+- **Role-Based Access Control (RBAC)**: Tailored dashboards and permissions for four distinct user personas: **Administrators**, **Teachers**, **Students**, and **Applicants**.
+- **Advanced Authentication**: Secure login, email verification via OTP, and automated password recovery flows using Better Auth.
+- **Intelligent Middleware**: Proactive token refreshing, status-based access restrictions (e.g., suspending inactive users), and strict route protection.
 
 ### 🏛️ Advanced Academic Architecture
-- **Dynamic Curriculum**: Manage Academic Levels, Classes, and Subjects with relational mapping.
-- **Faculty Orchestration**: Intelligent assignment of subjects to teachers and class teacher designations.
-- **Exam Lifecycle**: End-to-end management from form fill-ups to result publication.
-- **Admission Configurator**: Precision control over admission timelines and status tracking.
+- **Dynamic Curriculum**: Manage Academic Levels, Classes, and Subjects with complex relational mapping.
+- **Faculty Orchestration**: Intelligent assignment of subjects to teachers, conflict resolution, and class teacher designations.
+- **Exam Lifecycle**: End-to-end management from exam form fill-ups to result publication.
+- **Admission Configurator**: Precision control over admission timelines, opening/closing dates, and applicant tracking.
 
 ### 💳 Financial & Operational Integrity
-- **Integrated Payments**: Secure Stripe-powered transactions for fees and applications.
-- **Media Vault**: A centralized asset management system for institutional documentation and imagery.
-- **Notice Board**: Enterprise-wide announcement system with real-time visibility.
+- **Integrated Payments**: Secure Stripe-powered transactions for admission fees and application processing with webhook synchronization.
+- **Media Vault**: Centralized asset management system for institutional documentation, logos, and gallery imagery.
+- **Enterprise Notice Board**: System-wide announcement distribution with real-time visibility, targeted either generally or to specific classes.
 
 ### 🎨 State-of-the-Art UX/UI
-- **Motion-Driven**: Fluid micro-animations powered by `motion` (Framer Motion).
+- **Motion-Driven**: Fluid micro-animations powered by Framer Motion.
 - **Responsive Mastery**: Perfectly optimized for desktop, tablet, and mobile views.
-- **Modern Componentry**: Built on a customized `shadcn/ui` foundation for a premium aesthetic.
+- **Modern Componentry**: Built on a customized `shadcn/ui` foundation and Tailwind CSS v4 for a premium, accessible aesthetic.
 
 ## 🛠️ Technical Architecture
 

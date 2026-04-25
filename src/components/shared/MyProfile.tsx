@@ -75,7 +75,13 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                                 <User className="w-14 h-14 text-gray-300" />
                             )}
                             {role !== "APPLICANT" && (
-                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer" onClick={() => setIsUpdateModalOpen(true)}>
+                                <div 
+                                    className={cn(
+                                        "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer",
+                                        userInfo.status !== "ACTIVE" && "pointer-events-none opacity-0"
+                                    )} 
+                                    onClick={() => userInfo.status === "ACTIVE" && setIsUpdateModalOpen(true)}
+                                >
                                     <Camera className="w-8 h-8 text-white" />
                                 </div>
                             )}
@@ -98,7 +104,13 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                                 </h1>
                             </div>
                             {role !== "APPLICANT" && (
-                                <Button onClick={() => setIsUpdateModalOpen(true)} size="sm" variant="secondary" className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all mx-auto lg:mx-0">
+                                <Button 
+                                    onClick={() => setIsUpdateModalOpen(true)} 
+                                    disabled={userInfo.status !== "ACTIVE"}
+                                    size="sm" 
+                                    variant="secondary" 
+                                    className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all mx-auto lg:mx-0 disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
+                                >
                                     <Edit className="w-3.5 h-3.5 mr-2" />
                                     Update Profile
                                 </Button>
@@ -109,6 +121,14 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
                             <span className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold tracking-wide shadow">
                                 <ShieldCheck className="w-4 h-4" />
                                 {role.replace("_", " ")}
+                            </span>
+
+                            <span className={cn(
+                                "flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs font-bold tracking-wide border shadow-sm backdrop-blur-md",
+                                userInfo.status === "ACTIVE" ? "bg-emerald-50/80 text-emerald-700 border-emerald-200" : "bg-rose-50/80 text-rose-700 border-rose-200"
+                            )}>
+                                <div className={cn("w-2 h-2 rounded-full animate-pulse", userInfo.status === "ACTIVE" ? "bg-emerald-500" : "bg-rose-500")} />
+                                {userInfo.status}
                             </span>
 
                             <span className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-1.5 rounded-xl text-sm shadow border">
@@ -123,25 +143,45 @@ const MyProfile = ({ userInfo }: MyProfileProps) => {
             {/* 🔥 GRID SECTION */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-                {/* LEFT */}
-                <div className="lg:col-span-4 space-y-6">
-                    <div className="bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border shadow-md hover:shadow-lg transition">
-                        <SectionTitle icon={Clock} title="Enrollment Info" />
-
-                        <div className="space-y-4">
-                            <InfoItem icon={Clock} label="Joined" value={joinDate} />
-                            <InfoItem
-                                icon={Phone}
-                                label="Contact"
-                                value={roleData?.contactNumber}
-                            />
-                            <InfoItem
-                                icon={MapPin}
-                                label="Address"
-                                value={roleData?.address}
-                            />
+                {(userInfo.status === "INACTIVE" || userInfo.status === "SUSPENDED") && (
+                    <div className="lg:col-span-12">
+                        <div className="bg-rose-50 border-2 border-rose-200 p-6 rounded-3xl flex items-center gap-6 animate-pulse shadow-lg">
+                            <div className="w-12 h-12 bg-rose-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-rose-200">
+                                <ShieldCheck className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <h3 className="text-rose-900 font-black uppercase tracking-widest text-sm">Account Restricted</h3>
+                                <p className="text-rose-700 text-sm font-medium mt-1">
+                                    Your account status is currently set to <span className="font-black">"{userInfo.status}"</span>. 
+                                    Access to dashboard activities and applications has been temporarily disabled. 
+                                    Please contact system administration for reactivation.
+                                </p>
+                            </div>
                         </div>
                     </div>
+                )}
+
+                {/* LEFT */}
+                <div className="lg:col-span-4 space-y-6">
+                    {role !== "APPLICANT" && (
+                        <div className="bg-white/70 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border shadow-md hover:shadow-lg transition">
+                            <SectionTitle icon={Clock} title="Contact Info" />
+
+                            <div className="space-y-4">
+                                <InfoItem icon={Clock} label="Joined" value={joinDate} />
+                                <InfoItem
+                                    icon={Phone}
+                                    label="Contact"
+                                    value={roleData?.contactNumber}
+                                />
+                                <InfoItem
+                                    icon={MapPin}
+                                    label="Address"
+                                    value={roleData?.address}
+                                />
+                            </div>
+                        </div>
+                    )}
 
                     {/* Status Card */}
                     <div className="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-6 rounded-3xl shadow-lg">

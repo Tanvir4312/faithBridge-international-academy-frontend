@@ -1,6 +1,6 @@
 "use client";
 
-import { getDefaultDashboardRoute, UserRole } from "@/lib/authUtils";
+import { getDefaultDashboardRoute, UserRole } from "../../../../lib/authUtils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";

@@ -1,7 +1,7 @@
 "use server";
 
 import { httpClient } from "@/lib/axios/httpClient";
-import { setTokenInCookies } from "@/lib/tokenUtils";
+import { setTokenInCookies } from "../../../../lib/tokenUtils";
 import { redirect } from "next/navigation";
 
 export interface IRegisterData {

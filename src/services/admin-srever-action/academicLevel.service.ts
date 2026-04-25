@@ -11,7 +11,18 @@ export const getAllAcademicLevel = async (): Promise<ApiSuccessResponse<IAcademi
 }
 
 export const createAcademicLevel = async (formData: FormData): Promise<ApiSuccessResponse<IAcademicLevel>> => {
-  const response = await httpClient.post<IAcademicLevel>("/academic-level/create", formData, {
+  const newFormData = new FormData();
+  const name = formData.get("name");
+  const description = formData.get("description");
+  const image = formData.get("image");
+
+  if (name) newFormData.append("name", name as string);
+  if (description !== null) newFormData.append("description", description as string);
+  if (image && typeof image !== "string" && image.size > 0) {
+    newFormData.append("image", image);
+  }
+
+  const response = await httpClient.post<IAcademicLevel>("/academic-level/create", newFormData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -20,7 +31,18 @@ export const createAcademicLevel = async (formData: FormData): Promise<ApiSucces
 };
 
 export const updateAcademicLevel = async (id: string, formData: FormData): Promise<ApiSuccessResponse<IAcademicLevel>> => {
-  const response = await httpClient.put<IAcademicLevel>(`/academic-level/${id}`, formData, {
+  const newFormData = new FormData();
+  const name = formData.get("name");
+  const description = formData.get("description");
+  const image = formData.get("image");
+
+  if (name) newFormData.append("name", name as string);
+  if (description !== null) newFormData.append("description", description as string);
+  if (image && typeof image !== "string" && image.size > 0) {
+    newFormData.append("image", image);
+  }
+
+  const response = await httpClient.put<IAcademicLevel>(`/academic-level/${id}`, newFormData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

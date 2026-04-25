@@ -22,7 +22,7 @@ const DashboardSidebarContent = ({ userInfo, navItems, dashboardHome }: Dashboar
     return (
         <div className="hidden md:flex h-full w-64 flex-col border-r bg-card overflow-y-auto">
             {/* Logo / Brand */}
-            <div className="flex h-16 items-center border-b px-6 py-4">
+            <div className="flex h-16 items-center border-b px-6 py-3">
                 <Link href={dashboardHome}>
                     <span className="text-xl font-bold text-primary">School Managements</span>
                 </Link>

@@ -1,8 +1,8 @@
 "use server";
 
-import { getDefaultDashboardRoute, UserRole } from "@/lib/authUtils";
+import { getDefaultDashboardRoute, UserRole } from "../../../../lib/authUtils";
 import { httpClient } from "@/lib/axios/httpClient";
-import { getUserInfo } from "@/services/authService";
+import { getUserInfo } from "../../../../services/authService";
 import { redirect } from "next/navigation";
 
 export interface IChangePasswordPayload {

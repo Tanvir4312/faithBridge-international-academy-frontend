@@ -13,7 +13,7 @@ import CreateAdminModal from './CreateAdminModal';
 import AdminDetailsModal from '@/components/shared/adminModals/AdminDetailsModal';
 import UpdateAdminModal from '@/components/shared/adminModals/UpdateAdminModal';
 import DeleteAdminModal from './DeleteAdminModal';
-import { getUserInfo } from '@/services/authService';
+import { getUserInfo } from '../../../../../services/authService';
 
 const AllAdminTable = ({ queryParamsString, queryParamsObj }: { queryParamsString: string; queryParamsObj: { [key: string]: string | string[] | undefined } }) => {
 

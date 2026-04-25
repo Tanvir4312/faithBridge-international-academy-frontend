@@ -1,7 +1,7 @@
 import Header from '@/components/modules/Home_Page/Header/Header';
 import Navbar from '@/components/modules/Home_Page/Navbar/Navbar';
-import { UserRole } from '@/lib/authUtils';
-import { getUserInfo } from '@/services/authService';
+import { UserRole } from '../../../../../lib/authUtils';
+import { getUserInfo } from '../../../../../services/authService';
 import { getSingleNotice } from '@/services/common-server-action/getNoticeById.service';
 import React from 'react';
 

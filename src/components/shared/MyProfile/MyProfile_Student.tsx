@@ -52,7 +52,13 @@ const MyProfile_Student = ({ userInfo, roleData }: MyProfile_StudentProps) => {
                             ) : (
                                 <User className="w-16 h-16 text-gray-300" />
                             )}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer" onClick={() => setIsUpdateStudentModalOpen(true)}>
+                            <div 
+                                className={cn(
+                                    "absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center backdrop-blur-sm cursor-pointer",
+                                    userInfo.status !== "ACTIVE" && "pointer-events-none opacity-0"
+                                )} 
+                                onClick={() => userInfo.status === "ACTIVE" && setIsUpdateStudentModalOpen(true)}
+                            >
                                 <Camera className="w-8 h-8 text-white" />
                             </div>
                         </div>
@@ -66,7 +72,13 @@ const MyProfile_Student = ({ userInfo, roleData }: MyProfile_StudentProps) => {
                             </h1>
                             <div className="flex items-center gap-3 mx-auto lg:mx-0">
                                 <BadgeCheck className={cn("w-6 h-6", userInfo.status === "ACTIVE" ? "text-green-500" : "text-red-500")} />
-                                <Button onClick={() => setIsUpdateStudentModalOpen(true)} size="sm" variant="secondary" className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all">
+                                <Button 
+                                    onClick={() => setIsUpdateStudentModalOpen(true)} 
+                                    disabled={userInfo.status !== "ACTIVE"}
+                                    size="sm" 
+                                    variant="secondary" 
+                                    className="rounded-full font-black text-[10px] uppercase tracking-widest px-6 shadow-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed"
+                                >
                                     <Edit className="w-3.5 h-3.5 mr-2" />
                                     Update Profile
                                 </Button>
@@ -78,9 +90,18 @@ const MyProfile_Student = ({ userInfo, roleData }: MyProfile_StudentProps) => {
                                 <ShieldCheck className="w-4 h-4" />
                                 STUDENT
                             </span>
-                            <div className="flex items-center gap-3 text-gray-500 text-sm font-bold bg-white/50 backdrop-blur-md px-5 py-2 rounded-2xl border border-white/50 shadow-sm truncate max-w-full">
-                                <Mail className="w-4 h-4 text-indigo-600" />
-                                {userInfo.email}
+                            <div className="flex flex-wrap items-center gap-4">
+                                <span className={cn(
+                                    "flex items-center gap-2 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border shadow-sm backdrop-blur-md",
+                                    userInfo.status === "ACTIVE" ? "bg-emerald-50/80 text-emerald-700 border-emerald-200" : "bg-rose-50/80 text-rose-700 border-rose-200"
+                                )}>
+                                    <div className={cn("w-2 h-2 rounded-full animate-pulse", userInfo.status === "ACTIVE" ? "bg-emerald-500" : "bg-rose-500")} />
+                                    {userInfo.status}
+                                </span>
+                                <div className="flex items-center gap-3 text-gray-500 text-sm font-bold bg-white/50 backdrop-blur-md px-5 py-2 rounded-2xl border border-white/50 shadow-sm truncate max-w-full">
+                                    <Mail className="w-4 h-4 text-indigo-600" />
+                                    {userInfo.email}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -88,6 +109,21 @@ const MyProfile_Student = ({ userInfo, roleData }: MyProfile_StudentProps) => {
             </div>
 
             {/* SECTIONS GRID */}
+            {(userInfo.status === "INACTIVE" || userInfo.status === "SUSPENDED") && (
+                <div className="bg-rose-50 border-2 border-rose-200 p-8 rounded-[2.5rem] flex items-center gap-8 animate-pulse shadow-xl">
+                    <div className="w-16 h-16 bg-rose-600 rounded-[1.5rem] flex items-center justify-center text-white shadow-lg shadow-rose-200 flex-shrink-0">
+                        <ShieldCheck className="w-8 h-8" />
+                    </div>
+                    <div>
+                        <h3 className="text-rose-900 font-black uppercase tracking-[0.2em] text-sm">Student Access Restricted</h3>
+                        <p className="text-rose-700 text-sm font-bold mt-2 leading-relaxed">
+                            Your account is currently <span className="underline decoration-2 underline-offset-4">"{userInfo.status}"</span>. 
+                            Academic records, payments, and dashboard features are locked. 
+                            Please visit the administration office.
+                        </p>
+                    </div>
+                </div>
+            )}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
                 <div className="lg:col-span-4 space-y-6 sm:space-y-8">
                     <div className="bg-white/70 backdrop-blur-2xl p-6 sm:p-8 rounded-[2rem] border border-white shadow-xl hover:shadow-2xl transition-all duration-500">

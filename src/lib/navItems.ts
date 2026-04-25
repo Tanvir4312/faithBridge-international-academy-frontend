@@ -167,6 +167,11 @@ export const studentNavItems: NavSection[] = [
                 href: "/student/dashboard/my-fromFillup",
                 icon: "FileTextIcon"
             },
+            {
+                title: "My Class Notice",
+                href: "/student/dashboard/my-class-notice",
+                icon: "BellIcon"
+            },
 
         ]
     },

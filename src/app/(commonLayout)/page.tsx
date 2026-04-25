@@ -1,9 +1,9 @@
 
-import { getUserInfo } from "@/services/authService";
+import { getUserInfo } from "../../services/authService";
 
 import Header from "@/components/modules/Home_Page/Header/Header";
 import Navbar from "@/components/modules/Home_Page/Navbar/Navbar";
-import { UserRole } from "@/lib/authUtils";
+import { UserRole } from "../../lib/authUtils";
 import NoticeScroll from "@/components/modules/Home_Page/NoticeScroll/NoticeScroll";
 import background_image from "@/assets/background-image/background-design.jpeg"
 import ImageSwiper from "@/components/modules/Home_Page/ImageSwiper/ImageSwiper";

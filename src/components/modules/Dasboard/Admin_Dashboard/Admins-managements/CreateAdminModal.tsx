@@ -157,7 +157,7 @@ const CreateAdminModal = ({ onSuccess }: CreateAdminModalProps) => {
                             )}
                         </form.Field>
 
-                        <form.Field name="role">
+                        {/* <form.Field name="role">
                             {(field) => (
                                 <div className="grid gap-2 col-span-2 md:col-span-1 text-left">
                                     <Label className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
@@ -172,12 +172,12 @@ const CreateAdminModal = ({ onSuccess }: CreateAdminModalProps) => {
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="ADMIN">Admin</SelectItem>
-                                            <SelectItem value="SUPER_ADMIN">Super Admin</SelectItem>
+                                          
                                         </SelectContent>
                                     </Select>
                                 </div>
                             )}
-                        </form.Field>
+                        </form.Field> */}
 
                         <form.Field
                             name="admin.contactNumber"
