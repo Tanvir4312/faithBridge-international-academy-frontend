@@ -1,6 +1,6 @@
 "use client";
 
-import { forgotPasswordAction } from "@/app/(commonLayout)/(authRouteGroup)/forgot-password/_action";
+import { forgotPasswordAction } from "@/app/(authLayout)/forgot-password/_action";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {

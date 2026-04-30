@@ -23,7 +23,7 @@ const Prospectus = () => {
    <Link href="/prospectus" className='mt-7 z-20'>
     <Button
      variant="outline"
-     className='border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white transition-all duration-300 cursor-pointer text-xl font-medium px-10 h-12 rounded-lg'
+     className='border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white dark:bg-orange-500 dark:text-white dark:border-none dark:hover:bg-orange-600 transition-all duration-300 cursor-pointer text-xl font-medium px-10 h-12 rounded-lg'
     >
      DETAILS
     </Button>

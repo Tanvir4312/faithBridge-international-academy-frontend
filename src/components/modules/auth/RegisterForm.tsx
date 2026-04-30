@@ -1,6 +1,6 @@
 "use client";
 
-import { registerAction } from "@/app/(commonLayout)/(authRouteGroup)/register/_action";
+import { registerAction } from "@/app/(authLayout)/register/_action";
 import AppField from "@/components/shared/AppField";
 import AppSubmitButton from "@/components/shared/AppSubmitButton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -29,7 +28,7 @@ const RegisterForm = () => {
   useEffect(() => {
     const error = searchParams.get("error");
     if (error === "oauth_failed") {
-      setServerError("Google authentication failed. Please try again or log in with your email.");
+      setServerError("Google authentication failed. Please try again.");
     }
   }, [searchParams]);
 
@@ -45,8 +44,6 @@ const RegisterForm = () => {
     },
     onSubmit: async ({ value }) => {
       setServerError(null);
-
-      // client-side cross-field validation
       const parsed = registerSchema.safeParse(value);
       if (!parsed.success) {
         setServerError(parsed.error.issues[0].message);
@@ -55,44 +52,41 @@ const RegisterForm = () => {
 
       try {
         const result = (await mutateAsync(value)) as any;
-
         if (!result?.success) {
           setServerError(result?.message || "Registration failed");
         }
       } catch (error: any) {
         if (error?.message?.includes("NEXT_REDIRECT")) throw error;
-        setServerError(`Registration failed: ${error.message}`);
+        setServerError("Registration failed. Please try again later.");
       }
     },
   });
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-md">
-      <CardHeader className="text-center space-y-2">
-        <div className="flex items-center justify-center mb-1">
-          <div className="p-3 rounded-2xl bg-primary/10 text-primary">
-            <UserPlus className="size-7" />
+    <Card className="border-none shadow-2xl shadow-slate-200/50 dark:shadow-none dark:bg-slate-900 ring-1 ring-slate-200 dark:ring-slate-800 transition-all duration-300">
+      <CardHeader className="text-center pt-8 pb-6">
+        <div className="flex justify-center mb-4">
+          <div className="p-3 rounded-2xl bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400">
+            <UserPlus className="size-8" />
           </div>
         </div>
-        <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
-        <CardDescription>
-          Fill in your details below to get started.
+        <CardTitle className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Create Account
+        </CardTitle>
+        <CardDescription className="text-slate-500 dark:text-slate-400 mt-2">
+          Join FaithBridge International Academy today
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="px-8 pb-8">
         <form
-          method="POST"
-          action="#"
-          noValidate
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
             form.handleSubmit();
           }}
-          className="space-y-4"
+          className="space-y-5"
         >
-          {/* Name */}
           <form.Field
             name="name"
             validators={{ onChange: registerSchema.shape.name }}
@@ -103,11 +97,11 @@ const RegisterForm = () => {
                 label="Full Name"
                 type="text"
                 placeholder="Enter your full name"
+                className="bg-slate-50/50 dark:bg-slate-800/50"
               />
             )}
           </form.Field>
 
-          {/* Email */}
           <form.Field
             name="email"
             validators={{ onChange: registerSchema.shape.email }}
@@ -115,14 +109,14 @@ const RegisterForm = () => {
             {(field) => (
               <AppField
                 field={field}
-                label="Email"
+                label="Email Address"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="name@example.com"
+                className="bg-slate-50/50 dark:bg-slate-800/50"
               />
             )}
           </form.Field>
 
-          {/* Password */}
           <form.Field
             name="password"
             validators={{ onChange: registerSchema.shape.password }}
@@ -133,12 +127,13 @@ const RegisterForm = () => {
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a strong password"
+                className="bg-slate-50/50 dark:bg-slate-800/50"
                 append={
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
-                    className="size-8 mr-1"
+                    className="size-8 text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
                     onClick={() => setShowPassword((v) => !v)}
                   >
                     {showPassword ? (
@@ -153,8 +148,8 @@ const RegisterForm = () => {
           </form.Field>
 
           {serverError && (
-            <Alert variant="destructive">
-              <AlertDescription>{serverError}</AlertDescription>
+            <Alert variant="destructive" className="bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50 text-red-800 dark:text-red-400">
+              <AlertDescription className="text-xs font-medium">{serverError}</AlertDescription>
             </Alert>
           )}
 
@@ -166,6 +161,7 @@ const RegisterForm = () => {
                 isPending={isSubmitting || isPending}
                 pendingLabel="Creating account..."
                 disabled={!canSubmit}
+                className="w-full bg-orange-600 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-400 text-white font-bold py-6 rounded-xl transition-all duration-300 shadow-lg shadow-orange-600/20"
               >
                 Create Account
               </AppSubmitButton>
@@ -173,58 +169,23 @@ const RegisterForm = () => {
           </form.Subscribe>
         </form>
 
-        <div className="relative my-6">
+        <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
+            <div className="w-full border-t border-slate-200 dark:border-slate-800" />
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">
-              Or continue with
+          <div className="relative flex justify-center text-xs uppercase tracking-widest font-semibold">
+            <span className="px-4 bg-white dark:bg-slate-900 text-slate-400">
+              Already a member?
             </span>
           </div>
         </div>
 
-        {/* <Button
-          variant="outline"
-          className="w-full"
-          onClick={() => {
-            const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            window.location.href = `${baseUrl}/auth/login/google`;
-          }}
-        >
-          <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-            <path
-              fill="currentColor"
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-            />
-            <path
-              fill="currentColor"
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-            />
-            <path
-              fill="currentColor"
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-            />
-            <path
-              fill="currentColor"
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-            />
-          </svg>
-          Continue with Google
-        </Button> */}
+        <Link href="/login">
+          <Button variant="outline" className="w-full py-6 rounded-xl border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold transition-all">
+            Sign In to your account
+          </Button>
+        </Link>
       </CardContent>
-
-      <CardFooter className="justify-center border-t pt-4">
-        <p className="text-sm text-muted-foreground">
-          Already have an account?{" "}
-          <Link
-            href="/login"
-            className="text-primary font-medium hover:underline underline-offset-4"
-          >
-            Log in
-          </Link>
-        </p>
-      </CardFooter>
     </Card>
   );
 };

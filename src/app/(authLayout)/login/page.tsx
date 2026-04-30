@@ -1,4 +1,3 @@
-
 import LoginForm from '@/components/modules/auth/LoginForm';
 import React from 'react';
 
@@ -10,9 +9,7 @@ const LoginPage = async ({ searchParams }: LoginParams) => {
     const params = await searchParams;
     const redirectPath = params.redirect;
     return (
-       
-            <LoginForm redirectPath={redirectPath} />
-       
+        <LoginForm redirectPath={redirectPath} />
     );
 };
 

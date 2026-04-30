@@ -1,5 +1,3 @@
-import Header from '@/components/modules/Home_Page/Header/Header';
-import Navbar from '@/components/modules/Home_Page/Navbar/Navbar';
 import { UserRole } from '../../../../../lib/authUtils';
 import { getUserInfo } from '../../../../../services/authService';
 import { getSingleNotice } from '@/services/common-server-action/getNoticeById.service';
@@ -36,10 +34,6 @@ const NoticeDetailsPage = async ({ params }: { params: Promise<{ id: string }> }
 
     return (
         <div>
-            <Header />
-            <Navbar
-                userRole={userRole as UserRole}
-            />
             <main className="min-h-screen bg-slate-50/50 dark:bg-slate-950/50 py-16 px-6">
                 <div className="max-w-3xl mx-auto">
                     <article className="bg-white dark:bg-slate-900 shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 rounded-3xl overflow-hidden">

@@ -32,7 +32,7 @@ const WelcomeMessage = () => {
       <div className='flex flex-col'>
          <div className='text-center'>
             <h2 className='text-3xl font-bold heading'>Welcome Message</h2>
-            <h1 className='text-[#007B5E] text-4xl font-bold heading my-2'>FaithBridge International Academy</h1>
+            <h1 className='text-[#007B5E] dark:text-green-400 transition-colors duration-300 text-4xl font-bold heading my-2'>FaithBridge International Academy</h1>
             <h4 className='text-xl font-bold heading uppercase'>Bismillahir Rahmanir Raheem</h4>
 
             <p className='text-justify leading-relaxed body mt-7 whitespace-pre-line transition-all duration-500'>
@@ -44,7 +44,7 @@ const WelcomeMessage = () => {
          <Button
             onClick={() => setShowFull(!showFull)}
             variant="outline"
-            className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white transition-colors duration-300 z-50 w-30 cursor-pointer'
+            className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white dark:bg-green-600 dark:text-white dark:border-none dark:hover:bg-green-700 transition-colors duration-300 z-50 w-30 cursor-pointer'
          >
             {showFull ? 'Show Less' : 'Read More'}
          </Button>

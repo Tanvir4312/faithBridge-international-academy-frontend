@@ -16,15 +16,15 @@ const ActivitiesImage = () => {
 
 
  return (
-  <div className='my-7'>
-   <h1 className='text-5xl heading font-bold text-center text-[#007B5E] mb-10'>    Others Activities</h1>
+  <div>
+   <h1 className='text-5xl heading font-bold text-center text-[#007B5E] dark:text-orange-400 transition-colors duration-300 mb-5'>Others Activities</h1>
 
    <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-3 text-center px-5 lg:px-0'>
     {
      activities?.map(activity =>
       <div
        key={activity?.id}
-       className='border-2 rounded p-5 hover:cursor-pointer transition-all duration-300 ease-in-out hover:translate-y-2.5 h-[200px] z-10'>
+       className='border-2 border-slate-100 dark:border-slate-800 dark:bg-slate-800/50 rounded-xl p-5 hover:cursor-pointer transition-all duration-300 ease-in-out hover:translate-y-2.5 h-[200px] z-10 shadow-sm'>
        <div style={{
         backgroundImage: `url(${activity?.url})`,
         backgroundRepeat: 'no-repeat',

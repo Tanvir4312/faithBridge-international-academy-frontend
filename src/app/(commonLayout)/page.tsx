@@ -1,8 +1,6 @@
 
 import { getUserInfo } from "../../services/authService";
 
-import Header from "@/components/modules/Home_Page/Header/Header";
-import Navbar from "@/components/modules/Home_Page/Navbar/Navbar";
 import { UserRole } from "../../lib/authUtils";
 import NoticeScroll from "@/components/modules/Home_Page/NoticeScroll/NoticeScroll";
 import background_image from "@/assets/background-image/background-design.jpeg"
@@ -38,12 +36,6 @@ const CommonHomePage = async () => {
 
   return (
     <div>
-      <div>
-        <Header />
-      </div>
-      <div>
-        <Navbar userRole={userRole} />
-      </div>
       <div>
         <NoticeScroll />
       </div>

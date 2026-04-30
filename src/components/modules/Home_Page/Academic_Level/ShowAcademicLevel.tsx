@@ -20,61 +20,61 @@ import AcademicLevelSlide from "./AcademicLevelSlide/AcademicLevelSlide";
 
 
 const ShowAcademicLevel = () => {
- const { data: academicLevelsResponse } = useQuery({
-  queryKey: ["academic-levels"],
-  queryFn: getAllAcademicLevel,
-  refetchOnWindowFocus: true
- })
- const academicLevels = academicLevelsResponse?.data || [];
+    const { data: academicLevelsResponse } = useQuery({
+        queryKey: ["academic-levels"],
+        queryFn: getAllAcademicLevel,
+        refetchOnWindowFocus: true
+    })
+    const academicLevels = academicLevelsResponse?.data || [];
 
- return (
-  <div className='my-10 mx-5'>
+    return (
+        <div className='mt-12 mb-16'>
 
-   <h1 className='text-5xl heading font-bold text-center text-[#007B5E]'>Our Academic Levels For Students</h1>
+            <h1 className='text-5xl heading font-bold text-center text-[#007B5E] dark:text-green-300 transition-colors duration-300 mb-5'>Our Academic Levels For Students</h1>
 
-   <Swiper
+            <Swiper
 
-    slidesPerView={3}
-    centeredSlides={false}
-    spaceBetween={30}
-    autoplay={{
-     delay: 2500,
-     disableOnInteraction: false,
-    }}
+                slidesPerView={3}
+                centeredSlides={false}
+                spaceBetween={30}
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
 
-    navigation={true}
-    modules={[Autoplay, Pagination, Navigation]}
-    className="mySwiper"
-    breakpoints={{
-     0: {
-      slidesPerView: 1,
-     },
-     640: {
-      slidesPerView: 2,
-     },
-     1024: {
-      slidesPerView: 3,
-     },
-    }}
-   >
-    {
-     academicLevels?.map(course => <SwiperSlide>
-      <AcademicLevelSlide
-       key={course.id}
-       course={course}
-      ></AcademicLevelSlide>
-     </SwiperSlide>)
-    }
-
-
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                className="mySwiper"
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                    },
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    },
+                }}
+            >
+                {
+                    academicLevels?.map(course => <SwiperSlide>
+                        <AcademicLevelSlide
+                            key={course.id}
+                            course={course}
+                        ></AcademicLevelSlide>
+                    </SwiperSlide>)
+                }
 
 
-   </Swiper>
 
 
-  </div>
+            </Swiper>
 
- );
+
+        </div>
+
+    );
 };
 
 export default ShowAcademicLevel;

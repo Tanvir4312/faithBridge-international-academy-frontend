@@ -1,8 +1,8 @@
-import { getUserInfo } from '../../../../services/authService';
+import { getUserInfo } from '@/services/authService';
 import React from 'react';
 import VerifyEmailForm from '@/components/modules/auth/VerifyEmailForm';
 import { redirect } from 'next/navigation';
-import { getDefaultDashboardRoute, UserRole } from '../../../../lib/authUtils';
+import { getDefaultDashboardRoute, UserRole } from '@/lib/authUtils';
 
 const VerifyEmailPage = async ({ searchParams }: { searchParams: Promise<{ email?: string }> }) => {
     const userInfo = await getUserInfo();
@@ -17,11 +17,7 @@ const VerifyEmailPage = async ({ searchParams }: { searchParams: Promise<{ email
     const email = userInfo?.email || params.email || "";
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background p-4">
-            <div className="w-full max-w-6xl flex items-center justify-center">
-                <VerifyEmailForm email={email} />
-            </div>
-        </div>
+        <VerifyEmailForm email={email} />
     );
 };
 
