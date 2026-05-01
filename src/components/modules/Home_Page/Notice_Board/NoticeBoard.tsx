@@ -22,7 +22,7 @@ const NoticeBoard = () => {
 
    const height = (containerRef?.current?.children[0] as HTMLElement)?.offsetHeight || 0;
 
-   const totalNotices = notices?.length + 2;
+   const totalNotices = notices?.length - 2;
    const visibleCount = 4;
 
    const distance = (totalNotices * height) - (visibleCount * height);
@@ -41,7 +41,7 @@ const NoticeBoard = () => {
        key={notice?.id}
        animate={{ y: [0, -scrollHeight, 0] }}
        transition={{
-        duration: 20, repeat: Infinity,
+        duration: 10, repeat: Infinity,
         times: [0, 0.9, 1],
         ease: ["linear", "easeIn"]
        }}

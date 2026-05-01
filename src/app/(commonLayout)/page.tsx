@@ -15,6 +15,10 @@ import ActivitiesImage from "@/components/modules/Home_Page/Activities_Image/Act
 import CategoriesImage from "@/components/modules/Home_Page/Categories_Image/CategoriesImage";
 import Information from "@/components/modules/Home_Page/Information/Information";
 import Footer from "@/components/modules/Home_Page/Footer/Footer";
+import KeyFeatures from "@/components/modules/Home_Page/Key_Features/KeyFeatures";
+
+import TeachersDataHomePage from "@/components/modules/Home_Page/Teachers_HomePage/TeachersDataHomePage";
+import FAQ from "@/components/modules/Home_Page/FAQ/FAQ";
 
 
 const CommonHomePage = async () => {
@@ -76,12 +80,29 @@ const CommonHomePage = async () => {
             </div>
           </div>
 
+          {/* KeyFeatures */}
+          <div className="pt-5">
+            <KeyFeatures />
+          </div>
+
+          {/* TeachersCard */}
+          <div className="pt-5">
+            {/* <HydrationBoundary state={dehydrate(queryClient)}> */}
+            <TeachersDataHomePage />
+            {/* </HydrationBoundary> */}
+          </div>
+
           {/* Courses */}
           <ShowAcademicLevel />
 
           {/* Activities Image */}
 
           <ActivitiesImage />
+
+          {/* FAQ */}
+          <div className="pt-5">
+            <FAQ />
+          </div>
 
           <CategoriesImage />
 

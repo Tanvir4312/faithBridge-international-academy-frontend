@@ -1,6 +1,6 @@
 "use client";
 
-import { resetPasswordAction } from "@/app/(commonLayout)/(authRouteGroup)/reset-password/_action";
+import { resetPasswordAction } from "@/app/(authLayout)/reset-password/_action";
 import AppField from "@/components/shared/AppField";
 import AppSubmitButton from "@/components/shared/AppSubmitButton";
 import { Alert, AlertDescription } from "@/components/ui/alert";

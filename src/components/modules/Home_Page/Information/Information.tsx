@@ -10,7 +10,7 @@ const Information = () => {
       {/* Background Image with Dark Mode Overlay/Brightness */}
       <div
         style={{ backgroundImage: `url(${infoBg.src})` }}
-        className='absolute inset-0 z-0 rounded transition-all duration-500 dark:brightness-[0.2] dark:bg-black/60'
+        className='absolute bg-blend-overlay bg-black/10 inset-0 z-0 rounded transition-all duration-500  dark:brightness-[0.2] dark:bg-black/60'
       ></div>
 
       <div className='relative z-10 max-w-6xl mx-auto px-5 py-12 md:grid grid-cols-12 gap-10'>
@@ -27,9 +27,12 @@ const Information = () => {
             </div>
             <div className=''>
               <p className='font-bold text-gray-900 dark:text-white tracking-wide text-sm'>E-MAIL</p>
-              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300'>FaithBridgeAcademy24@gmail.com</p>
+              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>faithBridgeAcademy24@gmail.com</p>
+              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>support@faithbridge.com</p>
+              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>info@faithbridge.edu</p>
             </div>
           </div>
+
 
           {/* Address */}
           <div className='flex gap-4 mt-6 group transition-all'>

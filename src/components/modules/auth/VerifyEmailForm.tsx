@@ -1,6 +1,6 @@
 "use client";
 
-import { verifyEmailAction } from "@/app/(commonLayout)/(authRouteGroup)/verify-email/_action";
+import { verifyEmailAction } from "@/app/(authLayout)/verify-email/_action";
 import AppField from "@/components/shared/AppField";
 import AppSubmitButton from "@/components/shared/AppSubmitButton";
 import { Alert, AlertDescription } from "@/components/ui/alert";

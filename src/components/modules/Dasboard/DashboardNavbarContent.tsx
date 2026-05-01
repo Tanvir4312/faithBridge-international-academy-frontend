@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import DashboardMobileSidebar from "./DashboardMobileSidebar";
 // import NotificationDropdown from "./NotificationDropdown";
 import UserDropdown from "./UserDropdown";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 
 interface DashboardNavbarProps {
@@ -55,13 +56,14 @@ const DashboardNavbarContent = ({ dashboardHome, navItems, userInfo }: Dashboard
 
             {/* Search Component */}
             <div className="flex-1 flex items-center py-0.5">
-                <div className="relative w-full hidden sm:block">
+                <div className="relative w-full">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input type="text" placeholder="Search..." className="pl-9 pr-4" />
                 </div>
             </div>
 
-
+            {/* Feature 2: Dark Mode Implementation */}
+            <ThemeToggle />
             {/* Right Side Actions */}
             <div className="flex items-center gap-2">
                 {/* Notification */}
