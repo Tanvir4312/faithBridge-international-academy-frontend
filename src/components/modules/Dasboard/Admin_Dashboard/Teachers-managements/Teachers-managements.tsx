@@ -25,7 +25,9 @@ function TeachersManagements() {
 
 
 
-  const teachers = teachersResponse?.data || []
+  const teachersRawData = teachersResponse?.data
+
+  const teachers = (teachersRawData as any)?.data || []
 
   // const teachers = teachersArr?.filter((teacher) => (teacher.user.emailVerified && !teacher.user.needPasswordChange)) || []
 

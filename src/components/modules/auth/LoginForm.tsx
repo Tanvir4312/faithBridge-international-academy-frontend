@@ -14,6 +14,8 @@ import { Eye, EyeOff, LockKeyhole } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import DemoLoginButtons from "./DemoLoginButtons";
+import SocialLogin from "./SocialLogin";
 
 interface LoginFormProps {
   redirectPath?: string;
@@ -54,6 +56,17 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
       }
     },
   });
+
+
+  const handleQuickLogin = (email: string, password: string) => {
+    form.setFieldValue("email", email);
+    form.setFieldValue("password", password);
+    
+    // Use setTimeout to ensure the form values are updated before submission
+    setTimeout(() => {
+      form.handleSubmit();
+    }, 100);
+  };
 
   return (
     <>
@@ -161,6 +174,19 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
               )}
             </form.Subscribe>
           </form>
+
+          <div className="mt-6">
+            <SocialLogin />
+          </div>
+
+          <form.Subscribe selector={(s) => [s.isSubmitting] as const}>
+            {([isSubmitting]) => (
+              <DemoLoginButtons 
+                onQuickLogin={handleQuickLogin} 
+                isLoading={isPending || isSubmitting} 
+              />
+            )}
+          </form.Subscribe>
 
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">

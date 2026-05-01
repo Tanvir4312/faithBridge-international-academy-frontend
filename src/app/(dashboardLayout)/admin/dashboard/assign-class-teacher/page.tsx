@@ -10,12 +10,13 @@ const AssignClassTeacherPage = async () => {
         getAllClass()
     ])
 
-    const teachers = teachersRes?.data || []
+    const teachersRawData = teachersRes?.data || []
+    const teachers = (teachersRawData as any)?.data || []
     const classes = classesRes?.data || []
 
     return (
         <div className="container mx-auto py-10 px-4 min-h-screen">
-            <ClassTeacherManagement 
+            <ClassTeacherManagement
                 teachers={teachers}
                 classes={classes}
             />

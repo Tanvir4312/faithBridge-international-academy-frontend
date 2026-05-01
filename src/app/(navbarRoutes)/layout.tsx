@@ -2,9 +2,9 @@ import Header from "@/components/modules/Home_Page/Header/Header";
 import Navbar from "@/components/modules/Home_Page/Navbar/Navbar";
 import { getUserInfo } from "@/services/authService";
 import { UserRole } from "@/lib/authUtils";
-import ScrollToTop from "@/components/shared/ScrollToTop";
 
-export default async function CommonLayout({
+
+export default async function NavbarRoutesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -18,10 +18,10 @@ export default async function CommonLayout({
     <div className="flex flex-col min-h-screen">
       <Header />
       <Navbar userRole={userRole} />
-      <main className="flex-grow">
+      <main className="flex-grow max-w-7xl mx-auto">
         {children}
       </main>
-      <ScrollToTop />
+
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
   CheckCircle,
   X,
   User,
+  Users,
   Calendar
 } from "lucide-react";
 import { useEffect } from "react";
@@ -102,9 +103,17 @@ export default function TeacherDetailsModal({ isOpen, onClose, teacher }: Teache
                       <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white leading-tight">
                         {teacher.name}
                       </h2>
-                      <p className="text-emerald-600 dark:text-emerald-400 font-bold tracking-wide uppercase text-sm">
-                        {teacher.designation}
-                      </p>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <p className="text-emerald-600 dark:text-emerald-400 font-bold tracking-wide uppercase text-sm">
+                          {teacher.designation}
+                        </p>
+                        {teacher.classTeacher?.class?.name && (
+                          <span className="flex items-center gap-1.5 px-3 py-1 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-black rounded-full border border-amber-200 dark:border-amber-500/20 uppercase tracking-wider">
+                            <Users className="w-3 h-3" />
+                            Class Teacher: {teacher.classTeacher.class.name}
+                          </span>
+                        )}
+                      </div>
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm font-medium">
                         <Calendar className="w-4 h-4" />
                         Joined: {joinedDate}

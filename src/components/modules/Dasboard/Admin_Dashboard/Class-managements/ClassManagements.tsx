@@ -28,7 +28,8 @@ const ClassManagements = () => {
 
     const classes = classResponse?.data || []
     const academicLevels = levelsResponse?.data || []
-    const teachers = teachersResponse?.data || []
+    const teachersRawData = teachersResponse?.data || []
+    const teachers = (teachersRawData as any)?.data || []
 
     return (
         <div className="space-y-6">

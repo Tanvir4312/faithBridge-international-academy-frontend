@@ -5,10 +5,21 @@ import { ApiErrorResponse, ApiSuccessResponse } from "@/types/api.types"
 import { ITeacher, IUpdateTeacherPayload } from "@/types/Dashboard/admin-dashboard-types/teachers-managements.types"
 import { createTeacherValidationSchema, ICreateTeacherPayload } from "@/zod/teacherZodValidation"
 
+
+export const getAllTeacherQuery = async (query?: Record<string, any>): Promise<ApiSuccessResponse<{ data: ITeacher[], meta: any }>> => {
+  const response = await httpClient.get<{ data: ITeacher[], meta: any }>("/teacher/query", {
+    params: query
+  })
+  return response
+}
+
+
 export const getAllTeacher = async (): Promise<ApiSuccessResponse<ITeacher[]>> => {
   const response = await httpClient.get<ITeacher[]>("/teacher")
   return response
 }
+
+
 
 export const getSingleTeacher = async (id: string): Promise<ApiSuccessResponse<ITeacher>> => {
   const response = await httpClient.get<ITeacher>(`/teacher/${id}`)

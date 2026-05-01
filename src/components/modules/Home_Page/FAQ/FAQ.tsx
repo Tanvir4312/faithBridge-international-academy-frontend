@@ -20,7 +20,7 @@ export default function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4 italic"
           >
-            নতুন - সাধারণ প্রশ্ন
+            সাধারণ প্রশ্ন
           </motion.h2>
           <p className="text-slate-500 dark:text-slate-400">
             ভর্তি, একাডেমিক কার্যক্রম এবং নিরাপদ পেমেন্ট সংক্রান্ত জিজ্ঞাসা।

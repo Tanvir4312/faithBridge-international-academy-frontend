@@ -16,7 +16,7 @@ const AdminDashboardStats = () => {
         queryFn: getAdminDashboardStats,
         refetchOnWindowFocus: "always" // Refetch data when the window regains focus
     })
-    
+
     if (isLoading) {
         return <div className="flex justify-center items-center h-64 text-indigo-500 font-bold animate-pulse">Loading dashboard statistics...</div>
     }
@@ -50,7 +50,7 @@ const AdminDashboardStats = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 <StatsCard
                     title="Total Revenue"
-                    value={`$${data?.totalRevenue?.toLocaleString() || 0}`}
+                    value={`${data?.totalRevenue?.toLocaleString() || 0}`}
                     iconName="DollarSign"
                     description="Total revenue from paid applications"
                     className="bg-emerald-50/50 dark:bg-emerald-900/10 border-emerald-100 dark:border-emerald-900/30"
@@ -154,7 +154,7 @@ const AdminDashboardStats = () => {
                     </div>
                     <ApplicationPieChart data={data?.pieChartData || []} />
                 </div>
-                
+
                 <div className="bg-white dark:bg-gray-800/50 p-6 rounded-[2rem] border border-gray-100 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="font-bold text-gray-800 dark:text-gray-200">Monthly Application Growth</h3>

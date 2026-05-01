@@ -11,7 +11,8 @@ const AssignSubjectPage = async () => {
         getAllSubject()
     ])
 
-    const teachers = teachersRes?.data || []
+    const teachersRawData = teachersRes?.data || []
+    const teachers = (teachersRawData as any)?.data || []
     const subjects = subjectsRes?.data || []
 
     // 1. Creation flow (Two-step as required by backend)

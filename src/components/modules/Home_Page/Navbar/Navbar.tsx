@@ -11,6 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { logoutUser } from "@/services/authService";
 import { toast } from "sonner";
+import SearchModal from "./SearchModal";
 
 const menuItems = [
   { name: "Home", path: "/" },
@@ -18,9 +19,8 @@ const menuItems = [
   {
     name: "About",
     children: [
-      { name: "School at a Glance", path: "/about/school" },
-      { name: "Principal's Message", path: "/about/principal" },
-      { name: "Faculty Information", path: "/about/faculty" },
+      { name: "School at a Glance", path: "/about/schoolAtaGlance" },
+      { name: "Teacher Information", path: "/about/teacherInformation" },
     ],
   },
 
@@ -36,8 +36,7 @@ const menuItems = [
     name: "Admission",
     children: [
       { name: "Admission Notice", path: "/admission/notice" },
-      { name: "Procedure", path: "/admission/procedure" },
-      { name: "Fees", path: "/admission/fees" },
+      { name: "Admission Procedure & Fees", path: "/admission/procedure&fees" },
     ],
   },
 ];
@@ -59,13 +58,18 @@ const roleLinks: Record<string, { name: string; path: string }[]> = {
     { name: "My Payments", path: "/student/my-payments/success" },
     { name: "My Class Notice", path: "/student/dashboard/my-class-notice" },
   ],
+  APPLICANT: [
+    { name: "Application Form", path: "/dashboard/create-application" },
+    { name: "My Application", path: "/dashboard/my-application" },
+  ],
 };
 
 export default function Navbar({ userRole }: { userRole: UserRole }) {
   const [open, setOpen] = useState(false);
   const [isFixed, setIsFixed] = useState(false)
   const [isMobile, setIsMobile] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const defaulDashboard = getDefaultDashboardRoute(userRole);
   const router = useRouter();
@@ -163,7 +167,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
                       <div className="relative z-10 space-y-1">
                         {item.children?.map((sub, idx) => (
                           <Link key={idx} href={sub.path}>
-                            <p className="px-4 py-2 hover:bg-orange-500/20 hover:text-orange-300 rounded-lg cursor-pointer text-white transition-colors duration-200 font-medium">
+                            <p className="px-4 py-2 hover:bg-orange-500/20 hover:text-orange-300 rounded-lg cursor-pointer text-white transition-colors duration-200 font-bold">
                               {sub.name}
                             </p>
                           </Link>
@@ -185,21 +189,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
             </div>
           </div>
 
-          {/* Feature 1: Desktop Search Bar (Top Row) */}
-          <div className="hidden lg:flex items-center px-2 flex-1 max-w-[400px]">
-            <div className="relative w-full group">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <Search className="h-4 w-4 text-white/80 dark:text-slate-400 group-focus-within:text-white transition-colors" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="block w-full rounded-md border border-white/40 bg-white/10 py-2 pl-10 pr-4 text-sm text-white placeholder:text-white/70 focus:bg-white/20 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400/50 transition-all duration-300 dark:bg-slate-800/50 dark:border-slate-700 dark:text-white dark:placeholder:text-slate-500"
-              />
-            </div>
-          </div>
+          {/* Desktop Navigation Links ... */}
 
           {/* Right Section: Action Group */}
           <div className="flex items-center gap-3 ml-auto">
@@ -231,8 +221,16 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
                   </Link>
                 )
               }
-
             </div>
+
+            {/* Search Trigger */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 bg-white/10 hover:bg-white/20 dark:bg-slate-800 dark:hover:bg-slate-700 text-white rounded-lg transition-all active:scale-95 flex items-center justify-center border border-white/20 dark:border-slate-700"
+              title="Search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
 
             {/* Feature 2: Dark Mode Implementation */}
             <ThemeToggle />
@@ -249,21 +247,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
           </div>
         </div>
 
-        {/* Feature 1: Mobile Search Bar (Dedicated New Row) */}
-        <div className="lg:hidden mt-3 sm:mt-4">
-          <div className="relative w-full group">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Search className="h-5 w-5 text-white/80 dark:text-slate-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search notices, results..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full rounded-lg border border-white/40 bg-white/10 py-3 pl-12 pr-4 text-sm text-white placeholder:text-white/70 focus:bg-white/20 focus:border-orange-400 focus:outline-none transition-all duration-300 dark:bg-slate-800/50 dark:border-slate-700"
-            />
-          </div>
-        </div>
+        {/* Inline Search Removed - Now in Modal */}
       </div>
 
       {/* Mobile Drawer (Existing Structure Maintained) */}
@@ -365,6 +349,12 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
           className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
         ></div>
       )}
+
+      {/* Search Modal Overlay */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </div>
   );
 }

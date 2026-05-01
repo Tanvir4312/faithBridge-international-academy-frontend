@@ -21,6 +21,10 @@ export const getAllStudent = async (queryParamsString: string): Promise<ApiSucce
  const response = await httpClient.get<IStudentPayload>(queryParamsString ? `/student?${queryParamsString}` : "/student")
  return response
 }
+export const getAllStudentWithoutQuery = async (): Promise<ApiSuccessResponse<IStudent[]>> => {
+ const response = await httpClient.get<IStudent[]>(`/student`)
+ return response
+}
 
 export const updateStudent = async (id: string, payload: FormData): Promise<ApiSuccessResponse<IStudent>> => {
  const response = await httpClient.patch<IStudent>(`/student/update/${id}`, payload, {

@@ -13,15 +13,21 @@ const TeachersDataHomePage = () => {
  const [selectedTeacher, setSelectedTeacher] = useState<any>(null);
  const [isModalOpen, setIsModalOpen] = useState(false);
 
- const { data: teachersResponse, isLoading, refetch } = useQuery({
+ const { data: teachersResponse, isLoading } = useQuery({
   queryKey: ["teachers"],
   queryFn: getAllTeacher,
   refetchOnWindowFocus: true
  })
 
 
- const teachers = teachersResponse?.data || []
+ const teachersRawData = teachersResponse?.data
+
+ const teachers = (teachersRawData as any)?.data || []
+
+
  const seniorTeacher = teachers.filter((teacher: any) => teacher.designation === "Principal" || teacher.designation === "Senior Teacher").slice(0, 6)
+
+
 
  const handleOpenModal = (teacher: any) => {
   setSelectedTeacher(teacher);
@@ -64,8 +70,8 @@ const TeachersDataHomePage = () => {
      <motion.button
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={() => window.location.href = "/about/teacher-information"}
-      className="relative z-20 flex items-center gap-3 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-bold shadow-lg shadow-emerald-600/20 transition-all group"
+      onClick={() => window.location.href = "/about/teacherInformation"}
+      className="relative z-20 flex items-center gap-3 px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-bold shadow-lg shadow-emerald-600/20 transition-all group cursor-pointer"
      >
       সকল শিক্ষক মণ্ডলী দেখুন
       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
