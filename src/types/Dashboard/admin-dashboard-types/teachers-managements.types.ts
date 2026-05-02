@@ -42,6 +42,11 @@ export interface ITeacher {
       updatedAt: string
     }
   }[]
+  classTeacher: {
+    class: {
+      name: string
+    }
+  }
 }
 
 export interface IUpdateTeacherPayload {

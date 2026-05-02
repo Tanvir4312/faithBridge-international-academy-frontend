@@ -58,7 +58,7 @@ const ClassTable = ({ data, onRefresh }: ClassTableProps) => {
         },
         {
             accessorKey: "createdAt",
-            header: "Created At",
+            header: "Class Created",
             enableSorting: false,
             cell: ({ row }) => (
                 <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium">

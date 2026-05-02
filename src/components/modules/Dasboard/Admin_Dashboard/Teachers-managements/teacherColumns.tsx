@@ -26,6 +26,16 @@ export const teacherColumns: ColumnDef<ITeacher>[] = [
   }
  },
  {
+  id: "class",
+  accessorKey: "class",
+  header: "Class Teacher",
+  enableSorting: false,
+  cell: ({ row }) => {
+   const classTeacher = row.original?.classTeacher
+   return (classTeacher?.class?.name)?.toUpperCase() || "N/A"
+  }
+ },
+ {
   id: "contactNumber",
   accessorKey: "contactNumber",
   header: "Contact Number",
