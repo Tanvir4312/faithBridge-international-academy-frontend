@@ -56,12 +56,12 @@ export const classTeacherColumn: ColumnDef<IClassTeacher>[] = [
   }
  },
  {
-  accessorKey: "teacher.createdat",
+  accessorKey: "teacher.classTeacher.createdAt",
   header: "Assigned Date",
   enableSorting: false,
   cell: ({ row }) => {
    return (
-    <span className="text-sm capitalize">{format(new Date(row.original?.teacher.createdat), "MMM dd, yyyy")}</span>
+    <span className="text-sm capitalize">{format(new Date(row.original?.teacher.classTeacher.createdAt), "MMM dd, yyyy")}</span>
    )
   }
  },

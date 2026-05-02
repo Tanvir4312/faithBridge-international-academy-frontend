@@ -9,7 +9,8 @@ export interface IClassTeacher {
   email: string;
   profilePhoto: string;
   gender: string;
-  createdat: string;
-  updatedAt: string;
+  classTeacher: {
+   createdAt: string
+  }
  };
 }

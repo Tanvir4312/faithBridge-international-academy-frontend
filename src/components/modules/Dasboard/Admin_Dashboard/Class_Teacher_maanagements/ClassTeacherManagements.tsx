@@ -18,7 +18,7 @@ const ClassTeacherManagements = () => {
   refetchOnWindowFocus: true,
  })
  const classTecher = classTeachersResponse?.data || []
-
+ console.log("classTecher", classTecher)
  const handleDelete = (data: IClassTeacher) => {
   setSelectedClassTeacher(data)
   setIsDeleteModalOpen(true)
