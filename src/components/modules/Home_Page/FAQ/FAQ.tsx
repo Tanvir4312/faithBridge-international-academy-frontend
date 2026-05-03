@@ -85,12 +85,7 @@ export default function FAQ() {
         >
           {/* Decorative Background Elements */}
           <ShieldCheck className="absolute -right-10 -bottom-10 w-64 h-64 opacity-5 text-emerald-500 group-hover:scale-110 transition-transform duration-700" />
-          <div className="absolute top-0 right-0 p-8">
-            <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-full">
-              <Lock className="w-3 h-3 text-emerald-400" />
-              <span className="text-[10px] uppercase font-bold tracking-tighter text-emerald-400">Secure Payments via Stripe</span>
-            </div>
-          </div>
+
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>

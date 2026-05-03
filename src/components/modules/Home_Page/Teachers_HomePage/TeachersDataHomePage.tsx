@@ -37,7 +37,7 @@ const TeachersDataHomePage = () => {
 
  return (
   <section className="py-10 bg-gray-50 dark:bg-[#020617]">
-   <div className="max-w-7xl mx-auto px-4">
+   <div className="max-w-7xl mx-auto md:px-4 px-2">
     {/* Heading Section */}
     <div className="text-center mb-16">
      <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">

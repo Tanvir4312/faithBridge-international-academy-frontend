@@ -19,7 +19,7 @@ import { Eye, EyeOff, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import SocialLogin from "./SocialLogin";
+// import SocialLogin from "./SocialLogin";
 
 const RegisterForm = () => {
   const [serverError, setServerError] = useState<string | null>(null);
@@ -170,9 +170,9 @@ const RegisterForm = () => {
           </form.Subscribe>
         </form>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <SocialLogin />
-        </div>
+        </div> */}
 
         <div className="relative my-8">
           <div className="absolute inset-0 flex items-center">

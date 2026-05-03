@@ -19,7 +19,7 @@ const ActivitiesImage = () => {
   <div>
    <h1 className='text-5xl heading font-bold text-center text-[#007B5E] dark:text-orange-400 transition-colors duration-300 mb-5'>Others Activities</h1>
 
-   <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-3 text-center px-5 lg:px-0'>
+   <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-3 text-center mx-2 lg:mx-0 lg:px-0'>
     {
      activities?.map(activity =>
       <div

@@ -44,7 +44,7 @@ const WelcomeMessage = () => {
          <Button
             onClick={() => setShowFull(!showFull)}
             variant="outline"
-            className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white dark:bg-green-600 dark:text-white dark:border-none dark:hover:bg-green-700 transition-colors duration-300 z-50 w-30 cursor-pointer'
+            className='mt-7 border-[#007B5E] text-[#007B5E] hover:bg-[#007B5E] hover:text-white dark:bg-green-600 dark:text-white dark:border-none dark:hover:bg-green-700 transition-colors duration-300 z-10 w-30 cursor-pointer'
          >
             {showFull ? 'Show Less' : 'Read More'}
          </Button>

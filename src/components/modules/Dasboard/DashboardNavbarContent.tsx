@@ -12,6 +12,7 @@ import DashboardMobileSidebar from "./DashboardMobileSidebar";
 // import NotificationDropdown from "./NotificationDropdown";
 import UserDropdown from "./UserDropdown";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
+import { div } from "framer-motion/client";
 
 
 interface DashboardNavbarProps {
@@ -39,40 +40,44 @@ const DashboardNavbarContent = ({ dashboardHome, navItems, userInfo }: Dashboard
     }, []);
 
     return (
-        <div className="flex items-center gap-4 w-full px-4 py-1.5 border-b bg-background">
-            {/* Mobile Menu Toggle Button And Menu */}
-            <Sheet open={isOpen && isMobile} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild className="md:hidden">
-                    <Button variant={"outline"} size={"icon"}>
-                        <Menu className="h-5 w-5" />
-                    </Button>
-                </SheetTrigger>
+        <div className="flex items-center w-full px-4 md:px-6 lg:px-10 py-1.5 border-b bg-background">
+            <div>
+                {/* Mobile Menu Toggle Button And Menu */}
+                <Sheet open={isOpen && isMobile} onOpenChange={setIsOpen}>
+                    <SheetTrigger asChild className="md:hidden">
+                        <Button variant={"outline"} size={"icon"}>
+                            <Menu className="h-5 w-5" />
+                        </Button>
+                    </SheetTrigger>
 
-                <SheetContent side="left" className="w-64 p-0">
-                    <DashboardMobileSidebar userInfo={userInfo} dashboardHome={dashboardHome} navItems={navItems} />
-                </SheetContent>
-            </Sheet>
-
+                    <SheetContent side="left" className="w-64 p-0">
+                        <DashboardMobileSidebar userInfo={userInfo} dashboardHome={dashboardHome} navItems={navItems} />
+                    </SheetContent>
+                </Sheet>
+            </div>
 
             {/* Search Component */}
-            <div className="flex-1 flex items-center py-0.5">
+            {/* <div className="flex-1 flex items-center py-0.5">
                 <div className="relative w-full">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input type="text" placeholder="Search..." className="pl-9 pr-4" />
                 </div>
-            </div>
+            </div> */}
 
-            {/* Feature 2: Dark Mode Implementation */}
-            <ThemeToggle />
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-2">
-                {/* Notification */}
-                {/* <NotificationDropdown/> */}
+            <div className="flex items-center justify-end gap-2 w-full">
+                {/* Feature 2: Dark Mode Implementation */}
+                <ThemeToggle />
+                {/* Right Side Actions */}
+                <div className="flex items-center gap-2">
+                    {/* Notification */}
+                    {/* <NotificationDropdown/> */}
 
-                {/* User Dropdown  */}
-                <UserDropdown userInfo={userInfo} />
+                    {/* User Dropdown  */}
+                    <UserDropdown userInfo={userInfo} />
+                </div>
             </div>
         </div>
+
     )
 }
 

@@ -25,11 +25,11 @@ const Information = () => {
             <div className=''>
               <HiOutlineMailOpen className='text-[#005842] dark:text-[#22c55e] text-3xl transition-colors duration-300' />
             </div>
-            <div className=''>
+            <div className='w-full break-all'>
               <p className='font-bold text-gray-900 dark:text-white tracking-wide text-sm'>E-MAIL</p>
-              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>faithBridgeAcademy24@gmail.com</p>
-              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>support@faithbridge.com</p>
-              <p className='font-medium text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold'>info@faithbridge.edu</p>
+              <p className='text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold wrap-break-word'>faithBridgeAcademy24@gmail.com</p>
+              <p className='text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold wrap-break-word'>support@faithbridge.com</p>
+              <p className='text-gray-700 dark:text-gray-100 transition-colors duration-300 font-semibold wrap-break-word'>info@faithbridge.edu</p>
             </div>
           </div>
 
@@ -55,15 +55,15 @@ const Information = () => {
           <div className='flex flex-wrap gap-8'>
             <div className='flex items-center gap-3'>
               <BsTelephone className='text-[#005842] dark:text-[#22c55e] text-2xl transition-colors duration-300' />
-              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01710564312</span>
+              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01832408877</span>
             </div>
             <div className='flex items-center gap-3'>
               <BsTelephone className='text-[#005842] dark:text-[#22c55e] text-2xl transition-colors duration-300' />
-              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01710564312</span>
+              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01303806705</span>
             </div>
             <div className='flex items-center gap-3'>
               <BsTelephone className='text-[#005842] dark:text-[#22c55e] text-2xl transition-colors duration-300' />
-              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01710564312</span>
+              <span className="text-xl font-bold text-gray-800 dark:text-gray-100">01882006102</span>
             </div>
           </div>
         </div>

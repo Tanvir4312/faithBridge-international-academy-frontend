@@ -126,7 +126,7 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
 
   return (
     <div className={`w-full z-50 transition-all duration-300 ${isFixed ? 'fixed top-0 shadow-lg' : 'relative'} bg-[#1fbfa0] dark:bg-slate-900 text-white`}>
-      <div className="max-w-7xl mx-auto py-3 px-4">
+      <div className="max-w-7xl mx-auto py-3 px-2 md:px-4 lg:px-0">
         <div className="flex gap-2 lg:gap-6 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
@@ -224,13 +224,13 @@ export default function Navbar({ userRole }: { userRole: UserRole }) {
             </div>
 
             {/* Search Trigger */}
-            <button
+            {/* <button
               onClick={() => setIsSearchOpen(true)}
               className="p-2 bg-white/10 hover:bg-white/20 dark:bg-slate-800 dark:hover:bg-slate-700 text-white rounded-lg transition-all active:scale-95 flex items-center justify-center border border-white/20 dark:border-slate-700"
               title="Search"
             >
               <Search className="h-5 w-5" />
-            </button>
+            </button> */}
 
             {/* Feature 2: Dark Mode Implementation */}
             <ThemeToggle />

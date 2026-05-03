@@ -40,7 +40,7 @@ const ImageSwiper = () => {
 
 
   return (
-    <div>
+    <div className="mx-4">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

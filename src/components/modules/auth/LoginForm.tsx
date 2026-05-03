@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import DemoLoginButtons from "./DemoLoginButtons";
-import SocialLogin from "./SocialLogin";
+// import SocialLogin from "./SocialLogin";
 
 interface LoginFormProps {
   redirectPath?: string;
@@ -61,7 +61,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
   const handleQuickLogin = (email: string, password: string) => {
     form.setFieldValue("email", email);
     form.setFieldValue("password", password);
-    
+
     // Use setTimeout to ensure the form values are updated before submission
     setTimeout(() => {
       form.handleSubmit();
@@ -128,11 +128,11 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
                     placeholder="••••••••"
                     className="bg-slate-50/50 dark:bg-slate-800/50"
                     append={
-                      <Button 
-                        type="button" 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-8 w-8 text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors" 
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-slate-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
                         onClick={() => setShowPassword(v => !v)}
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -163,9 +163,9 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
 
             <form.Subscribe selector={(s) => [s.canSubmit, s.isSubmitting] as const}>
               {([canSubmit, isSubmitting]) => (
-                <AppSubmitButton 
-                  isPending={isSubmitting || isPending} 
-                  pendingLabel="Signing in..." 
+                <AppSubmitButton
+                  isPending={isSubmitting || isPending}
+                  pendingLabel="Signing in..."
                   disabled={!canSubmit}
                   className="w-full bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-500 text-white font-bold py-6 rounded-xl transition-all duration-300 shadow-lg shadow-green-700/20"
                 >
@@ -175,15 +175,15 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
             </form.Subscribe>
           </form>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <SocialLogin />
-          </div>
+          </div> */}
 
           <form.Subscribe selector={(s) => [s.isSubmitting] as const}>
             {([isSubmitting]) => (
-              <DemoLoginButtons 
-                onQuickLogin={handleQuickLogin} 
-                isLoading={isPending || isSubmitting} 
+              <DemoLoginButtons
+                onQuickLogin={handleQuickLogin}
+                isLoading={isPending || isSubmitting}
               />
             )}
           </form.Subscribe>
